@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Hello Amaze UI</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <!--
+  	<link rel="stylesheet" type="text/css" href="http://as.51jlt.com/style/base/global.css"/>
+	<link rel="stylesheet" type="text/css" href="http://as.51jlt.com/style/base/comList.css"/>
+	<link rel="stylesheet" type="text/css" href="http://as.51jlt.com/style/store/storeList.css"/>
+    -->
+    <link rel="stylesheet" type="text/css" href="style/global.css"/>
+	<link rel="stylesheet" type="text/css" href="style/comList.css"/>
+	<link rel="stylesheet" type="text/css" href="style/storeList.css"/>
+</head>
+<body>
+<div id="container">
+		<div class="header-fixed">	
+		<div class="header">
+			<span class="changeCityBtn">
+				<input type="hidden" id="cityCode" value="北京市"/>
+				<span>北京市</span><i class="iconfont">&#xe611;</i>
+			</span>
+			<span class="store-title">约到店</span>
+			<span class="zoomBtn"><span></span></span>
+		</div>  
+		
+		<!---->
+		<nav data-am-widget="menu" class="am-menu  am-menu-default">
+		  <a href="javascript: void(0)" class="am-menu-toggle">
+		    <i class="am-menu-toggle-icon am-icon-bars"></i>
+		  </a>
+		  <ul class="am-menu-nav am-avg-sm-3">
+		    <li class="am-parent">
+		      <a href="javascript:;" class="area">按区域</a>
+		      <ul id="areaId" value="" class="am-menu-sub am-collapse  am-avg-sm-3 ul-liw oliclick" ></ul>
+		    </li>
+		    
+		    <li class="am-parent">
+		      <a href="javascript:;" class="sequence">智能排序</a>
+		      <ul id="autoSearchType" value="0" class="am-menu-sub am-collapse  am-avg-sm-3 ul-oneColumn smart-sort">
+		        <li value="0">智能排序</li>
+		        <li value="1">距离最近</li>
+		        <li value="2">优惠最多</li>
+		        <li value="3">人气最高</li>
+		      </ul>
+		    </li>
+		    <li class="am-parent">
+		      <a href="javascript:;" class="filter">筛&nbsp;选</a>
+		      <ul id="screenType" value="0" class="am-menu-sub am-collapse am-avg-sm-1 ul-oneColumn ul-Filter">
+		        <li class=""><span value="0" >筛&nbsp;选</span></li>
+		        <li class="to-store"><span value="1" >预约到店</span><e>预约到店</e></li>
+	 	        <!--<li value="2"><span></span></li>-->
+		        <li class="to-coupon"><span value="3">优惠券</span><e>优惠券</e></li>
+		      </ul>
+		    </li>
+		 </ul>
+	   </nav>
+	</div>	
+</div>
+
+<!--在这里编写你的代码-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+</body>
+</html>

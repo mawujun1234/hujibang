@@ -1,0 +1,304 @@
+@charset "utf-8";
+
+.con_list{
+	width:100%;
+	padding:10px 0;
+	border-bottom:1px solid #E1E1E1;
+	background:#fff;
+}
+.con_list dl{padding:0 10px;font-size:14px;}
+.con_list dl dt{/* width:34%; */width:27%;float:left;border-radius:3px;}
+.con_list dl dt.storeImg{width:30%;}
+.con_list dl dt>img{
+	width:100%;
+	height:auto;
+	display: block;
+	border-radius:3px;
+}
+.con_list dl dd{float:left;width:65%;padding-left:2%;}
+.con_list .list_detail dd{padding-left:0;/* line-height:30px; */}
+.con_list .masser_listr dd{padding-left:2%;}
+.con_list dl .frist-child{padding-left:2%;}
+.con_list dl dd h2{font:normal 14px/22px "微软雅黑";color:#333;float:left;}
+.con_list dd .order_number{float:right;}
+.con_list dd .order_number span:last-child{color:#aba89f;}
+.con_list .suggest{line-height:18px;margin-top:10px;}
+.con_list .location {font-size: 12px;}
+.con_list .location .address{margin-right:2px;/*font-size: 12px;*/}
+.con_list dd .location,
+.con_list dd .times{float:left;}
+
+.con_list dd .assess,
+.con_list dd .price{float:right;font-size: 12px;}
+.con_list .dd_last{/* margin-top:4px; */margin-top:7px;}
+.con_list .service_mode{
+	display:block;
+	font-size:12px;
+	width:18px;
+	height:18px;
+	color:#fff;
+	text-align:center;
+	line-height:18px;
+	border-radius:3px;
+	background:#00bb9c;
+	float:left;
+	margin-left:5px;
+}
+.con_list .service_mode.redState{background:#e9154c;}
+.con_list .service_mode.greenState{background:#00bb9c;}
+.con_list .price .cost_price{font-size: 12px;text-decoration: line-through;}
+.con_list .price .current_price{color:#fe8802;font-size:16px;}
+
+/*立即预约*/
+.order_btn {
+	width: 100%;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	z-index:99;
+	border-top:1px solid #d9d9d9;
+}
+.order_btn .submit_align {
+	max-width: 640px;
+	min-width: 320px;
+	background: #f9f9f9;
+	padding:8px 0;
+	height: 40px;
+	margin: 0 auto;
+}
+
+
+.order_btn .submit_align a.contact-number{
+	display:block;
+	width: 82%;
+	margin: 0 auto;
+	background: #00bb9c;
+	border-radius: 8px;
+	outline: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.order_btn .submit_align > a.contact-number span{display:block;width:100%;text-align:center;color:#fff;}
+
+.order_btn button{
+	width: 82%;
+	height: 40px;
+	margin:0 auto;
+	background: #00bb9c;
+	border-radius: 8px;
+	vertical-align: middle;
+	outline: none;
+	color:#fff;
+}
+/*--立即预约--*/
+.mask {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.5;
+	z-index: 999;
+}
+
+/*---推拿师预约----*/
+#Masseur_BookedTime{
+	display: none;
+	max-width:640px;
+	width:100%;
+	position:fixed;
+	bottom:0px;
+	background:#fff;
+	border-top:2px solid #00bb9c;
+	z-index:9999;
+}
+
+#Masseur_BookedTime .Masseur_Nmuber{height:48px;border-bottom:1px solid #ccc;}
+#Masseur_BookedTime .Masseur_Nmuber>div{float:left;width:47%;font-size:14px;line-height:48px;}
+#Masseur_BookedTime .Masseur_Nmuber .select {float: right;width: 44%;}
+#Masseur_BookedTime .Masseur_Nmuber .numberTitle{padding-left:5%;}
+
+#Masseur_BookedTime .Masseur_Nmuber .select .aBtn{
+	max-width:104px;
+	min-width:104px;
+	max-height:30px;
+	min-height:30px;
+	border-radius:3px;
+	border:1px solid #00bb9c;
+	margin:0 auto;
+	margin-top:9px;
+}
+
+#Masseur_BookedTime .Masseur_Nmuber .select .aBtn >a{
+	display:block;
+	float:left;
+	max-width: 34px;
+	min-width: 34px;
+	max-height: 30px;
+	min-height: 30px;
+	text-align:center;
+	line-height:30px;
+	font-size:14px;	
+	text-decoration:none;
+	color:#00bb9c;
+}
+
+#Masseur_BookedTime .Masseur_Nmuber .select .aBtn >a:first-child{
+	border-right:1px solid #00bb9c;
+	font-size:18px;
+}
+
+#Masseur_BookedTime .Masseur_Nmuber .select .aBtn >a:last-child{
+	border-left:1px solid #00bb9c;
+	font-size:18px;
+}
+
+#Masseur_BookedTime .list_Items{border-bottom:1px solid #ccc;}
+
+#Masseur_BookedTime .list_Items>li{
+	height:26px;
+	width:100%;
+}
+
+#Masseur_BookedTime .list_Items>li span{
+	width:44%;
+	height:26px;
+	line-height:26px;
+	display:inline-block;
+	font-size:14px;
+	font-family:"微软雅黑";
+}
+
+#Masseur_BookedTime .list_Items>li span:first-child{
+	text-align:left;
+	padding-left:5%
+}
+
+#Masseur_BookedTime .list_Items>li span:last-child{
+	text-align:right;
+	padding-right:5%;
+}
+#Masseur_BookedTime .list_Items>li .ProjetTotal{
+	color:#ff8a00;
+	font-size:14px;
+}
+#Masseur_BookedTime .list_Items>li .total{
+	color:#ff8a00;
+}
+
+#Masseur_BookedTime .submit_Box{}
+#Masseur_BookedTime .submit_Box>div{
+	padding:12px 0;
+	display:block;
+	float:left;
+	width:50%;
+}
+
+#Masseur_BookedTime .submit_Box>div button{
+	width:80%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	border:1px solid #00bb9c;
+	border-radius:5px;
+	margin:0 auto;
+	background:#fff;
+	color:#00bb9c;
+}
+
+#Masseur_BookedTime .submit_Box>div .PlaceOrder{
+	background:#00bb9c;
+	color:#fff;
+}
+/*---End推拿师预约----*/
+
+
+/*iconfont style*/
+.icons_circle{
+	display:block;
+	width:22px;
+	height:22px;
+	padding:4px;
+	left:50%;
+	top:50%;
+	margin-top:-11px;
+	margin-left:-18px;
+	position: absolute;
+}
+
+.times,
+.order_number{color:#afa697;}
+.icons_circle>i{
+	color: #00bb9c;
+	font-size: 24px;
+	margin: 0 auto;
+}
+.times .icons_time>i{
+	color: #afa697;
+	font-size: 20px;
+	margin: 0 auto;
+}
+.order_number .orders>i{
+	color: #00bb9c;
+	font-size: 22px;
+}
+
+
+/*--移动页面适配--*/
+@media only screen and (min-width: 360px){
+	
+	
+	.con_list .list_detail dd {}
+	.icons_circle {margin-top: -20px}
+}
+
+@media only screen and (min-width: 410px){
+	.con_list dl dt {width:25%;}
+	
+	.con_list .suggest,.con_list .dd_last{}
+}
+
+@media only screen and (min-width: 480px){
+	.con_list dl dt {width: 21%;}
+	
+	.con_list dl dd h2 {font-size: 16px;}
+	.con_list dl dd {width:70%;}
+	.con_list dd .location{font-size:14px;}
+	.con_list .list_detail dd {}
+	
+	/*--masseurList.css--*/
+	.con_list .suggest {margin-top: 20px;}
+	.con_list .dd_last {margin-top: 20px;}
+	.con_list .address_dd{margin-top: 24px;}
+}
+
+@media only screen and (min-width:480px) and (max-width:640px){
+	/*--字体样式--*/
+	.con_list dl dd h2 {font-size: 16px;}
+	.con_list dl dd.last-dd{font-size:14px}
+}
+
+@media only screen and (min-width:568px){
+	.con_list dl dt {width:18%;} 
+	.con_list .list_detail dd {}
+}
+
+@media only screen and (min-width:640px){
+	body{background:#f7f7f7}
+    .con_list .list_detail dd {
+		padding-left:4%;
+		line-height: 34px;
+		height: 34px;
+	}
+	
+	.con_list .list_detail .frist-child{padding-left:5%;}
+	.icons_circle {margin-top:-15px;}
+	.con_list .suggest,.con_list .dd_last{margin-top: 20px;}
+	.con_list .suggest{font-size:15px;}
+	.con_list dd .times{font-size:15px;}
+	.con_list .icons_time>i{font-size:24px;}
+	.con_list .price .cost_price {font-size: 13px;}
+	.con_list .price .current_price {font-size: 16px;}
+}
+
