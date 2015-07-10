@@ -7,16 +7,309 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>hujibang Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+		<org.hibernate.version>4.3.10.Final</org.hibernate.version>
+		<org.mybatis.version>3.3.0</org.mybatis.version>
+		<org.mybatis-spring.version>1.2.3</org.mybatis-spring.version>
+		<org.apache.logging.log4j.version>2.0-beta9</org.apache.logging.log4j.version>
+		<com.alibaba.fastjson.version>1.2.8</com.alibaba.fastjson.version>
+		<com.jayway.jsonpath.version>2.0.0</com.jayway.jsonpath.version>
+		<com.thoughtworks.xstream.version>1.4.8</com.thoughtworks.xstream.version>
+ </properties>
+  <profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+				<log4j2.level>debug</log4j2.level>
+				<finalName>ROOT</finalName>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+				<log4j2.level>debug</log4j2.level>
+				<finalName>test</finalName>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+				<log4j2.level>warn</log4j2.level>
+				<finalName>ROOT</finalName>
+			</properties>
+		</profile>
+	</profiles>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version>
+		</dependency>
+
+		<dependency>
+			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mawujun</groupId>
+			<artifactId>leon-infrastructure</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mawujun</groupId>
+			<artifactId>leon-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!--<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		-->
+		
+		<!-- ======================================持久�?=========================================================== -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>org.hibernate.version</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>org.hibernate.version</version>
+			<exclusions>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax.el-api</artifactId>
+					<groupId>javax.el</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>javax.el</artifactId>
+					<groupId>org.glassfish.web</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+          -->   
+
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${org.mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${org.mybatis-spring.version}</version>
+		</dependency>
+		
+		<!-- ======================================日志木块============================================================= -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${org.apache.logging.log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${org.apache.logging.log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${org.apache.logging.log4j.version}</version>
+		</dependency>
+		<!--<dependency> 添加这个是为了整合slf4j和log4j2 
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		-->
+		
+		
+		<!-- mvc层面要用到的jar�?=============================================================== -->
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${com.thoughtworks.xstream.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${com.alibaba.fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${com.jayway.jsonpath.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>${com.jayway.jsonpath.version}</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+		 -->
+		 
+		 <!-- apache common系列的代�?========================================================= -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+
+	</dependencies>
+	
     <build>
-		<finalName>hujibang</finalName>
+		<finalName>${finalName}</finalName>
 		<!-- 进行profile的切换 -->
 		<resources>
 			<resource>
@@ -37,20 +330,21 @@
 		
 
 		<plugins>
-		 <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-compiler-plugin</artifactId>
-	        <version>3.1</version>
-	        <configuration>
-	            <source>1.7</source>
-	            <target>1.7</target>
-	        </configuration>
-	     </plugin>
+			 <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-compiler-plugin</artifactId>
+		        <version>3.3</version>
+		        <configuration><!-- 定义java的版本 -->
+		            <source>1.7</source>
+		            <target>1.7</target>
+		        </configuration>
+		     </plugin>
 			
 			<!-- 打成war包用来发布 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
 				<configuration>
 					<!-- <warSourceExcludes>www/**/*.*,**/*.js,**/*.css</warSourceExcludes>		 -->		
 				</configuration>
@@ -60,8 +354,7 @@
 			<plugin>  
 	            <groupId>net.alchim31.maven</groupId>  
 	            <artifactId>yuicompressor-maven-plugin</artifactId>  
-	            <!--   <version>1.3.0</version> -->
-	    		
+	            <version>1.5.1</version>
                 <executions>
                 	<!-- 这里报错没关系，如果不加的话，不会在mvn install的时候运行这个插件,那就要手工运行了--> 
                 	<execution>  
@@ -98,17 +391,17 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat6-maven-plugin</artifactId>
-				<version>2.1</version>
+				<version>2.2</version>
 				<configuration>
 					<port>8083</port>
 					<path>/</path>
 					<uriEncoding>utf-8</uriEncoding>
 					<contextReloadable>false</contextReloadable>
-					<!--<backgroundProcessorDelay>0</backgroundProcessorDelay> -->
-					<!-- http://blog.csdn.net/jbgtwang/article/details/7696908 <warSourceDirectory>${project.build.directory}/WebContent</warSourceDirectory> -->
 				</configuration>
 			</plugin>
 			
 		</plugins>
 	</build>
+	
+
 </project>
