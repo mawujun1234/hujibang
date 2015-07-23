@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100370214000000","areaName":"城阳区","areaCode":"城阳区","shopCount":"2"},{"areaId":"100370203000000","areaName":"市北区","areaCode":"市北区","shopCount":"2"},{"areaId":"100370202000000","areaName":"市南区","areaCode":"市南区","shopCount":"4"},{"areaId":"100370205000000","areaName":"四方区","areaCode":"四方区","shopCount":"1"}]}

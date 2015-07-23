@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100620102000000","areaName":"城关区","areaCode":"城关区","shopCount":"17"},{"areaId":"100620103000000","areaName":"七里河区","areaCode":"七里河区","shopCount":"2"},{"areaId":"100620104000000","areaName":"西固区","areaCode":"西固区","shopCount":"1"}]}

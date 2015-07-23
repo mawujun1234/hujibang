@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100321322000000","areaName":"沭阳县","areaCode":"沭阳县","shopCount":"2"},{"areaId":"100321324000000","areaName":"泗洪县","areaCode":"泗洪县","shopCount":"3"},{"areaId":"100321302000000","areaName":"宿城区","areaCode":"宿城区","shopCount":"9"}]}

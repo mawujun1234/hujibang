@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100520102000000","areaName":"南明区","areaCode":"南明区","shopCount":"5"},{"areaId":"100520112000000","areaName":"乌当区","areaCode":"乌当区","shopCount":"3"},{"areaId":"100520114000000","areaName":"小河区","areaCode":"小河区","shopCount":"1"},{"areaId":"100520103000000","areaName":"云岩区","areaCode":"云岩区","shopCount":"3"}]}

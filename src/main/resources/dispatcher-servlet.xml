@@ -20,10 +20,10 @@
 	原理是：标记为@Transactional的service会wrap为经过transactional proxied（不管是CGLIB based或是JDK based）的bean，而不再是纯的service； 
 	
 	2、app的context-scan其实无所谓，但exclude掉controller显然会improve efficiency.
-	    -->
-    <context:component-scan base-package="com.mawujun" use-default-filters="false">
-    	<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/> 
-    </context:component-scan> 
+	     -->
+    <context:component-scan base-package="com.mawujun" use-default-filters="true">
+    	<!-- <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>  -->
+    </context:component-scan>
     
     <!--<mvc:resources mapping="/ueditor/**" location="/ueditor/"/> 
     
@@ -45,37 +45,9 @@
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 	</bean>
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="webBindingInitializer">
-			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-				<property name="conversionService" >
-					<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-						<property name="converters">
-							<list>
-								<bean class="com.mawujun.controller.spring.mvc.JsonStringToPageRequest_FastJson"></bean>
-								<bean class="com.mawujun.controller.spring.mvc.JsonStringToSortInfo_FastJson"></bean>
-								<bean class="com.mawujun.controller.spring.mvc.JsonStringToWhereInfo_FastJson"></bean>
-							</list>
-						</property>
-					</bean>
-				</property> 
-				<property name="propertyEditorRegistrars">
-					<array>
-						<bean class="com.mawujun.controller.spring.mvc.CustomPropertyEditorRegistrar"></bean>
-					</array>
-				</property>
-			</bean>
-		</property>
 		<property name="messageConverters">
 			<list>
-				<bean id="stringHttpMessageConverter"
-					class="com.mawujun.controller.spring.mvc.StringHttpMessageConverterImpl">
-					<constructor-arg value="UTF-8">
-						
-					</constructor-arg>
-					<property name="writeAcceptCharset" value="false" />
-				</bean>
-				<bean id="jsonHttpMessageConverter"
-					class="com.mawujun.controller.spring.mvc.MappingFastJson2HttpMessageConverter" /><!-- 在循环引用和属性过滤上设置更方便 -->
+
 				<bean id="byteArrayHttpMessageConverter"
 					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
 				<bean id="xmlAwareFormHttpMessageConverter"
@@ -87,61 +59,9 @@
 	</bean>
 	
 	
-<!--不推荐使用了
-<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-	<property name="order" value="1" />
-</bean>
--->
-<!-- 参数绑定，请求体数据绑定，响应体数据返回  不推荐使用了
-<bean
-	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	<property name="webBindingInitializer">
-		<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-			<property name="conversionService" >
-				<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-					<property name="converters">
-						<list>
-							<bean class="com.mawujun.controller.spring.mvc.JsonStringToPageRequest_FastJson"></bean>
-							<bean class="com.mawujun.controller.spring.mvc.JsonStringToSortInfo_FastJson"></bean>
-							<bean class="com.mawujun.controller.spring.mvc.JsonStringToWhereInfo_FastJson"></bean>
-						</list>
-					</property>
-				</bean>
-			</property> 
-			<property name="propertyEditorRegistrars">
-				<array>
-					<bean class="com.mawujun.controller.spring.mvc.CustomPropertyEditorRegistrar"></bean>
-				</array>
-			</property>
-		</bean>
-	</property>
-	<property name="messageConverters">
-		<list>
-			<bean id="stringHttpMessageConverter"
-				class="com.mawujun.controller.spring.mvc.StringHttpMessageConverterImpl">
-				<constructor-arg value="UTF-8">
-					
-				</constructor-arg>
-				<property name="writeAcceptCharset" value="false" />
-			</bean>
-			<bean id="jsonHttpMessageConverter"
-				class="com.mawujun.controller.spring.mvc.MappingFastJson2HttpMessageConverter" />
-			<bean id="byteArrayHttpMessageConverter"
-				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-			<bean id="xmlAwareFormHttpMessageConverter"
-				class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
-			<bean id="sourceHttpMessageConverter"
-				class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-		</list>
-	</property>
-</bean>
--->
+
     
 
-<bean id="freemarkerConfig"
-    class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-    <property name="templateLoaderPath" value="/" />
-</bean>
 
 <!-- 视图数据解析  可以通过三种方式，来确定返回的类型是什么-->
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -188,18 +108,16 @@
             </list>  
       </property>  
       
-      <!-- 根据MediaType进行返回视图的选择 -->
+      <!-- 根据MediaType进行返回视图的选择 
 	  <property name="defaultViews">
 		<list>
-		    <bean id="jsonView" class="com.mawujun.controller.spring.mvc.MappingFastjson2JsonView">
-			</bean>
             <bean class="org.springframework.web.servlet.view.xml.MarshallingView" >  
                 <property name="marshaller">  
                 	<bean class="org.springframework.oxm.xstream.XStreamMarshaller"/>  
             	</property>  
             </bean>   
 		 </list>
-	  </property> 
+	  </property> -->
 	</bean>
 	
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

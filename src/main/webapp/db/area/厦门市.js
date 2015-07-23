@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100350206000000","areaName":"湖里区","areaCode":"湖里区","shopCount":"4"},{"areaId":"100350211000000","areaName":"集美区","areaCode":"集美区","shopCount":"1"},{"areaId":"100350203000000","areaName":"思明区","areaCode":"思明区","shopCount":"11"}]}

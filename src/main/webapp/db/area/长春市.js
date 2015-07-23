@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100220104000000","areaName":"朝阳区","areaCode":"朝阳区","shopCount":"6"},{"areaId":"100220105000000","areaName":"二道区","areaCode":"二道区","shopCount":"3"},{"areaId":"100220103000000","areaName":"宽城区","areaCode":"宽城区","shopCount":"2"},{"areaId":"100220102000000","areaName":"南关区","areaCode":"南关区","shopCount":"3"}]}

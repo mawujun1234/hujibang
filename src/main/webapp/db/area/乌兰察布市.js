@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150902000000","areaName":"集宁区","areaCode":"集宁区","shopCount":"6"}]}

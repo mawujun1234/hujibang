@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100131002000000","areaName":"安次区","areaCode":"安次区","shopCount":"3"},{"areaId":"100131003000000","areaName":"广阳区","areaCode":"广阳区","shopCount":"6"},{"areaId":"100131024000000","areaName":"香河县","areaCode":"香河县","shopCount":"2"}]}

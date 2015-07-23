@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100640106000000","areaName":"金凤区","areaCode":"金凤区","shopCount":"3"},{"areaId":"100640104000000","areaName":"兴庆区","areaCode":"兴庆区","shopCount":"5"}]}

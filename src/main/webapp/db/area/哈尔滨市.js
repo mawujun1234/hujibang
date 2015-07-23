@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230102000000","areaName":"道里区","areaCode":"道里区","shopCount":"6"},{"areaId":"100230103000000","areaName":"南岗区","areaCode":"南岗区","shopCount":"8"},{"areaId":"100230110000000","areaName":"香坊区","areaCode":"香坊区","shopCount":"4"}]}

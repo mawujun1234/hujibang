@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100130502000000","areaName":"桥东区","areaCode":"桥东区","shopCount":"1"},{"areaId":"100130503000000","areaName":"桥西区","areaCode":"桥西区","shopCount":"6"}]}

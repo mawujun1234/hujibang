@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100340303000000","areaName":"蚌山区","areaCode":"蚌山区","shopCount":"8"},{"areaId":"100340304000000","areaName":"禹会区","areaCode":"禹会区","shopCount":"1"}]}

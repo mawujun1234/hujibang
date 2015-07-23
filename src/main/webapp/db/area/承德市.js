@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100130803000000","areaName":"双滦区","areaCode":"双滦区","shopCount":"1"},{"areaId":"100130802000000","areaName":"双桥区","areaCode":"双桥区","shopCount":"12"}]}

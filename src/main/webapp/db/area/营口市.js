@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100210804000000","areaName":"鲅鱼圈区","areaCode":"鲅鱼圈区","shopCount":"3"},{"areaId":"100210811000000","areaName":"老边区","areaCode":"老边区","shopCount":"1"},{"areaId":"100210803000000","areaName":"西市区","areaCode":"西市区","shopCount":"1"},{"areaId":"100210802000000","areaName":"站前区","areaCode":"站前区","shopCount":"6"}]}

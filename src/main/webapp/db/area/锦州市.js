@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100210702000000","areaName":"古塔区","areaCode":"古塔区","shopCount":"5"},{"areaId":"100210703000000","areaName":"凌河区","areaCode":"凌河区","shopCount":"6"},{"areaId":"100210711000000","areaName":"太和区","areaCode":"太和区","shopCount":"2"}]}

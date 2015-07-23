@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100220602000000","areaName":"八道江区","areaCode":"八道江区","shopCount":"5"}]}

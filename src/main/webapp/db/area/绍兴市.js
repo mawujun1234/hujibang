@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100330621000000","areaName":"绍兴县","areaCode":"绍兴县","shopCount":"4"},{"areaId":"100330602000000","areaName":"越城区","areaCode":"越城区","shopCount":"3"}]}

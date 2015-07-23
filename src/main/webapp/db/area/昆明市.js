@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100530111000000","areaName":"官渡区","areaCode":"官渡区","shopCount":"6"},{"areaId":"100530103000000","areaName":"盘龙区","areaCode":"盘龙区","shopCount":"3"},{"areaId":"100530102000000","areaName":"五华区","areaCode":"五华区","shopCount":"3"},{"areaId":"100530112000000","areaName":"西山区","areaCode":"西山区","shopCount":"1"}]}

@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100330822000000","areaName":"常山县","areaCode":"常山县","shopCount":"1"},{"areaId":"100330802000000","areaName":"柯城区","areaCode":"柯城区","shopCount":"8"},{"areaId":"100330825000000","areaName":"龙游县","areaCode":"龙游县","shopCount":"1"}]}

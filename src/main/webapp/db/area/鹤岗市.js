@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230403000000","areaName":"工农区","areaCode":"工农区","shopCount":"1"},{"areaId":"100230404000000","areaName":"南山区","areaCode":"南山区","shopCount":"1"},{"areaId":"100230402000000","areaName":"向阳区","areaCode":"向阳区","shopCount":"1"}]}

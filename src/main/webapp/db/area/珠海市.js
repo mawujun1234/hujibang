@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100440402000000","areaName":"香洲区","areaCode":"香洲区","shopCount":"20"}]}

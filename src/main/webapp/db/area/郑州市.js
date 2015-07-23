@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100410103000000","areaName":"二七区","areaCode":"二七区","shopCount":"6"},{"areaId":"100410104000000","areaName":"管城回族区","areaCode":"管城回族区","shopCount":"1"},{"areaId":"100410105000000","areaName":"金水区","areaCode":"金水区","shopCount":"8"},{"areaId":"100410102000000","areaName":"中原区","areaCode":"中原区","shopCount":"5"}]}

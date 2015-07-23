@@ -1,6 +1,7 @@
 package com.mawujun.crawler;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,8 +12,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -47,11 +50,57 @@ import org.jsoup.select.Elements;
  */
 public class AreaCrawler {
 
+	private static String area_path="E:\\eclipse\\workspace\\hujibang\\src\\main\\webapp\\db\\area";
+	private static String shop_path="E:\\eclipse\\workspace\\hujibang\\src\\main\\webapp\\db\\area\\shop";
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		//execu_areaList();
+		//execu_areaList();	
+		exec_shopList();
+	}
+	
+	public static String get_areaList(String cityCode) throws IOException {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpPost httppost = new HttpPost("http://as.51jlt.com/area/areaList.php");
+		//httppost.setConfig(config); 
+
+		httppost.addHeader("Accept", "application/json;");
+		httppost.addHeader("Referer", "http://as.51jlt.com/shop/toShop.php");
+		httppost.addHeader("X-Requested-With", "XMLHttpRequest");
+		httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		httppost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
 		
-		exec_shopList("北京市");
+
+		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+
+		nvps.add(new BasicNameValuePair("cityCode", cityCode));
+		httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
+		CloseableHttpResponse response = httpclient.execute(httppost);
+		
+		StringBuilder builder=new StringBuilder();
+		try {
+			//System.out.println(response.getStatusLine());
+		    HttpEntity entity = response.getEntity();
+		    //InputStream inputStream=entity.getContent();
+		    
+		    ContentType contentType = ContentType.getOrDefault(entity);
+	        Charset charset = contentType.getCharset();
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
+	        
+	       
+	        String s;
+	        while((s=reader.readLine())!=null && s.length()!=0){
+	          builder.append(s);
+	        }
+	        //System.out.println(builder);
+	        
+	       
+		    // do something useful with the response body
+		    // and ensure it is fully consumed
+		    EntityUtils.consume(entity);
+		} finally {
+		    response.close();
+		}
+		return builder.toString();
 	}
 
 	/**
@@ -65,74 +114,37 @@ public class AreaCrawler {
 		Elements dds = doc.select("div#container div.change-city ul li dl dd");
 		for (Element dd : dds) {
 
-			String cityname=dd.text();//
-			System.out.println(cityname);
-
-			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpPost httppost = new HttpPost("http://as.51jlt.com/area/areaList.php");
-			//httppost.setConfig(config); 
-	
-			httppost.addHeader("Accept", "application/json;");
-			httppost.addHeader("Referer", "http://as.51jlt.com/shop/toShop.php");
-			httppost.addHeader("X-Requested-With", "XMLHttpRequest");
-			httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-			httppost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
+			String cityCode=dd.text();//
+			//cityname="北京市";
+			System.out.println(cityCode);
 			
-
-			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-	
-			nvps.add(new BasicNameValuePair("cityCode", cityname));
-			httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
-			CloseableHttpResponse response = httpclient.execute(httppost);
-			
-			
-			try {
-				//System.out.println(response.getStatusLine());
-			    HttpEntity entity = response.getEntity();
-			    //InputStream inputStream=entity.getContent();
-			    
-			    ContentType contentType = ContentType.getOrDefault(entity);
-		        Charset charset = contentType.getCharset();
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
-		        
-		        StringBuilder builder=new StringBuilder();
-		        String s;
-		        while((s=reader.readLine())!=null && s.length()!=0){
-		          builder.append(s);
-		        }
-		        System.out.println(builder);
-		        
-		        
-			    // do something useful with the response body
-			    // and ensure it is fully consumed
-			    EntityUtils.consume(entity);
-			} finally {
-			    response.close();
-			}
-			return;
+			 File file=new File(area_path+"\\"+cityCode+".js");
+		       FileUtils.write(file, get_areaList(cityCode),"UTF-8");
+			//return;
 		}
 		
 	}
 	
-	public static void exec_shopList(String cityCode) throws  IOException{
+	public static String get_shopList(String cityCode,String areaId,String lat,String lng,String page,String pageSize) throws IOException {
+		//cityCode="北京市";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost("http://as.51jlt.com/shop/shopList.php");
 		
 		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
 		
-		nvps.add(new BasicNameValuePair("areaId", ""));
+		nvps.add(new BasicNameValuePair("areaId", areaId));
 		nvps.add(new BasicNameValuePair("autoSearchType", "0"));
 		nvps.add(new BasicNameValuePair("cityCode", cityCode));
-		//nvps.add(new BasicNameValuePair("keyValue", ));
-		//nvps.add(new BasicNameValuePair("lat", ));
-		//nvps.add(new BasicNameValuePair("lng", ));
-		nvps.add(new BasicNameValuePair("page", "0"));
-		nvps.add(new BasicNameValuePair("pageSize", "100"));
+		nvps.add(new BasicNameValuePair("keyValue", ""));
+		nvps.add(new BasicNameValuePair("lat", lat));
+		nvps.add(new BasicNameValuePair("lng", lng));
+		nvps.add(new BasicNameValuePair("page", page));
+		nvps.add(new BasicNameValuePair("pageSize", pageSize));
 		nvps.add(new BasicNameValuePair("screenType", "0"));
 		httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
 		CloseableHttpResponse response = httpclient.execute(httppost);
 		
-		
+		 StringBuilder builder=new StringBuilder();
 		try {
 			//System.out.println(response.getStatusLine());
 		    HttpEntity entity = response.getEntity();
@@ -142,19 +154,41 @@ public class AreaCrawler {
 	        Charset charset = contentType.getCharset();
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
 	        
-	        StringBuilder builder=new StringBuilder();
+	       
 	        String s;
 	        while((s=reader.readLine())!=null && s.length()!=0){
 	          builder.append(s);
 	        }
 	        System.out.println(builder);
 	        
-	        
+	      
 		    // do something useful with the response body
 		    // and ensure it is fully consumed
 		    EntityUtils.consume(entity);
 		} finally {
 		    response.close();
+		}
+		return builder.toString();
+	}
+	public static void exec_shopList() throws  IOException{
+		//获取所有的市
+//		 LineIterator it = FileUtils.lineIterator(file, "UTF-8");
+//		 try {
+//		   while (it.hasNext()) {
+//		     String line = it.nextLine();
+//		     /// do something with line
+//		   }
+//		 } finally {
+//		   LineIterator.closeQuietly(iterator);
+//		 }
+		
+		Collection<File> files=FileUtils.listFiles(new File(area_path), new String[]{"js"}, false);
+
+		for(File file:files){	
+			String cityCode=file.getName().split("\\.")[0];
+			File shopfile=new File(shop_path+"\\"+cityCode+".js");
+		    //FileUtils.write(shopfile, get_shopList(cityCode),"UTF-8");
+		//return;
 		}
 	}
 	

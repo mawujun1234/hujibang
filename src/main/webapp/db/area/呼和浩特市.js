@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150103000000","areaName":"回民区","areaCode":"回民区","shopCount":"2"},{"areaId":"100150105000000","areaName":"赛罕区","areaCode":"赛罕区","shopCount":"11"},{"areaId":"100150102000000","areaName":"新城区","areaCode":"新城区","shopCount":"6"},{"areaId":"100150104000000","areaName":"玉泉区","areaCode":"玉泉区","shopCount":"2"}]}

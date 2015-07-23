@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100320302000000","areaName":"鼓楼区","areaCode":"鼓楼区","shopCount":"3"},{"areaId":"100320311000000","areaName":"泉山区","areaCode":"泉山区","shopCount":"7"},{"areaId":"100320303000000","areaName":"云龙区","areaCode":"云龙区","shopCount":"7"}]}

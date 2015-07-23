@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100210304000000","areaName":"立山区","areaCode":"立山区","shopCount":"2"},{"areaId":"100210302000000","areaName":"铁东区","areaCode":"铁东区","shopCount":"8"},{"areaId":"100210303000000","areaName":"铁西区","areaCode":"铁西区","shopCount":"5"}]}

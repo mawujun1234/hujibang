@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100220702000000","areaName":"宁江区","areaCode":"宁江区","shopCount":"4"},{"areaId":"100220721000000","areaName":"前郭尔罗斯蒙古族自治县","areaCode":"前郭尔罗斯蒙古族自治县","shopCount":"6"}]}

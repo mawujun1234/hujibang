@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100320402000000","areaName":"天宁区","areaCode":"天宁区","shopCount":"3"},{"areaId":"100320412000000","areaName":"武进区","areaCode":"武进区","shopCount":"6"},{"areaId":"100320411000000","areaName":"新北区","areaCode":"新北区","shopCount":"9"},{"areaId":"100320404000000","areaName":"钟楼区","areaCode":"钟楼区","shopCount":"1"}]}

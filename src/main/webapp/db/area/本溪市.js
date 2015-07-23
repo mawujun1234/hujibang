@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100210504000000","areaName":"明山区","areaCode":"明山区","shopCount":"7"},{"areaId":"100210502000000","areaName":"平山区","areaCode":"平山区","shopCount":"11"}]}

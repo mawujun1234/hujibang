@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100210602000000","areaName":"元宝区","areaCode":"元宝区","shopCount":"2"},{"areaId":"100210603000000","areaName":"振兴区","areaCode":"振兴区","shopCount":"6"}]}

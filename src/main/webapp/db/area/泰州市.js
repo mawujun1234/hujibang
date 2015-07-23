@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100321202000000","areaName":"海陵区","areaCode":"海陵区","shopCount":"9"}]}

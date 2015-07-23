@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100220202000000","areaName":"昌邑区","areaCode":"昌邑区","shopCount":"4"},{"areaId":"100220204000000","areaName":"船营区","areaCode":"船营区","shopCount":"7"},{"areaId":"100220211000000","areaName":"丰满区","areaCode":"丰满区","shopCount":"4"},{"areaId":"100220203000000","areaName":"龙潭区","areaCode":"龙潭区","shopCount":"1"}]}

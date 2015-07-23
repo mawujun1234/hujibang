@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230811000000","areaName":"郊区","areaCode":"郊区","shopCount":"2"},{"areaId":"100230804000000","areaName":"前进区","areaCode":"前进区","shopCount":"1"},{"areaId":"100230803000000","areaName":"向阳区","areaCode":"向阳区","shopCount":"2"}]}

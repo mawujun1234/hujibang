@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100370611000000","areaName":"福山区","areaCode":"福山区","shopCount":"10"},{"areaId":"100370613000000","areaName":"莱山区","areaCode":"莱山区","shopCount":"3"},{"areaId":"100370602000000","areaName":"芝罘区","areaCode":"芝罘区","shopCount":"7"}]}

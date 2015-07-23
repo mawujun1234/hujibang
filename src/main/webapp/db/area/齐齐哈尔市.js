@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230206000000","areaName":"富拉尔基区","areaCode":"富拉尔基区","shopCount":"2"},{"areaId":"100230203000000","areaName":"建华区","areaCode":"建华区","shopCount":"5"},{"areaId":"100230202000000","areaName":"龙沙区","areaCode":"龙沙区","shopCount":"2"},{"areaId":"100230204000000","areaName":"铁锋区","areaCode":"铁锋区","shopCount":"1"}]}

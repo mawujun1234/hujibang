@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100321002000000","areaName":"广陵区","areaCode":"广陵区","shopCount":"1"},{"areaId":"100321003000000","areaName":"邗江区","areaCode":"邗江区","shopCount":"10"},{"areaId":"100321011000000","areaName":"维扬区","areaCode":"维扬区","shopCount":"1"}]}

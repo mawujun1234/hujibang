@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150502000000","areaName":"科尔沁区","areaCode":"科尔沁区","shopCount":"3"}]}

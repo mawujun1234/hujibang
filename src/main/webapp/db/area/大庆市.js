@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230603000000","areaName":"龙凤区","areaCode":"龙凤区","shopCount":"1"},{"areaId":"100230604000000","areaName":"让胡路区","areaCode":"让胡路区","shopCount":"3"},{"areaId":"100230602000000","areaName":"萨尔图区","areaCode":"萨尔图区","shopCount":"7"}]}

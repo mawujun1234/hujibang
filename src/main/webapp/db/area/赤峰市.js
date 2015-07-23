@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150402000000","areaName":"红山区","areaCode":"红山区","shopCount":"1"},{"areaId":"100150404000000","areaName":"松山区","areaCode":"松山区","shopCount":"2"}]}

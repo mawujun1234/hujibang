@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100340111000000","areaName":"包河区","areaCode":"包河区","shopCount":"3"},{"areaId":"100340103000000","areaName":"庐阳区","areaCode":"庐阳区","shopCount":"8"},{"areaId":"100340104000000","areaName":"蜀山区","areaCode":"蜀山区","shopCount":"6"},{"areaId":"100340102000000","areaName":"瑶海区","areaCode":"瑶海区","shopCount":"4"}]}

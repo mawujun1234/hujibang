@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100630105000000","areaName":"城北区","areaCode":"城北区","shopCount":"1"},{"areaId":"100630104000000","areaName":"城西区","areaCode":"城西区","shopCount":"6"},{"areaId":"100630103000000","areaName":"城中区","areaCode":"城中区","shopCount":"1"}]}

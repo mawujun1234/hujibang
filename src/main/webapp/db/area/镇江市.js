@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100321102000000","areaName":"京口区","areaCode":"京口区","shopCount":"4"},{"areaId":"100321111000000","areaName":"润州区","areaCode":"润州区","shopCount":"2"}]}

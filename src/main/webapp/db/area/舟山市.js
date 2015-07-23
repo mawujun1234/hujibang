@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100330902000000","areaName":"定海区","areaCode":"定海区","shopCount":"6"},{"areaId":"100330903000000","areaName":"普陀区","areaCode":"普陀区","shopCount":"6"}]}

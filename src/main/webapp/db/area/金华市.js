@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100330723000000","areaName":"武义县","areaCode":"武义县","shopCount":"2"},{"areaId":"100330702000000","areaName":"婺城区","areaCode":"婺城区","shopCount":"6"}]}

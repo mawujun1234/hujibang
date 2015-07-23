@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100230502000000","areaName":"尖山区","areaCode":"尖山区","shopCount":"3"}]}

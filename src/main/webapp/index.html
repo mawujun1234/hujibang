@@ -7,7 +7,7 @@
   <meta name="keywords" content="">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Hello Amaze UI</title>
+  <title>护脊帮</title>
 
   <!-- Set render engine for 360 browser -->
   <meta name="renderer" content="webkit">
@@ -43,6 +43,8 @@
     <link rel="stylesheet" type="text/css" href="/style/global.css"/>
 	<link rel="stylesheet" type="text/css" href="/style/comList.css"/>
 	<link rel="stylesheet" type="text/css" href="/style/storeList.css"/>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9eb423fd3236f57384cfbec655b3c7da"></script>
+	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 </head>
 <body>
 <div id="container">
@@ -462,11 +464,9 @@
 		      <ul id="autoSearchType" value="0" class="am-menu-sub am-collapse  am-avg-sm-3 ul-oneColumn smart-sort">
 		        <li value="0">智能排序</li>
 		        <li value="1">距离最近</li>
-		        <li value="2">优惠最多</li>
-		        <li value="3">人气最高</li>
 		      </ul>
 		    </li>
-		    <li class="am-parent">
+		    <li class="am-parent" style="display:none;">
 		      <a href="javascript:;" class="filter">筛&nbsp;选</a>
 		      <ul id="screenType" value="0" class="am-menu-sub am-collapse am-avg-sm-1 ul-oneColumn ul-Filter">
 		        <li class=""><span value="0" >筛&nbsp;选</span></li>
@@ -478,7 +478,32 @@
 		 </ul>
 	   </nav>
 	</div>	
+	<!--
+	<div class="advert-w" >
+		<div class="banner"  >
+		    <ul>
+		    	<li class="slides"><img src="/images/public/default_ad.jpg"/></li>
+		    </ul>
+		</div>
+	</div>
+    -->
+	
+	<div id="shop_list" class="list_box" style="margin-top: 98px"></div>
+	<div id="tips"></div>
 </div>
+
+<div class="nav-box">
+	<nav>
+		<div class="to-shop-btn"><span class="store-img active"></span></div>
+		<div class="to-door-btn"><span class="door-img"></span></div>
+		<div class="order-btn"><span class="order-img"></span></div>
+		<div class="customer-center-btn"><span class="people-img"></span></div>
+	</nav>
+</div>
+<div id="loading_img" class="loading_img">
+	<img src="/images/public/loading.svg" width="50" alt="">
+</div>
+<div id="allmap"></div>
 
 <!--在这里编写你的代码-->
 <script type="text/javascript">
@@ -493,6 +518,17 @@
 		getShopList(0,pageSize);
 	};
 	
+	var lat = 0.0;
+	var lng = 0.0;
+	var timestamp = "";
+	var nonceStr = "";
+	var signature = "";
+		
+	var shopTotalCount = 0;//服务项目总数
+	var shopListSize = 0; //已经加载服务项目条数
+	var canLoad = true;
+	
+	
 	//根据CityCode获取area
 	function getAreaList(){
 		$.ajax({
@@ -502,7 +538,7 @@
 				cityCode:$("#cityCode").val()
 				//cityCode:"北京市"
 	 		},
-	 		url:localhostPath + "/area/areaList.php",
+	 		url:localhostPath + "/area/areaList.do",
 			//url:"http://as.51jlt.com/area/areaList.php",
 	 		success:function(data){
 	 			var jsonData = eval(data);
@@ -553,12 +589,470 @@
 				getShopList(0,pageSize);
 			});
 		});
-		$("#cityCode").val("北京市");
-		getAreaList();
+		//$("#cityCode").val("北京市");
+		//getAreaList();
 		
-		
+	
+	
+	//获取店铺列表
+	function getShopList(page,pageSizes){
+		if(!canLoad){
+			return false;
+		}
+		canLoad = false;
+		$("#loading_img").show();
+		$("#tips").empty();
+		$.ajax({
+			async:true,
+	 		cache:false,
+	 		type:"post",
+	 		dataType:"json",
+	 		data:{
+	 			page:page,
+	 			pageSize:pageSizes,
+				cityCode:cityCode,
+				lng:lng,
+				lat:lat,
+				areaId:$('#areaId').attr("value"), //区域搜索区域主键areaId值
+				autoSearchType:$('#autoSearchType').attr("value"),//智能排序类型(默认传“”或0，1：按距离；2：按优惠；3：按人气(collectCount * 1 + shareCount * 2 + commentCount * 2 + preOrderCount * 4)；)
+				screenType:$('#screenType').attr("value"), //screenType:筛选类型（0:没有筛选条件；1：可预约到店；2.可预约上门；3.有红包；）
+				keyValue:$("#keyValue").val()
+	 		},
+	 		url:localhostPath + "/area/shopList.do",
+	 		success:function(data){
+	 			$("#loading_img").fadeOut("slow");
+	 			var jsonData = eval(data);
+	 			if(jsonData.Code == 1){
+					var shopListData = jsonData.Data.shopData;
+					var shopList = $("#shop_list");
+					var dom = '';
+					
+					for(var i = 0; i < jsonData.Data.shopListSize; i++){
+						var toShop = '';
+						var toDoor = '';
+						var redPackets = '';
+						var hasPriceDiscount = '';
+						if(shopListData[i].canShopService == 1){
+							toShop = '<span class="store">预约到店</span>';
+						}
+						if(shopListData[i].canMasseurService == 1){
+							toShop = '<span class="door">预约上门</span>';
+						}
+						if(shopListData[i].hasRedPackets == 1){
+							//redPackets = '<span class="paper">红包</span>';
+							redPackets = '<span class="paper">优惠券</span>';
+						}
+//						if(1 == shopListData[i].hasPriceDiscount){
+//							hasPriceDiscount = "起";
+//						}
+					hasPriceDiscount = "起";
+						//var imgSrc =  localhostPath + "/images/img/store.png";
+						var imgSrc =  shopListData[i].listImageUrl;
+						if(null == imgSrc || "" == imgSrc){
+							imgSrc = localhostPath +"/images/public/default_store.jpg";
+						}
+						var minPrice = "";
+						var preOrder = "";
+						if(6 != shopListData[i].type){
+							minPrice = '<div class="subscribe">'+ toShop + toDoor + redPackets +'</div>'+
+				 					'<span class="minPrice"><e>'+ shopListData[i].lowestItemPrice +'元</e><e id="hasPriceDiscount">'+ hasPriceDiscount +'</e></span>';
+					 				
+				 		preOrder = '<div class="bespoke"><span>'+ shopListData[i].preOrderCount +'</span>人预约</div>';
+						}
+						var spaceDom = "";
+						if(null != shopListData[i].location && "" != shopListData[i].location){
+							spaceDom = "&nbsp;&nbsp";
+						}
+						dom += '<div class="con_list" shopId = "'+ shopListData[i].shopId +'" onclick="shopDetail(this)">'+
+			 					'<dl>'+
+			 						'<dt class="resizes"><img src="'+ imgSrc +'" /></dt>'+
+			 						'<dd class="storeName"><h2>'+ shopListData[i].name +'</h2></dd>'+
+			 						'<dd>'+ minPrice +
+			 						'</dd>'+
+			 						'<dd class="last-dd">'+
+			 							'<div class="distance"><span>'+ shopListData[i].location +'</span>'+ spaceDom +'<span>'+ shopListData[i].longth +'</span></div>'+
+			 							preOrder +
+			 						'</dd>'+
+			 						'<div class="clears"></div>'+
+			 					'</dl>'+
+			 				'</div>';
+					}
 
+					if(0 == page){
+						shopList.empty();
+					}
+					shopList.append(dom);
+					
+					shopTotalCount = jsonData.Data.shopTotalCount;
+					shopListSize += jsonData.Data.shopListSize;
+					
+					sessionStorage.setItem("jsonData",jsonData);
+					sessionStorage.setItem("page",page);
+					sessionStorage.setItem("pageSize",pageSizes);
+					sessionStorage.setItem("cityCode",cityCode);
+					sessionStorage.setItem("lng",lng);
+					sessionStorage.setItem("lat",lat);
+					sessionStorage.setItem("areaId",$('#areaId').attr("value"));
+					sessionStorage.setItem("autoSearchType",$('#autoSearchType').attr("value"));
+					sessionStorage.setItem("screenType",$('#screenType').attr("value"));
+					sessionStorage.setItem("keyValue",$("#keyValue").val());
+					
+					//广告
+	//				var adListData = jsonData.Data.adData;
+//					if(adListData.length > 0){
+//						var oLi = "";
+//	 				for(var i = 0; i<adListData.length; i++){
+//	 					oLi += '<li class="slides" onclick="adJump(this)" adType="'+adListData[i].adType+'" adValue="'+adListData[i].adValue+'"><img src="'+ adListData[i].adImageUrl +'"/></li>';
+//	 				}
+	 				//$(".banner ul li").remove();
+	 				//$(".banner ol").remove();
+	 				//$(".banner ul").html(oLi);
+	 				////$(".advert-w").css({height:$(".banner").height()+"px", oveflow:"hidden"});
+					//$('.banner').unslider({
+					//	speed: 500,               
+					//	delay:3000,              
+					//	keys: true,               
+					//	dots: true,               
+					//	fluid: true             
+					//});
+					//}
+				}else{
+					$("#loading_img").fadeOut("slow");
+					alert(jsonData.Tips);
+					return false;
+				}
+				canLoad = true;
+	 		},
+	 		error:function(data) {
+	 			canLoad = true;
+	 			$("#loading_img").fadeOut("slow");
+	 			alert("网络异常，稍后重试！");
+	 			return false;
+	 		}
+		});
+	}	
+
+		//店铺详情
+	function shopDetail(obj){
+		var shopId = $(obj).attr("shopId");
+		if(null == shopId || "" == $.trim(shopId) || shopId <= 0){
+			alert("请选择要查看的店铺！");
+			return false;
+		}else{
+			window.location = localhostPath + "/shop/"+shopId+"/"+lng+"/"+lat+"/shopDetail.php";
+		}
+	}
+	
+//	function myFun(result){
+//		var cityName = result.name;
+//		//map.setCenter(cityName);
+//		//alert("当前定位城市:"+cityName);
+//		$(".changeCityBtn span").html(cityName);
+//		$("#cityCode").val(cityName);
+//		getAreaList();
+//	}
+	
+	$(function(){
+		var sessionPage = sessionStorage.getItem("page");
+		var sessionPageSize = sessionStorage.getItem("pageSize");
+		var sessionCityCode = sessionStorage.getItem("cityCode");
+		var sessionLng = sessionStorage.getItem("lng");
+		var sessionLat = sessionStorage.getItem("lat");
+		var sessionAreaId = sessionStorage.getItem("areaId");
+		var sessionAutoSearchType =	sessionStorage.getItem("autoSearchType");
+		var sessionScreenType =	sessionStorage.getItem("screenType");
+		var sessionKeyValue = sessionStorage.getItem("keyValue");		
+		
+		if(null != sessionAutoSearchType){
+			$("#autoSearchType li").each(function(){
+				if($(this).attr("value") == sessionAutoSearchType){
+					$(".sequence").html($(this).html());
+					$("#autoSearchType").attr("value",sessionAutoSearchType);
+				}
+			});
+		}
+		
+		if(null != sessionScreenType){
+			$("#screenType li span").each(function(){
+				if($(this).attr("value") == sessionScreenType){
+					$(".filter").html($(this).html());
+					$("#screenType").attr("value",sessionScreenType);
+				}
+			});
+		}
+		if(null != sessionKeyValue){
+			$("#keyValue").val(sessionKeyValue);
+		}
+
+		
+		// 百度地图API功能
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				lng = r.point.lng;
+				lat = r.point.lat;
+// 				var myCity = new BMap.LocalCity();
+// 		    	myCity.get(myFun);
+		    	var point = new BMap.Point(lng,lat);
+		    	var gc = new BMap.Geocoder();
+				gc.getLocation(point, function(rs){
+				   var addComp = rs.addressComponents;
+				   //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+				   $(".changeCityBtn span").html(addComp.city);
+					$("#cityCode").val(addComp.city);	
+					getAreaList();
+					
+					cityCode=addComp.city;
+					getShopList(0,pageSize);
+				});
+		    	
+		    	//保存地区收索条件
+		    	if(null != sessionAreaId){
+					$("#areaId li").each(function(){
+						if($(this).attr("value") == sessionAreaId){
+							$("#areaId").attr({"value":sessionAreaId});
+							$(this).parent().siblings("a").html($(this).html());
+							$(this).parent().parent(".am-parent").removeClass("am-open").children("ul").removeClass("am-in");
+						}
+					});
+				}
+		    	if(null != sessionCityCode){
+					$("#cityCode").val(sessionCityCode);
+				}
+		    
+	    		shopListSize = 0;
+		        getShopList(0,pageSize);
+			} else {
+				//alert('failed'+this.getStatus());
+		    	shopListSize = 0;
+			    getShopList(0,pageSize);
+			}        
+		},{enableHighAccuracy: true});
+		
+		
+		
+		timestamp = '1437626273';
+		nonceStr = 'ae93f20e-117f-4018-b282-567aaf0a5000';
+		signature = '385dd6fd4c61219074067bdaa94f547dd1bb569c';
+		appId = 'wxd544d4718702cd55';
+		if(isWeixin){
+			// console.log("1.默认加载, timestamp = " + timestamp + ", nonceStr = " + nonceStr + ", signature = " + signature);
+			wx.config({
+			    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			    appId: appId, // 必填，公众号的唯一标识
+			    timestamp: timestamp, // 必填，生成签名的时间戳
+			    nonceStr: nonceStr, // 必填，生成签名的随机串
+			    signature: signature,// 必填，签名，见附录1
+			    jsApiList: [
+							'checkJsApi',
+							'onMenuShareTimeline',
+							'onMenuShareAppMessage',
+							'onMenuShareQQ',
+							'onMenuShareWeibo',
+							'hideMenuItems',
+							'showMenuItems',
+							'hideAllNonBaseMenuItem',
+							'showAllNonBaseMenuItem',
+							'translateVoice',
+							'startRecord',
+							'stopRecord',
+							'onRecordEnd',
+							'playVoice',
+							'pauseVoice',
+							'stopVoice',
+							'uploadVoice',
+							'downloadVoice',
+							'chooseImage',
+							'previewImage',
+							'uploadImage',
+							'downloadImage',
+							'getNetworkType',
+							'openLocation',
+							'getLocation',
+							'hideOptionMenu',
+							'showOptionMenu',
+							'closeWindow',
+							'scanQRCode',
+							'chooseWXPay',
+							'openProductSpecificView',
+							'addCard',
+							'chooseCard',
+							'openCard'
+						] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			});
+			wx.ready(function(){
+			    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+// 				wx.getLocation({
+// 				    success: function (res) {
+// 				        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+// 				        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+// 				        //var speed = res.speed; // 速度，以米/每秒计
+// 				        //var accuracy = res.accuracy; // 位置精度
+// 				        lng = longitude;
+// 				        lat = latitude;
+// 				        //微信经纬度转百度经纬度start				        
+// 				        var gpsPoint = new BMap.Point(lng,lat);
+// 				        //地图初始化
+// 				        var bm = new BMap.Map("allmap");
+// 				        bm.centerAndZoom(gpsPoint, 15);
+// 				        bm.addControl(new BMap.NavigationControl());
+// 				        BMap.Convertor.translate(gpsPoint,0,translateCallback);
+// 				      微信经纬度转百度经纬度end
+				        
+// 				    },
+// 				    cancel: function (res) {
+// 				    	shopListSize = 0;
+// 				    	getShopList(0,pageSize);
+// 				    },
+// 				    fail:function(res){
+// 				    	//alert("fail");
+// 				    	shopListSize = 0;
+// 				    	getShopList(0,pageSize);
+// 				    }
+// 				}); 
+				wx.onMenuShareAppMessage({
+				    title: '按爽-专业中医推拿按摩O2O平台', // 分享标题
+				    desc: '上门预约 到店消费 名医专家 企业定制 一号搞定！', // 分享描述
+				    link: 'http://as.51jlt.com/shop/toShop.php', // 分享链接
+				    imgUrl: 'http://file.51jlt.com/fileUrl/upload/image/icon/anshuang_icon_44.png', // 分享图标
+				    type: 'link', // 分享类型,music、video或link，不填默认为link
+				    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				
+				wx.onMenuShareTimeline({
+					title: '按爽-专业中医推拿按摩O2O平台', // 分享标题
+				    link: 'http://as.51jlt.com/shop/toShop.php', // 分享链接
+				    imgUrl: 'http://file.51jlt.com/fileUrl/upload/image/icon/anshuang_icon_44.png', // 分享图标
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				wx.onMenuShareQQ({
+					title: '按爽-专业中医推拿按摩O2O平台', // 分享标题
+				    desc: '上门预约 到店消费 名医专家 企业定制 一号搞定！', // 分享描述
+				    link: 'http://as.51jlt.com/shop/toShop.php', // 分享链接
+				    imgUrl: 'http://file.51jlt.com/fileUrl/upload/image/icon/anshuang_icon_44.png', // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				       // 用户取消分享后执行的回调函数
+				    }
+				});
+				wx.onMenuShareWeibo({
+					title: '按爽-专业中医推拿按摩O2O平台', // 分享标题
+				    desc: '上门预约 到店消费 名医专家 企业定制 一号搞定！', // 分享描述
+				    link: 'http://as.51jlt.com/shop/toShop.php', // 分享链接
+				    imgUrl: 'http://file.51jlt.com/fileUrl/upload/image/icon/anshuang_icon_44.png', // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+			});
+			wx.error(function(res){
+			    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+				
+			});
+		}else{
+			
+		}
+		
+	//  选择城市
+		$(".changeCityBtn").click(function(){
+			$(".change-city").show();
+			$("#shop_list").css({height:"100px"});
+		});
+		$(".btn-div span").click(function(){
+			$(".change-city").hide();
+			$("#shop_list").css({height:"auto"});
+		});
+		$(".change-city dd").each(function(){
+			$(this).click(function(){
+				var thisHtml=$(this).html();
+				$(".change-city").hide();
+				$("#shop_list").css({height:"auto"});
+				$("#cityCode").val(thisHtml);
+				$(".changeCityBtn span").html(thisHtml);
+				$("nav .am-parent a.area").html("按区域");
+				$("nav .am-parent a.sequence").html("智能排序");
+				$("nav .am-parent a.filter").html("筛&nbsp;选");
+				cityCode = thisHtml;
+				getAreaList();
+				shopListSize = 0;
+				getShopList(0,pageSize);
+			});
+		});
+		//$("#cityCode").val("北京市");
+		//getAreaList();
+		
+		//排序
+		$(".smart-sort li").click(function(){
+			$(this).parent().attr({"value":$(this).attr("value")});
+			$(this).parent().siblings("a").html($(this).html());
+			$(this).parent().parent(".am-parent").removeClass("am-open").children("ul").removeClass("am-in");
+			shopListSize = 0;
+			getShopList(0,pageSize);
+		});
+		//筛选；
+		$(".ul-Filter li").click(function(){
+			$(this).parent().attr({"value":$(this).children("span").attr("value")});
+			$(this).parent().siblings("a").html($(this).children("span").html());
+			$(this).parent().parent(".am-parent").removeClass("am-open").children("ul").removeClass("am-in");
+			shopListSize = 0;
+			getShopList(0,pageSize);
+		});
+		
+		//  搜索
+		$(".zoomBtn").click(function(){
+			$(".alert-search").show();
+			$(".alert-search").css({width:"100%","height":$(window).height(),overflow:"hidden", "oveflow-y":"scroll"});
+			$("#container").css({"height":$(window).height()});
+		});
+		$(".search-cancel").click(function(){
+			$(".alert-search").hide();
+			$(".alert-search").css({width:"auto",height:"auto"});
+			$("#container").css({height:"auto"});
+		});
+		
+		$("#searchBtn").click(function(){
+			$(".search-cancel").click();
+			shopListSize = 0;
+			getShopList(0,pageSize);
+		});
+	});
+
+//定义一个总的高度变量
+	var totalheight = 0;  
+	function load(){ 
+	    totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); //浏览器的高度加上滚动条的高度 
+	    if ($(document).height() <= totalheight){ //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
+	        //加载数据
+			if(shopTotalCount <= shopListSize){
+				//alert("没有可以加载的数据了！");
+				$("#tips").html("没有可以加载的数据了");
+				return false;
+			}else{
+				getShopList(shopListSize,pageSize);
+			}
+	    } 
+	} 
+	$(window).scroll( function() { 
+	    load();
+	}); 
 </script>
+
 
 <!--[if (gte IE 9)|!(IE)]><!-->
 

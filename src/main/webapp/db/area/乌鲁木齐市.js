@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100650103000000","areaName":"沙依巴克区","areaCode":"沙依巴克区","shopCount":"3"},{"areaId":"100650102000000","areaName":"天山区","areaCode":"天山区","shopCount":"1"},{"areaId":"100650104000000","areaName":"新市区","areaCode":"新市区","shopCount":"2"}]}

@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100330421000000","areaName":"嘉善县","areaCode":"嘉善县","shopCount":"1"},{"areaId":"100330402000000","areaName":"南湖区","areaCode":"南湖区","shopCount":"3"},{"areaId":"100330411000000","areaName":"秀洲区","areaCode":"秀洲区","shopCount":"2"}]}

@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100460106000000","areaName":"龙华区","areaCode":"龙华区","shopCount":"9"},{"areaId":"100460108000000","areaName":"美兰区","areaCode":"美兰区","shopCount":"9"},{"areaId":"100460107000000","areaName":"琼山区","areaCode":"琼山区","shopCount":"1"},{"areaId":"100460105000000","areaName":"秀英区","areaCode":"秀英区","shopCount":"1"}]}

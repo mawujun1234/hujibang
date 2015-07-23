@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150602000000","areaName":"东胜区","areaCode":"东胜区","shopCount":"3"}]}

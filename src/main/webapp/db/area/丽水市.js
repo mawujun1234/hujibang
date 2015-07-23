@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100331102000000","areaName":"莲都区","areaCode":"莲都区","shopCount":"7"}]}

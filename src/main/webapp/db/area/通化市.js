@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100220502000000","areaName":"东昌区","areaCode":"东昌区","shopCount":"2"}]}

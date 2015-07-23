@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150826000000","areaName":"杭锦后旗","areaCode":"杭锦后旗","shopCount":"1"},{"areaId":"100150802000000","areaName":"临河区","areaCode":"临河区","shopCount":"2"}]}

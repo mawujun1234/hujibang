@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100131102000000","areaName":"桃城区","areaCode":"桃城区","shopCount":"2"}]}

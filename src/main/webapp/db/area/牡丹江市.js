@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100231004000000","areaName":"爱民区","areaCode":"爱民区","shopCount":"1"},{"areaId":"100231002000000","areaName":"东安区","areaCode":"东安区","shopCount":"2"},{"areaId":"100231005000000","areaName":"西安区","areaCode":"西安区","shopCount":"1"}]}

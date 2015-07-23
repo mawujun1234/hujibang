@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100450105000000","areaName":"江南区","areaCode":"江南区","shopCount":"1"},{"areaId":"100450103000000","areaName":"青秀区","areaCode":"青秀区","shopCount":"16"},{"areaId":"100450107000000","areaName":"西乡塘区","areaCode":"西乡塘区","shopCount":"3"}]}

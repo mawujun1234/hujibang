@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100130207000000","areaName":"丰南区","areaCode":"丰南区","shopCount":"1"},{"areaId":"100130203000000","areaName":"路北区","areaCode":"路北区","shopCount":"11"},{"areaId":"100130202000000","areaName":"路南区","areaCode":"路南区","shopCount":"8"}]}

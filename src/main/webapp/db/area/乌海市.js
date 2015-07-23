@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100150302000000","areaName":"海勃湾区","areaCode":"海勃湾区","shopCount":"4"}]}

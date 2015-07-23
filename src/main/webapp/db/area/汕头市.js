@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100440511000000","areaName":"金平区","areaCode":"金平区","shopCount":"1"},{"areaId":"100440507000000","areaName":"龙湖区","areaCode":"龙湖区","shopCount":"5"}]}

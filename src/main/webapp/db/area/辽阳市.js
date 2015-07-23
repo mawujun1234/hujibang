@@ -1,0 +1,1 @@
+{"Code":1,"Tips":"","Result":[{"areaId":"100211002000000","areaName":"白塔区","areaCode":"白塔区","shopCount":"2"},{"areaId":"100211004000000","areaName":"宏伟区","areaCode":"宏伟区","shopCount":"1"},{"areaId":"100211021000000","areaName":"辽阳县","areaCode":"辽阳县","shopCount":"1"},{"areaId":"100211003000000","areaName":"文圣区","areaCode":"文圣区","shopCount":"3"}]}
