@@ -192,4 +192,48 @@ public class AreaCrawler {
 		}
 	}
 	
+	
+	
+	public static String queryShopDetail(String cityCode,String shopId,String lat,String lng) throws IOException {
+		//cityCode="北京市";
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpPost httppost = new HttpPost("http://as.51jlt.com/shop/queryShopDetail.php");
+		
+		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("cityCode", cityCode));
+		nvps.add(new BasicNameValuePair("shopId", shopId));
+		nvps.add(new BasicNameValuePair("lat", lat));
+		nvps.add(new BasicNameValuePair("lng", lng));
+
+		httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
+		CloseableHttpResponse response = httpclient.execute(httppost);
+		
+		 StringBuilder builder=new StringBuilder();
+		try {
+			//System.out.println(response.getStatusLine());
+		    HttpEntity entity = response.getEntity();
+		    //InputStream inputStream=entity.getContent();
+		    
+		    ContentType contentType = ContentType.getOrDefault(entity);
+	        Charset charset = contentType.getCharset();
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
+	        
+	       
+	        String s;
+	        while((s=reader.readLine())!=null && s.length()!=0){
+	          builder.append(s);
+	        }
+	        System.out.println(builder);
+	        
+	      
+		    // do something useful with the response body
+		    // and ensure it is fully consumed
+		    EntityUtils.consume(entity);
+		} finally {
+		    response.close();
+		}
+		return builder.toString();
+	}
+	
 }

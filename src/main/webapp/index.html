@@ -444,7 +444,7 @@
 				<input type="hidden" id="cityCode" value="北京市"/>
 				<span>北京市</span><i class="iconfont">&#xe611;</i>
 			</span>
-			<span class="store-title">约到店</span>
+			<span class="store-title">附近</span>
 			<span class="zoomBtn"><span></span></span>
 		</div>  
 		
@@ -653,12 +653,12 @@
 						}
 						var minPrice = "";
 						var preOrder = "";
-						if(6 != shopListData[i].type){
-							minPrice = '<div class="subscribe">'+ toShop + toDoor + redPackets +'</div>'+
-				 					'<span class="minPrice"><e>'+ shopListData[i].lowestItemPrice +'元</e><e id="hasPriceDiscount">'+ hasPriceDiscount +'</e></span>';
-					 				
-				 		preOrder = '<div class="bespoke"><span>'+ shopListData[i].preOrderCount +'</span>人预约</div>';
-						}
+	//					if(6 != shopListData[i].type){
+//							minPrice = '<div class="subscribe">'+ toShop + toDoor + redPackets +'</div>'+
+//				 					'<span class="minPrice"><e>'+ shopListData[i].lowestItemPrice +'元</e><e id="hasPriceDiscount">'+ hasPriceDiscount +'</e></span>';
+//					 				
+//				 		preOrder = '<div class="bespoke"><span>'+ shopListData[i].preOrderCount +'</span>人预约</div>';
+//						}
 						var spaceDom = "";
 						if(null != shopListData[i].location && "" != shopListData[i].location){
 							spaceDom = "&nbsp;&nbsp";
@@ -739,7 +739,8 @@
 			alert("请选择要查看的店铺！");
 			return false;
 		}else{
-			window.location = localhostPath + "/shop/"+shopId+"/"+lng+"/"+lat+"/shopDetail.php";
+			//window.location = localhostPath + "/shop/"+shopId+"/"+lng+"/"+lat+"/shopDetail.php";
+			window.location = localhostPath + "/shopDetail.html?shopId="+shopId+"&lng="+lng+"&lat="+lat+"";
 		}
 	}
 	

@@ -34,5 +34,15 @@ public class AreaController {
 		response.getWriter().write(AreaCrawler.get_shopList(cityCode,areaId,lat,lng,page,pageSize));
 		response.getWriter().close();
 	}
+	
+	@RequestMapping("/shop/queryShopDetail.do")
+	public void queryShopDetail(HttpServletRequest request,HttpServletResponse response,String cityCode,String shopId,String lat,String lng) throws IOException{
+//		String contextPath=request.getSession().getServletContext().getRealPath("/");
+//		String filepath=contextPath+"db"+File.separator+"area"+File.separator+"shop"+File.separator+cityCode+".js";
+//		String content=FileUtils.readFileToString(new File(filepath), "UTF-8");
+		
+		response.getWriter().write(AreaCrawler.queryShopDetail(cityCode,shopId,lat,lng));
+		response.getWriter().close();
+	}
 
 }
