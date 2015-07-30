@@ -125,7 +125,7 @@ public class AreaCrawler {
 		
 	}
 	
-	public static String get_shopList(String cityCode,String areaId,String lat,String lng,String page,String pageSize) throws IOException {
+	public static String get_shopList(String cityCode,String areaId,String lat,String lng,String page,String pageSize,String keyValue) throws IOException {
 		//cityCode="北京市";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost("http://as.51jlt.com/shop/shopList.php");
@@ -135,7 +135,7 @@ public class AreaCrawler {
 		nvps.add(new BasicNameValuePair("areaId", areaId));
 		nvps.add(new BasicNameValuePair("autoSearchType", "0"));
 		nvps.add(new BasicNameValuePair("cityCode", cityCode));
-		nvps.add(new BasicNameValuePair("keyValue", ""));
+		nvps.add(new BasicNameValuePair("keyValue", keyValue));
 		nvps.add(new BasicNameValuePair("lat", lat));
 		nvps.add(new BasicNameValuePair("lng", lng));
 		nvps.add(new BasicNameValuePair("page", page));

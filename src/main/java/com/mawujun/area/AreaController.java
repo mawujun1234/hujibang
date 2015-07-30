@@ -26,12 +26,12 @@ public class AreaController {
 	}
 	
 	@RequestMapping("/area/shopList.do")
-	public void shopList(HttpServletRequest request,HttpServletResponse response,String cityCode,String areaId,String lat,String lng,String page,String pageSize) throws IOException{
+	public void shopList(HttpServletRequest request,HttpServletResponse response,String cityCode,String areaId,String lat,String lng,String page,String pageSize,String keyValue) throws IOException{
 //		String contextPath=request.getSession().getServletContext().getRealPath("/");
 //		String filepath=contextPath+"db"+File.separator+"area"+File.separator+"shop"+File.separator+cityCode+".js";
 //		String content=FileUtils.readFileToString(new File(filepath), "UTF-8");
 		
-		response.getWriter().write(AreaCrawler.get_shopList(cityCode,areaId,lat,lng,page,pageSize));
+		response.getWriter().write(AreaCrawler.get_shopList(cityCode,areaId,lat,lng,page,pageSize,keyValue));
 		response.getWriter().close();
 	}
 	
