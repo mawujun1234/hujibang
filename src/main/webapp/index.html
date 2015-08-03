@@ -441,8 +441,8 @@
 		<div class="header-fixed">	
 		<div class="header">
 			<span class="changeCityBtn">
-				<input type="hidden" id="cityCode" value="北京市"/>
-				<span>北京市</span><i class="iconfont">&#xe611;</i>
+				<input type="hidden" id="cityCode" value="宁波市"/>
+				<span>宁波市</span><i class="iconfont">&#xe611;</i>
 			</span>
 			<span class="store-title">附近</span>
 			<span class="zoomBtn"><span></span></span>
@@ -507,6 +507,7 @@
 
 <!--在这里编写你的代码-->
 <script type="text/javascript">
+var cityCode='宁波市';
 	var sessionStorage = window.sessionStorage;
 	//选择区域
 	function setArea(obj){
@@ -536,7 +537,7 @@
 	 		dataType:"json",
 	 		data:{
 				cityCode:$("#cityCode").val()
-				//cityCode:"北京市"
+				//cityCode:"宁波市"
 	 		},
 	 		url:localhostPath + "/area/areaList.do",
 			//url:"http://as.51jlt.com/area/areaList.php",
@@ -589,7 +590,7 @@
 				getShopList(0,pageSize);
 			});
 		});
-		//$("#cityCode").val("北京市");
+		//$("#cityCode").val("宁波市");
 		//getAreaList();
 		
 	
@@ -995,7 +996,7 @@
 				getShopList(0,pageSize);
 			});
 		});
-		//$("#cityCode").val("北京市");
+		//$("#cityCode").val("宁波市");
 		//getAreaList();
 		
 		//排序
