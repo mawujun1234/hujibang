@@ -22,7 +22,7 @@
 	2、app的context-scan其实无所谓，但exclude掉controller显然会improve efficiency.
 	     -->
     <context:component-scan base-package="com.mawujun" use-default-filters="true">
-    	<!-- <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>  -->
+    	<!----> <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>  
     </context:component-scan>
     
     <!--<mvc:resources mapping="/ueditor/**" location="/ueditor/"/> 
