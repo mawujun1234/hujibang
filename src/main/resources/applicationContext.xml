@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task-3.2.xsd 
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd"
+		default-lazy-init="true">
+
+	
+
+	<!---->
+	<bean id="springContextHolder" class="com.mawujun.controller.spring.SpringContextHolder" lazy-init="false" ></bean>
+	 <!-- <bean id="cacheInit" class="com.mawujun.cache.CacheInit" lazy-init="false" init-method="initialize" depends-on="roleService" ></bean>
+	<bean id="parameterHolder" class="com.mawujun.utils.ParameterHolder" lazy-init="false" init-method="initialize" depends-on="parameterSubjectService" ></bean>
+	
+	
+	
+	<bean id="roleCacheHolder" class="com.mawujun.cache.RoleCacheHolder" lazy-init="false" init-method="initialize" depends-on="roleService" ></bean>
+	--> 
+
+	 
+
+
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.mawujun">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/> 
+	</context:component-scan>
+	
+	<!-- 启用@AspectJ支持 ,使用动态代理,不能少-->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!---->
+	<import resource="classpath:repositoryContext.xml"></import>
+	 
+	 <!--<cache:annotation-driven />-->
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+     p:configLocation="classpath:ehcache.xml" p:shared="true" />
+    <!-- 声明cacheManager -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+     p:cacheManager-ref="cacheManagerFactory"/>
+
+	
+	<task:executor id="executor" pool-size="2" />  
+    <task:scheduler id="scheduler" pool-size="5" />  
+    <!--
+	<task:annotation-driven executor="executor" scheduler="scheduler" />
+	-->
+	<task:scheduled-tasks>   
+		<!-- 任务超期扫描工具 
+		<task:scheduled ref="overtimeService" method="createOvertimeMessage" cron="0 0/10 * * * ?"/> 
+        <task:scheduled ref="day_sparepart_Service" method="proc_report_day_sparepart_all" cron="0 0 23 * * ?"/> 
+        -->
+        <!-- ==============================在建仓库=================================== -->
+        <!-- 每个月的最后一天执行0 10 0 1 * ?  ,在代码中判断了，如果是每个月的1号执行，就往前推一天，表示计算的是上个月的数据
+        <task:scheduled ref="buildMonthReportService" method="createBuildMonthReport" cron="0 39 19 * * ?"/>  -->
+        <!-- 每天执行一次0 30 22 * * ?
+        <task:scheduled ref="buildDayReportService" method="createBuildDayReport" cron="0 28 19 * * ?"/>  -->
+        
+        <!-- =====================================备品备件仓库============================= -->
+        <!-- 每个月的最后一天执行0 10 0 1 * ?  ,在代码中判断了，如果是每个月的1号执行，就往前推一天，表示计算的是上个月的数据
+        <task:scheduled ref="sparepartMonthReportService" method="createSparepartMonthReport" cron="0 39 19 * * ?"/>   
+        <task:scheduled ref="sparepartDayReportService" method="createSparepartDayReport" cron="0 28 19 * * ?"/>   --> 
+	</task:scheduled-tasks> 
+
+
+</beans>

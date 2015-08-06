@@ -141,8 +141,5 @@
          <!-- 默认HTTP状态码 -->    
          <property name="defaultStatusCode" value="503" />  
    </bean> 
-<!-- 
-	
-   <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="false" />
-   -->
+
 </beans>
