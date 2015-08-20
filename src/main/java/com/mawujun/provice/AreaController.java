@@ -1,4 +1,4 @@
-package com.mawujun.area;
+package com.mawujun.provice;
 
 import java.io.File;
 import java.io.IOException;
