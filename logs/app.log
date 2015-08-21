@@ -1,3 +1,5 @@
+
+
 16:00:36.255 [main] INFO  com.mawujun.utils.file.FileUtils - file类型的扫描
 16:00:36.259 [main] INFO  com.mawujun.utils.file.FileUtils - com.mawujun.crawler.AreaCrawler
 16:00:36.259 [main] INFO  com.mawujun.utils.file.FileUtils - com.mawujun.crawler.Shopinfo
