@@ -490,3 +490,49 @@
 16:01:47.023 [main] INFO  com.mawujun.utils.file.FileUtils - =============================================com.mawujun.provice.Provice
 16:01:47.023 [main] INFO  com.mawujun.utils.file.FileUtils - name
 16:01:47.023 [main] INFO  com.mawujun.utils.file.FileUtils - id
+09:32:52.533 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:38:44.307 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:43:17.612 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:44:36.822 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:45:44.647 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:47:33.006 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:48:23.507 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:02:22.556 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:06:57.506 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:33:47.638 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+11:20:47.292 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:02:57.063 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:51:43.255 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:51:57.137 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:52:16.198 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:54:09.363 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:01:36.418 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:02:04.490 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:02:32.378 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:03:23.439 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:06:24.728 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:07:12.899 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:07:40.822 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:09:20.347 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Stream closed Nested exception: Stream closed
+13:10:20.344 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Stream closed Nested exception: Stream closed
+13:11:04.309 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:11:28.478 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:12:17.648 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:12:37.117 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+13:13:49.828 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:14:33.134 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - java.io.IOException: Stream closed
+13:22:34.011 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:22:57.045 [http-8083-2] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:22:58.299 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - java.lang.NullPointerException
+13:24:09.495 [http-8083-2] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:24:37.616 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - java.lang.NullPointerException
+13:24:59.721 [http-8083-2] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:25:00.847 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - java.lang.NullPointerException
+13:28:54.152 [http-8083-2] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:28:55.313 [http-8083-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.mawujun.weixin.DefaultResponseProcess] is defined
+13:29:12.508 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:29:18.034 [http-8083-2] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:32:01.039 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:39:27.684 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:39:46.953 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+13:44:33.409 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f

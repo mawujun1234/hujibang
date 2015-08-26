@@ -1,4 +1,4 @@
-package com.mawujun.crawler;
+package com.mawujun.crawler.anshuang;
 
 import java.io.BufferedReader;
 import java.io.File;

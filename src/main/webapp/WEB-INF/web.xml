@@ -52,4 +52,23 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>  
+        <servlet-name>messageServlet</servlet-name>  
+        <servlet-class>  
+            com.mawujun.message.servlet.MessageServlet  
+        </servlet-class> 
+        <!--初始化的配置文件 -->
+        <init-param> 
+		<param-name>config_file_path</param-name> 
+		<param-value>weixin.properties</param-value> 
+		</init-param>  
+    </servlet>  
+  
+    <!-- url-pattern中配置的/coreServlet用于指定该Servlet的访问路径 -->  
+    <servlet-mapping>  
+        <servlet-name>messageServlet</servlet-name>  
+        <url-pattern>/messageServlet</url-pattern>  
+    </servlet-mapping>
 </web-app>
