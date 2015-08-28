@@ -536,3 +536,13 @@
 13:39:27.684 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
 13:39:46.953 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
 13:44:33.409 [http-8083-1] DEBUG com.mawujun.weixin.DefaultRequestProcess - com.mawujun.message.request.TextMessage@1f
+15:43:25.808 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:46:31.923 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:52:24.071 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:55:46.718 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:59:03.187 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:02:23.573 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:03:18.425 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:08:31.389 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:09:45.099 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:17:40.783 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null

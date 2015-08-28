@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>按爽</title>
+	<meta charset="utf-8">
+
+	<script type="text/javascript" src="./javascript/jquery.js"></script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+
+<form id="aaaa">
+	<input type="text" name="name">
+	
+</form>
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:"/baidu/query.do",
+			header:{
+				Accept:"application/json"
+			},
+			dataType:'jsonp',
+			success:function(data){
+				$("#aaaa").form("load",)
+			}
+		});
+	});
+</script>
+</body>
+</html>

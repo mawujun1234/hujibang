@@ -47,7 +47,15 @@
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-
+				<bean id="stringHttpMessageConverter"
+					class="com.mawujun.controller.spring.mvc.StringHttpMessageConverterImpl">
+					<constructor-arg value="UTF-8">
+						
+					</constructor-arg>
+					<property name="writeAcceptCharset" value="false" />
+				</bean>
+				<bean id="jsonHttpMessageConverter"
+					class="com.mawujun.controller.spring.mvc.MappingFastJson2HttpMessageConverter" /><!-- 在循环引用和属性过滤上设置更方便 -->
 				<bean id="byteArrayHttpMessageConverter"
 					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
 				<bean id="xmlAwareFormHttpMessageConverter"
@@ -91,7 +99,7 @@
      	</property> 
 	  <!--  默认视图解析,加了这个后，就能同时支持jsp跳转-->
 	  <property name="viewResolvers">  
-            <list>       
+            <list>  <!--  
                 <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
                 	 <property name="viewClass"  
             value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
@@ -100,6 +108,8 @@
 				    <property name="suffix" value=".ftl" />
 				    <property name="contentType" value="text/html; charset=UTF-8"/> 
 				</bean>
+				 -->    
+				
 				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">               
                     <property name="prefix" value="/" />  
                     <property name="suffix" value=".jsp" />  
@@ -108,16 +118,18 @@
             </list>  
       </property>  
       
-      <!-- 根据MediaType进行返回视图的选择 
+      <!-- 根据MediaType进行返回视图的选择  -->
 	  <property name="defaultViews">
 		<list>
-            <bean class="org.springframework.web.servlet.view.xml.MarshallingView" >  
+			 <bean id="jsonView" class="com.mawujun.controller.spring.mvc.MappingFastjson2JsonView">
+			</bean>
+            <!-- <bean class="org.springframework.web.servlet.view.xml.MarshallingView" >  
                 <property name="marshaller">  
                 	<bean class="org.springframework.oxm.xstream.XStreamMarshaller"/>  
             	</property>  
-            </bean>   
+            </bean>   -->
 		 </list>
-	  </property> -->
+	  </property> 
 	</bean>
 	
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
