@@ -62,7 +62,7 @@
         <!--初始化的配置文件 -->
         <init-param> 
 		<param-name>config_file_path</param-name> 
-		<param-value>weixin.properties</param-value> 
+		<param-value>weixin.properties</param-value>  
 		</init-param>  
     </servlet>  
   

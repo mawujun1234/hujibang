@@ -15,77 +15,131 @@ import com.mawujun.message.request.ShortvideoMessage;
 import com.mawujun.message.request.TextMessage;
 import com.mawujun.message.request.VideoMessage;
 import com.mawujun.message.request.VoiceMessage;
-import com.mawujun.messge.service.IRequestProcess;
+import com.mawujun.messge.service.AbstractRequestProcess;
 
 @Service
-public class DefaultRequestProcess implements IRequestProcess {
+public class DefaultRequestProcess extends AbstractRequestProcess {
 	Logger logger=LogManager.getLogger(DefaultRequestProcess.class);
 
 	@Override
 	public void process(TextMessage message) {
 		// TODO Auto-generated method stub
-		logger.debug(message);
-		System.out.println("=================="+message);
+		
 	}
 
 	@Override
 	public void process(ImageMessage message) {
 		// TODO Auto-generated method stub
-		logger.debug(message);
+		
 	}
 
 	@Override
 	public void process(VoiceMessage message) {
 		// TODO Auto-generated method stub
-		logger.debug(message);
+		
 	}
 
 	@Override
 	public void process(VideoMessage message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void process(ShortvideoMessage message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void process(LocationMessage message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void process(LinkMessage message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void process(QRCodeEvent message) {
+	public void process_subscribe(QRCodeEvent message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void process(SubscribeEvent message) {
+	public void process_SCAN(QRCodeEvent message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void process(MenuEvent message) {
+	public void process_subscribe(SubscribeEvent message) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void process_unsubscribe(SubscribeEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_CLICK(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_VIEW(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_scancode_push(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_scancode_waitmsg(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_pic_sysphoto(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_pic_photo_or_album(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_pic_weixin(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void process_location_select(MenuEvent message) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void process(LocationEvent message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
+	
 }
