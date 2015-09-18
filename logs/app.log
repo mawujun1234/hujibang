@@ -547,3 +547,4 @@
 16:09:45.099 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
 16:17:40.783 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
 14:24:00.781 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:52:42.941 [main] INFO  com.mawujun.utils.file.FileUtils - 文件查找失败：/E:/eclipse/workspace/hujibang/target/classes//templates/default 不是一个目录！或者不存在这个目录

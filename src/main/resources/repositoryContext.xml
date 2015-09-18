@@ -140,11 +140,11 @@
 	
 	     <property name="timeBetweenEvictionRunsMillis"><value>60000</value></property>
 	     <property name="minEvictableIdleTimeMillis"><value>300000</value></property>
-	
+	<!-- 
 	     <property name="validationQuery"><value>SELECT 'x'</value></property>
 	     <property name="testWhileIdle"><value>true</value></property>
 	     <property name="testOnBorrow"><value>false</value></property>
-	     <property name="testOnReturn"><value>false</value></property>
+	   -->   <property name="testOnReturn"><value>false</value></property>
 	
 	     <property name="poolPreparedStatements"><value>true</value></property>
 	     <property name="maxOpenPreparedStatements"><value>20</value></property>
