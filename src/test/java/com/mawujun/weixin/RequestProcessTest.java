@@ -37,7 +37,7 @@ public class RequestProcessTest {
 				+ "<FromUserName><![CDATA[fromUser]]></FromUserName> "
 				+ "<CreateTime>1348831860</CreateTime>"
 				+ "<MsgType><![CDATA[text]]></MsgType>"
-				+ "<Content><![CDATA[this is a test]]></Content>"
+				+ "<Content><![CDATA[this 中文is a test]]></Content>"
 				+ "<MsgId>1234567890123456</MsgId>"
 				+ "</xml>";
 		TextMessage textMessage=aa.post(textMsg_xml,TextMessage.class);
@@ -48,7 +48,7 @@ public class RequestProcessTest {
 		
 		//模拟http进行测试
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("http://localhost:8083/messageServlet?signature=82492507cfbefaa71409b83546603a6f60f96896"
+		HttpGet httpget = new HttpGet("http://localhost:8084/messageServlet?signature=82492507cfbefaa71409b83546603a6f60f96896"
 				+ "&timestamp=1440554054&nonce=117859536&echostr=1111");
 		//httppost.setConfig(config); 
 
@@ -92,16 +92,16 @@ public class RequestProcessTest {
 
 		//模拟http进行测试
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost("http://localhost:8083/messageServlet?signature=82492507cfbefaa71409b83546603a6f60f96896"
+		HttpPost httppost = new HttpPost("http://localhost:8084/messageServlet?signature=82492507cfbefaa71409b83546603a6f60f96896"
 				+ "&timestamp=1440554054&nonce=117859536&echostr=1111");
 
-		httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-		httppost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
+		//httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		//httppost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
 
 		
 		
 				
-		StringEntity reqEntity=new StringEntity(reqXml,ContentType.APPLICATION_XML);
+		StringEntity reqEntity=new StringEntity(reqXml,ContentType.create("application/xml", "UTF-8"));
          
 		httppost.setEntity(reqEntity);
 		

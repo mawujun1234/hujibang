@@ -2,6 +2,8 @@ package com.mawujun.weixin;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +17,20 @@ import com.mawujun.message.event.SubscribeEvent;
 import com.mawujun.message.request.ImageMessage;
 import com.mawujun.message.request.LinkMessage;
 import com.mawujun.message.request.LocationMessage;
+import com.mawujun.message.request.RequestMsgType;
 import com.mawujun.message.request.ShortvideoMessage;
 import com.mawujun.message.request.TextMessage;
 import com.mawujun.message.request.VideoMessage;
 import com.mawujun.message.request.VoiceMessage;
 import com.mawujun.message.response.BaseMessage;
+import com.mawujun.messge.context.WeiXinApplicationContext;
 import com.mawujun.messge.service.AbstractResponseProcess;
 import com.mawujun.utils.bean.BeanUtils;
 import com.mawujun.weixin.message.RequestMessage;
 import com.mawujun.weixin.message.RequestMessageService;
 
 @Service
+@Transactional
 public class DefaultResponseProcess extends AbstractResponseProcess {
 	@Autowired
 	private RequestMessageService requestMessageService;
@@ -69,6 +74,13 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	 */
 	public void saveMessage(com.mawujun.message.request.BaseMessage message){
 		RequestMessage requestMessage=BeanUtils.copyOrCast(message, RequestMessage.class);
+		if(message.getMsgType()==RequestMsgType.image){
+			String path= WeiXinApplicationContext.getWebapp_realPath()+"/media/image";
+			String[] result=WeiXinApplicationContext.get_material_temp_content(requestMessage.getMediaId(),path);
+			requestMessage.setSavePath(result[1]);
+			requestMessage.setSavePath_abstract("/media/image/"+result[0]);
+		}
+		
 		requestMessageService.create(requestMessage);
 	}
 	

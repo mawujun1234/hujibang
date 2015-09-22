@@ -12,8 +12,8 @@ import com.mawujun.repository.idEntity.IdEntity;
  * @author mawujun email:16064988@qq.com qq:16064988
  *
  */
-@Entity
-@Table(name="hjb_city")
+//@Entity
+//@Table(name="hjb_city")
 public class City implements IdEntity<Integer> {
 	@Id
 	private Integer id;

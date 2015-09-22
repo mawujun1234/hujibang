@@ -548,3 +548,72 @@
 16:17:40.783 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
 14:24:00.781 [main] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
 15:52:42.941 [main] INFO  com.mawujun.utils.file.FileUtils - 文件查找失败：/E:/eclipse/workspace/hujibang/target/classes//templates/default 不是一个目录！或者不存在这个目录
+09:08:46.194 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:32:05.915 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+09:32:05.938 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 清除SpringContextHolder中的ApplicationContext:Root WebApplicationContext: startup date [Mon Sep 21 09:32:04 CST 2015]; root of context hierarchy
+09:36:36.896 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:07:14.876 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:13:00.066 [http-bio-8084-exec-1] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:32:55.637 [http-bio-8084-exec-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:34:16.991 [http-bio-8084-exec-3] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:35:39.261 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:36:30.365 [http-bio-8084-exec-1] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:37:32.526 [http-bio-8084-exec-2] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:38:10.854 [http-bio-8084-exec-3] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:41:21.848 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:43:51.066 [http-bio-8084-exec-1] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+12:48:13.442 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:00:53.925 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:03:07.404 [http-bio-8084-exec-1] INFO  com.mawujun.message.servlet.MessageDispatch - org.dom4j.DocumentException: Error on line 1 of document  : 文件提前结束。 Nested exception: 文件提前结束。
+15:10:49.833 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:25:33.316 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@30a1fddf
+15:25:58.128 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:27:11.542 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@36753a7
+15:52:59.172 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:00:46.442 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@ce71bd96
+16:59:41.659 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+17:00:03.196 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 清除SpringContextHolder中的ApplicationContext:Root WebApplicationContext: startup date [Mon Sep 21 16:59:40 CST 2015]; root of context hierarchy
+17:05:05.104 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+17:05:26.599 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 清除SpringContextHolder中的ApplicationContext:Root WebApplicationContext: startup date [Mon Sep 21 17:05:04 CST 2015]; root of context hierarchy
+17:23:00.614 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+06:55:00.675 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+06:55:22.187 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 清除SpringContextHolder中的ApplicationContext:Root WebApplicationContext: startup date [Tue Sep 22 06:54:59 CST 2015]; root of context hierarchy
+06:59:43.523 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+07:00:22.902 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@a1bcb6c4
+07:00:54.942 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@34906823
+07:01:43.403 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@31ee8b48
+07:02:35.685 [http-bio-8084-exec-7] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@72f26fd9
+07:07:37.713 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+07:11:21.233 [http-bio-8084-exec-2] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@60e6b873
+07:11:28.559 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@6ad6ad84
+07:12:28.635 [http-bio-8084-exec-4] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@17eb0768
+07:17:32.158 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+07:17:57.001 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@7aecea99
+07:19:12.218 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@737ec6fd
+07:20:10.305 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@61712253
+07:22:11.632 [http-bio-8084-exec-7] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@e885c46b
+07:25:37.237 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+07:26:12.788 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@c1001c24
+07:27:23.936 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@d7aba638
+07:37:04.404 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+07:37:42.045 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@238cb4c2
+07:37:57.766 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@168bd508
+07:40:40.646 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@65e3f62a
+07:43:37.607 [http-bio-8084-exec-7] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@4ff110c9
+13:12:53.982 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:13:19.128 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@7627bb0c
+13:14:04.373 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@7937a1a0
+13:14:18.009 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@5544e9a6
+13:14:40.633 [http-bio-8084-exec-7] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@8543dd2e
+13:18:12.735 [http-bio-8084-exec-9] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@f53c8d31
+13:22:31.786 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:46:25.926 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:47:03.099 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@178cc35a
+13:47:25.372 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@6449205d
+13:47:46.496 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:47:58.097 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@c8ba4dbb
+13:48:14.280 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@4c626ffc
+13:48:47.679 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:49:59.575 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@969bea30
+13:50:27.992 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@f75c0592
+13:50:44.675 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@8f893608

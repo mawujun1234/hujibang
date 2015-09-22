@@ -39,19 +39,21 @@ public class RequestMessage extends UUIDEntity {
 	
 	
 	//---------------------------------------
-	@Column(length=80)
-	private String MediaId;//image，voice,video,shortvideo消息媒体id，可以调用多媒体文件下载接口拉取数据。
 	@Column(length=100)
-	private String savePath;//mage，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+	private String MediaId;//image，voice,video,shortvideo消息媒体id，可以调用多媒体文件下载接口拉取数据。
+	@Column(length=200)
+	private String savePath;//相对地址，image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+	@Column(length=200)
+	private String savePath_abstract;//绝对路径,image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
 	
 	//========================================
-	@Column(length=100)
+	@Column(length=250)
 	private String PicUrl;//image图片链接
 	//=====================
 	@Column(length=10)
 	private String Format;//voice语音格式	
 	//======================================视video,shortvideo频消息
-	@Column(length=80)
+	@Column(length=100)
 	private String ThumbMediaId;//video,shortvideo消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据
 	
 	
@@ -179,6 +181,12 @@ public class RequestMessage extends UUIDEntity {
 	}
 	public void setUrl(String url) {
 		Url = url;
+	}
+	public String getSavePath_abstract() {
+		return savePath_abstract;
+	}
+	public void setSavePath_abstract(String savePath_abstract) {
+		this.savePath_abstract = savePath_abstract;
 	}
 	
 	
