@@ -3,7 +3,7 @@ package com.mawujun.gen;
 import java.io.IOException;
 
 import com.mawujun.generator.GeneratorService;
-import com.mawujun.weixin.message.RequestMessage;
+import com.mawujun.weixin.message.Event;
 
 import freemarker.template.TemplateException;
 /**
@@ -16,7 +16,7 @@ public class GeneratorMainTest {
 	static GeneratorService generatorService=new GeneratorService();
 
 	public static void main(String[] args) throws TemplateException, IOException, ClassNotFoundException {	
-		generatorService.generatorAllFile(RequestMessage.class);
+		generatorService.generatorAllFile(Event.class);
 
 	}
 	

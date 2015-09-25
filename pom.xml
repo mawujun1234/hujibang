@@ -345,7 +345,13 @@
 		 	<version>0.0.1-SNAPSHOT</version>
 		 	<type>jar</type>
 		 </dependency>
-		
+		<dependency>
+		 	<groupId>com.mawujun</groupId>
+		 	<artifactId>leon-baidu</artifactId>
+		 	<version>0.0.1-SNAPSHOT</version>
+		 	<type>jar</type>
+		 </dependency>
+		 
 	</dependencies>
 	
     <build>

@@ -16,6 +16,11 @@ import com.mawujun.repository.idEntity.UUIDEntity;
 @Entity
 @Table(name="hjb_requestmessage")
 public class RequestMessage extends UUIDEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	//消息id，64位整型
 	@Column(length=70)
 	private String MsgId;
@@ -41,14 +46,19 @@ public class RequestMessage extends UUIDEntity {
 	//---------------------------------------
 	@Column(length=100)
 	private String MediaId;//image，voice,video,shortvideo消息媒体id，可以调用多媒体文件下载接口拉取数据。
-	@Column(length=200)
-	private String savePath;//相对地址，image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
-	@Column(length=200)
-	private String savePath_abstract;//绝对路径,image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+//	@Column(length=200)
+//	private String savePath;//相对地址，image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+//	@Column(length=200)
+//	private String savePath_abstract;//绝对路径,image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+	@Column(length=100)
+	private String baidu_objectKey;//image，voice,video,shortvideo存放到百度上的名称
+	@Column(length=300)
+	private String baidu_mediaurl;//image，voice,video,shortvideo在百度bos中的访问地址
+	
 	
 	//========================================
 	@Column(length=250)
-	private String PicUrl;//image图片链接
+	private String PicUrl;//image图片链接,微信中的地址
 	//=====================
 	@Column(length=10)
 	private String Format;//voice语音格式	
@@ -116,12 +126,6 @@ public class RequestMessage extends UUIDEntity {
 	public void setMediaId(String mediaId) {
 		MediaId = mediaId;
 	}
-	public String getSavePath() {
-		return savePath;
-	}
-	public void setSavePath(String savePath) {
-		this.savePath = savePath;
-	}
 	public String getPicUrl() {
 		return PicUrl;
 	}
@@ -182,15 +186,18 @@ public class RequestMessage extends UUIDEntity {
 	public void setUrl(String url) {
 		Url = url;
 	}
-	public String getSavePath_abstract() {
-		return savePath_abstract;
+	public String getBaidu_objectKey() {
+		return baidu_objectKey;
 	}
-	public void setSavePath_abstract(String savePath_abstract) {
-		this.savePath_abstract = savePath_abstract;
+	public void setBaidu_objectKey(String baidu_objectKey) {
+		this.baidu_objectKey = baidu_objectKey;
 	}
-	
-	
-	
+	public String getBaidu_mediaurl() {
+		return baidu_mediaurl;
+	}
+	public void setBaidu_mediaurl(String baidu_mediaurl) {
+		this.baidu_mediaurl = baidu_mediaurl;
+	}
 	
 	
 }

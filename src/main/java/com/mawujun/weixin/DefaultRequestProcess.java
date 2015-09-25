@@ -5,7 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.mawujun.message.event.LocationEvent;
-import com.mawujun.message.event.MenuEvent;
+import com.mawujun.message.event.MenuClickViewEvent;
+import com.mawujun.message.event.MenuLocationEvent;
+import com.mawujun.message.event.MenuPicEvent;
+import com.mawujun.message.event.MenuScancodeEvent;
 import com.mawujun.message.event.QRCodeEvent;
 import com.mawujun.message.event.SubscribeEvent;
 import com.mawujun.message.request.ImageMessage;
@@ -15,6 +18,7 @@ import com.mawujun.message.request.ShortvideoMessage;
 import com.mawujun.message.request.TextMessage;
 import com.mawujun.message.request.VideoMessage;
 import com.mawujun.message.request.VoiceMessage;
+import com.mawujun.message.response.BaseMessage;
 import com.mawujun.messge.service.AbstractRequestProcess;
 
 @Service
@@ -88,51 +92,51 @@ public class DefaultRequestProcess extends AbstractRequestProcess {
 	}
 
 	@Override
-	public void process_CLICK(MenuEvent message) {
+	public BaseMessage process_CLICK(MenuClickViewEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_VIEW(MenuEvent message) {
+	public BaseMessage process_VIEW(MenuClickViewEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_scancode_push(MenuEvent message) {
+	public BaseMessage process_scancode_push(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_scancode_waitmsg(MenuEvent message) {
+	public BaseMessage process_scancode_waitmsg(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_pic_sysphoto(MenuEvent message) {
+	public BaseMessage process_pic_sysphoto(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_pic_photo_or_album(MenuEvent message) {
+	public BaseMessage process_pic_photo_or_album(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_pic_weixin(MenuEvent message) {
+	public BaseMessage process_pic_weixin(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void process_location_select(MenuEvent message) {
+	public BaseMessage process_location_select(MenuLocationEvent message) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -140,6 +144,7 @@ public class DefaultRequestProcess extends AbstractRequestProcess {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 }

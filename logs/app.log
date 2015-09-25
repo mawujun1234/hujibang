@@ -617,3 +617,33 @@
 13:49:59.575 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@969bea30
 13:50:27.992 [http-bio-8084-exec-3] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@f75c0592
 13:50:44.675 [http-bio-8084-exec-5] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@8f893608
+10:09:24.019 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:10:02.321 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@a9daa71d
+15:21:09.796 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+10:50:57.983 [main] INFO  com.mawujun.utils.file.FileUtils - 文件查找失败：/E:/eclipse/workspace/hujibang/target/classes//templates/default 不是一个目录！或者不存在这个目录
+12:15:10.660 [main] INFO  com.mawujun.utils.file.FileUtils - 文件查找失败：/E:/eclipse/workspace/hujibang/target/classes//templates/default 不是一个目录！或者不存在这个目录
+12:22:37.011 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:27:04.191 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:28:51.786 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:31:03.113 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:32:02.615 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+12:32:31.344 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:15:04.602 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:18:33.477 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:19:06.623 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.weixin.message.RequestMessage@1529a944
+13:20:15.356 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+13:21:09.439 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:15:41.581 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+15:16:54.636 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:20:31.566 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:28:23.863 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:33:06.304 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:35:22.024 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:35:22.905 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 清除SpringContextHolder中的ApplicationContext:Root WebApplicationContext: startup date [Thu Sep 24 16:35:21 CST 2015]; root of context hierarchy
+16:35:59.880 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:37:07.561 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:37:53.005 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:38:53.783 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:39:35.887 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+16:40:25.376 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
+17:02:42.376 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
