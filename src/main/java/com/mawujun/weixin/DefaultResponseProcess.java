@@ -1,7 +1,6 @@
 package com.mawujun.weixin;
 
 import java.io.File;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -27,7 +26,9 @@ import com.mawujun.message.request.ShortvideoMessage;
 import com.mawujun.message.request.TextMessage;
 import com.mawujun.message.request.VideoMessage;
 import com.mawujun.message.request.VoiceMessage;
-import com.mawujun.message.response.BaseMessage;
+import com.mawujun.message.response.BaseMessageOut;
+import com.mawujun.message.response.TextMessageOut;
+import com.mawujun.message.utils.MessageUtils;
 import com.mawujun.messge.context.WeiXinApplicationContext;
 import com.mawujun.messge.service.AbstractResponseProcess;
 import com.mawujun.utils.bean.BeanUtils;
@@ -54,14 +55,15 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	 * @param message
 	 * @return
 	 */
-	public BaseMessage returnSimaleReplayInfo(com.mawujun.message.request.BaseMessage message) {
+	public BaseMessageOut returnSimaleReplayInfo(com.mawujun.message.request.BaseMessage message) {
 		//return getAutoReplyResponse(message);
-		com.mawujun.message.response.TextMessage result=new com.mawujun.message.response.TextMessage();
-		result.setFromUserName(message.getToUserName());
-		result.setToUserName(message.getFromUserName());
-		result.setCreateTime(new Date());
-		result.setContent("亲，您好！正在为您转接到客服，请稍候！mo-微笑");
-		return result;
+		com.mawujun.message.response.TextMessageOut messageOut=new com.mawujun.message.response.TextMessageOut();
+//		result.setFromUserName(message.getToUserName());
+//		result.setToUserName(message.getFromUserName());
+//		result.setCreateTime(new Date());
+		MessageUtils.copyFromToUserName(message, messageOut);
+		messageOut.setContent("亲，您好！正在为您转接到客服，请稍候！mo-微笑");
+		return messageOut;
 	}
 	/**
 	 * 档关注的时候发送的响应信息
@@ -69,14 +71,12 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	 * @param message
 	 * @return
 	 */
-	public BaseMessage getSubscribeReply(BaseEvent message) {
+	public BaseMessageOut getSubscribeReply(BaseEvent message) {
 		//return getAutoReplyResponse(message);
-		com.mawujun.message.response.TextMessage result=new com.mawujun.message.response.TextMessage();
-		result.setFromUserName(message.getToUserName());
-		result.setToUserName(message.getFromUserName());
-		result.setCreateTime(new Date());
-		result.setContent("亲，您好！感谢您来到护脊邦在线咨询平台，我们能帮您就近找到最适合您的治疗方案，也可以让医生或理疗机构更好的为您服务！mo-微笑");
-		return result;
+		TextMessageOut messageOut=new TextMessageOut();
+		MessageUtils.copyFromToUserName(message, messageOut);
+		messageOut.setContent("亲，您好！感谢您来到护脊邦在线咨询平台，我们能帮您就近找到最适合您的治疗方案，也可以让医生或理疗机构更好的为您服务！mo-微笑");
+		return messageOut;
 	}
 	/**
 	 * 保存传递过来的消息
@@ -136,17 +136,17 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	}
 	
 	@Override
-	public BaseMessage process(TextMessage message) {
+	public BaseMessageOut process(TextMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
 	}
 	@Override
-	public BaseMessage process(ImageMessage message) {
+	public BaseMessageOut process(ImageMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
-//		com.mawujun.message.response.ImageMessage response=new com.mawujun.message.response.ImageMessage();
+//		ImageMessage response=new ImageMessage();
 //		response.setFromUserName(message.getToUserName());
 //		response.setToUserName(message.getFromUserName());
 //		response.setCreateTime(new Date());
@@ -154,31 +154,31 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 		
 	}
 	@Override
-	public BaseMessage process(VoiceMessage message) {
+	public BaseMessageOut process(VoiceMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
 	}
 	@Override
-	public BaseMessage process(VideoMessage message) {
+	public BaseMessageOut process(VideoMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
 	}
 	@Override
-	public BaseMessage process(ShortvideoMessage message) {
+	public BaseMessageOut process(ShortvideoMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
 	}
 	@Override
-	public BaseMessage process(LocationMessage message) {
+	public BaseMessageOut process(LocationMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
 	}
 	@Override
-	public BaseMessage process(LinkMessage message) {
+	public BaseMessageOut process(LinkMessage message) {
 		this.saveMessage(message);
 		// TODO Auto-generated method stub
 		return returnSimaleReplayInfo(message);
@@ -186,80 +186,80 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	
 	//===========================================================================================
 	@Override
-	public BaseMessage process_subscribe(QRCodeEvent message) {
+	public BaseMessageOut process_subscribe(QRCodeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_SCAN(QRCodeEvent message) {
+	public BaseMessageOut process_SCAN(QRCodeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_subscribe(SubscribeEvent message) {
+	public BaseMessageOut process_subscribe(SubscribeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return getSubscribeReply(message);
 	}
 	@Override
-	public BaseMessage process_unsubscribe(SubscribeEvent message) {
+	public BaseMessageOut process_unsubscribe(SubscribeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_CLICK(MenuClickViewEvent message) {
+	public BaseMessageOut process_CLICK(MenuClickViewEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_VIEW(MenuClickViewEvent message) {
+	public BaseMessageOut process_VIEW(MenuClickViewEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 
 	@Override
-	public BaseMessage process(LocationEvent message) {
+	public BaseMessageOut process(LocationEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_scancode_push(MenuScancodeEvent message) {
+	public BaseMessageOut process_scancode_push(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_scancode_waitmsg(MenuScancodeEvent message) {
+	public BaseMessageOut process_scancode_waitmsg(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_pic_sysphoto(MenuPicEvent message) {
+	public BaseMessageOut process_pic_sysphoto(MenuPicEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_pic_photo_or_album(MenuPicEvent message) {
+	public BaseMessageOut process_pic_photo_or_album(MenuPicEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_pic_weixin(MenuPicEvent message) {
+	public BaseMessageOut process_pic_weixin(MenuPicEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
 	}
 	@Override
-	public BaseMessage process_location_select(MenuLocationEvent message) {
+	public BaseMessageOut process_location_select(MenuLocationEvent message) {
 		// TODO Auto-generated method stub
 		saveEvent(message);
 		return null;
@@ -268,7 +268,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 //	public BaseMessage process(ImageMessage message) {
 //		System.out.println("ImageMessage======================================"+message.getMediaId());
 //		//return getAutoReplyResponse(message);
-//		com.mawujun.message.response.ImageMessage result=new com.mawujun.message.response.ImageMessage();
+//		ImageMessage result=new ImageMessage();
 //		result.setImage(message.getMediaId());
 //		result.setFromUserName(message.getToUserName());
 //		result.setToUserName(message.getFromUserName());
@@ -279,7 +279,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 //
 //	public BaseMessage process(VoiceMessage message) {
 //		//return getAutoReplyResponse(message);
-//		com.mawujun.message.response.VoiceMessage result=new com.mawujun.message.response.VoiceMessage();
+//		VoiceMessage result=new VoiceMessage();
 //		System.out.println("VoiceMessage======================================"+message.getMediaId());
 //		result.setVoice(message.getMediaId());
 //		result.setFromUserName(message.getToUserName());
@@ -291,7 +291,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 //	public BaseMessage process(VideoMessage message) {
 //		System.out.println("VideoMessage======================================"+message.getMediaId());
 //		//return getAutoReplyResponse(message);
-//		com.mawujun.message.response.VideoMessage result=new com.mawujun.message.response.VideoMessage();
+//		VideoMessage result=new VideoMessage();
 //		result.setVideo(message.getMediaId(),"","");
 //		result.setFromUserName(message.getToUserName());
 //		result.setToUserName(message.getFromUserName());
@@ -301,7 +301,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 //
 //	public BaseMessage process(ShortvideoMessage message) {
 //		//return getAutoReplyResponse(message);
-//		com.mawujun.message.response.VoiceMessage result=new com.mawujun.message.response.VoiceMessage();
+//		VoiceMessage result=new VoiceMessage();
 //		System.out.println("ShortvideoMessage======================================"+message.getMediaId());
 //		result.setVoice(message.getMediaId());
 //		result.setFromUserName(message.getToUserName());

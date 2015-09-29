@@ -19,7 +19,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import com.mawujun.message.response.TextMessage;
+import com.mawujun.message.response.TextMessageOut;
 import com.mawujun.message.utils.MessageUtils;
 
 /**
@@ -40,7 +40,7 @@ public class RequestProcessTest {
 				+ "<Content><![CDATA[this 中文is a test]]></Content>"
 				+ "<MsgId>1234567890123456</MsgId>"
 				+ "</xml>";
-		TextMessage textMessage=aa.post(textMsg_xml,TextMessage.class);
+		TextMessageOut textMessage=aa.post(textMsg_xml,TextMessageOut.class);
 		System.out.println(textMessage.getContent());
 	}
 	//@Test

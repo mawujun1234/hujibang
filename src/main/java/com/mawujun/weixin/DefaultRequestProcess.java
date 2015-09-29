@@ -92,51 +92,50 @@ public class DefaultRequestProcess extends AbstractRequestProcess {
 	}
 
 	@Override
-	public BaseMessage process_CLICK(MenuClickViewEvent message) {
-		// TODO Auto-generated method stub
-		return null;
+	public void process_CLICK(MenuClickViewEvent message) {
+		
 	}
 
 	@Override
-	public BaseMessage process_VIEW(MenuClickViewEvent message) {
+	public void process_VIEW(MenuClickViewEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_scancode_push(MenuScancodeEvent message) {
+	public void process_scancode_push(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_scancode_waitmsg(MenuScancodeEvent message) {
+	public void process_scancode_waitmsg(MenuScancodeEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_pic_sysphoto(MenuPicEvent message) {
+	public void process_pic_sysphoto(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_pic_photo_or_album(MenuPicEvent message) {
+	public void process_pic_photo_or_album(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_pic_weixin(MenuPicEvent message) {
+	public void process_pic_weixin(MenuPicEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public BaseMessage process_location_select(MenuLocationEvent message) {
+	public void process_location_select(MenuLocationEvent message) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
