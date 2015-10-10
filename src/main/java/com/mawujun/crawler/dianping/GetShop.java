@@ -4,18 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,35 +19,122 @@ import org.jsoup.select.Elements;
 
 //
 public class GetShop {
-	static String url="http://www.meituan.com/s/";
+	static String domain_url="http://www.dianping.com";
+	static String url="http://www.dianping.com/search/category/2/30/g141";
 	public static void main(String[] args) throws IOException {
-		//get_areaList();
+
+		//get_nextpage();
+		getShop(domain_url+"/search/category/2/30/g141");
+	}
+	
+	public static void getShop(String url) throws IOException{
+		String html=getContent(url);
+		Document doc = Jsoup.parse(html);
 		
+		//获取当前页所有的店铺数据
+		Elements lies = doc.select("#shop-all-list ul li");
+		for (Element link : lies) {
+			
+			//Element pic=link.getElementsByClass("pic").get(0);
+			//获取缩略图
+			Element pic=link.child(0);
+			String href=pic.child(0).attr("href");//店铺url地址
+			String thumb=pic.child(0).child(0).attr("data-src");//店铺缩略图
+			String name=pic.child(0).child(0).attr("title");//店铺名称
+			
+			缩略图下载过来
+			评论内容获取
+			门店拥有的图片下载过来
+			
+			getShopDetailInfo(domain_url+href);
+			
+//			System.out.println("href:"+href);
+//			System.out.println(thumb);
+//			System.out.println(name);
+			
+			//Element txt=link.child(1);
+			//Element comment=link.child(2);
+			//评论内容，星级(技师，环境，服务评分)，均价，营业时间，电话，地址等等信息都到店铺的详细信息里面去获取，就是前面href中的内容
+			//评论地址http://www.dianping.com/shop/4674049/review_more?pageno=1 里面也有分页
+			
+			
+			//门店图片的地址  http://www.dianping.com/shop/4674049/photos
+			break;
+			
+		}
+		
+		//===================================================================================================
+		//获取下一页，如果有下一页就继续获取数据
+		Elements nextpages = doc.select("div.page a.next");
+		for (Element link : nextpages) {
+			  //String linkHref = link.attr("href");
+			  //String linkText = link.text();
+			String linkHref = link.attr("href");
+			//"http://www.dianping.com"+linkHref;下一页的数据
+			
+			System.out.println(linkHref);
+			//getShop(domain_url+ linkHref);
+		}
+	}
+	
+	//获取店铺的详细信息
+	public static void getShopDetailInfo(String url) throws IOException{
+		System.out.println(url);
+		String html=getContent(url);
+		Document doc = Jsoup.parse(html);
+		
+		Elements basic_info = doc.select("#basic-info");
+		for (Element ele : basic_info) {
+			//获取评分信息
+			Element brief_info=ele.getElementsByClass("brief-info").get(0);
+			String star=brief_info.child(0).attr("title");//几星商户，例如四星商户
+			Element avg_element=brief_info.child(0).nextElementSibling().nextElementSibling();
+			if(!avg_element.nodeName().equalsIgnoreCase("span")){
+				avg_element=brief_info.child(0).nextElementSibling().nextElementSibling().nextElementSibling();
+			}
+			String avg=avg_element.text();//人均消费
+			
+			Element jishi_star_element=avg_element.nextElementSibling();
+			String jishi_star=jishi_star_element.text();//技师 分数
+			Element huanjing_star_element=jishi_star_element.nextElementSibling();
+			String huanjing_star=huanjing_star_element.text();//环境分数
+			Element fuwu_star_element=huanjing_star_element.nextElementSibling();
+			String fuwu_star=fuwu_star_element.text();//服务分数
+			
+			Element address = ele.getElementsByClass("address").get(0);
+			String region=address.child(1).child(0).text();
+			String street_address=address.child(2).text();
+			
+			Element tel = ele.getElementsByClass("tel").get(0);
+			String phone_tel=tel.child(1).text();
+			
+		}
+		
+		
+
+	}
+	
+	public static String getContent(String url) throws IOException{
+
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost(url);
+		HttpGet httppost = new HttpGet(url);
 		//httppost.setConfig(config); 
-		//HttpGet httppost = new HttpGet(url);
 
 		httppost.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		httppost.addHeader("Accept-Encoding", "gzip, deflate");
 		httppost.addHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
 		httppost.addHeader("Connection", "keep-alive");
-		httppost.addHeader("Host", "www.meituan.com");
-		httppost.addHeader("Referer", "http://www.meituan.com/s/?w=%E6%8C%89%E6%91%A9&mtt=1.s%2Fdefault.0.0.if4wtqos");
-		httppost.addHeader("X-Requested-With", "XMLHttpRequest");
-		httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		httppost.addHeader("Host", "www.dianping.com");
+		//httppost.addHeader("Cookie", "cy=2; cye=beijing; _hc.v=5bd00cc4-e5c3-c21a-c29c-ac617ee6d31c.1442473667; __utma=1.2090313391.1442473668.1442473668.1442474369.2; __utmz=1.1442473668.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; s_ViewType=10; aburl=1");
+		//httppost.addHeader("X-Requested-With", "XMLHttpRequest");
+		//httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		httppost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
 		
 
-		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-		nvps.add(new BasicNameValuePair("acms", "AsearchCq_4815832988062890355.25584493.79,AsearchCq_4815832988062890355.30736328.80,AsearchCq_4815832988062890355.30974396.81,AsearchCq_4815832988062890355.29578723.82,AsearchCq_4815832988062890355.29578744.83,AsearchCq_4815832988062890355.27068585.84"));
-		nvps.add(new BasicNameValuePair("keyword", "按摩"));
-		nvps.add(new BasicNameValuePair("geoSlug", "all"));
-		nvps.add(new BasicNameValuePair("offset", "78"));
-		nvps.add(new BasicNameValuePair("categorySlug", "all"));
-		nvps.add(new BasicNameValuePair("dealids", "25584493,30736328,30974396,29578723,29578744,27068585"));
-		nvps.add(new BasicNameValuePair("params", "{\"mteventParams\":{\"tf\":\"all\",\"geo\":\"all\",\"query\":\"按摩\",\"pg\":1,\"la\":\"searchDeal/see\"},\"dealLandmarkDisList\":[]}"));
-		httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
+//		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+//
+//		nvps.add(new BasicNameValuePair("cityCode", cityCode));
+//		httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
 		CloseableHttpResponse response = httpclient.execute(httppost);
 		
 		StringBuilder builder=new StringBuilder();
@@ -63,40 +145,39 @@ public class GetShop {
 		    
 		    ContentType contentType = ContentType.getOrDefault(entity);
 	        Charset charset = contentType.getCharset();
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-	        
-	       
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
+   
 	        String s;
-	        while((s=reader.readLine())!=null && s.length()!=0){
+	        while((s=reader.readLine())!=null ){
 	          builder.append(s);
 	        }
-	        //System.out.println(builder);
-	        
-	       
 		    // do something useful with the response body
 		    // and ensure it is fully consumed
 		    EntityUtils.consume(entity);
 		} finally {
 		    response.close();
 		}
-		 System.out.println(builder.toString());
+		System.out.println(builder.toString());
+		return builder.toString();
 	}
 	
-	public static void get_areaList() throws IOException {
-		Document doc = Jsoup.connect(url).get();
+	
+	public static void get_nextpage() throws IOException {
+		//Document doc = Jsoup.connect(url).get();
+		String html=getContent(url);
+		Document doc = Jsoup.parse(html);
 		//获取到的是门店的list
-		Elements lies = doc.select("#shop-all-list li");
+		Elements lies = doc.select("div.page a.next");
 		for (Element link : lies) {
 			  //String linkHref = link.attr("href");
 			  //String linkText = link.text();
-			Element pic=link.getElementsByClass("pic").get(0);
-			String id=pic.child(0).attr("href");
-			String thumb=pic.child(0).child(0).attr("src");
-			String name=pic.child(0).child(0).attr("title");
+			//Element pic=link.getElementsByClass("pic").get(0);
 			
-			System.out.println(id);
-			System.out.println(thumb);
-			System.out.println(name);
+			
+			String linkHref = link.attr("href");
+			//"http://www.dianping.com"+linkHref;下一页的数据
+			
+			System.out.println(linkHref);
 			
 		}
 		
