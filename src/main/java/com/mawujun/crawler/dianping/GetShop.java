@@ -1,11 +1,16 @@
 package com.mawujun.crawler.dianping;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
@@ -17,17 +22,25 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.mawujun.utils.file.FileUtils;
+
 //
 public class GetShop {
 	static String domain_url="http://www.dianping.com";
 	static String url="http://www.dianping.com/search/category/2/30/g141";
+
 	public static void main(String[] args) throws IOException {
 
 		//get_nextpage();
-		getShop(domain_url+"/search/category/2/30/g141");
+		//getShop(domain_url+"/search/category/2/30/g141");
+		
+		//测试图片获取
+		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1","d:/aaa");
+		//获取某个店铺的评论
+		//getReview_more("http://www.dianping.com/shop/18009133/review_more","?pageno=1");
 	}
 	
-	public static void getShop(String url) throws IOException{
+	public static void getShop(String url) throws IOException {
 		String html=getContent(url);
 		Document doc = Jsoup.parse(html);
 		
@@ -39,12 +52,29 @@ public class GetShop {
 			//获取缩略图
 			Element pic=link.child(0);
 			String href=pic.child(0).attr("href");//店铺url地址
+			String shop_code=href.substring(href.lastIndexOf('/')+1);
 			String thumb=pic.child(0).child(0).attr("data-src");//店铺缩略图
 			String name=pic.child(0).child(0).attr("title");//店铺名称
 			
-			缩略图下载过来
-			评论内容获取
-			门店拥有的图片下载过来
+			//先创建需要的路径
+			FileUtils.createDir("d:/"+shop_code);
+			FileUtils.createDir("d:/"+shop_code+"/thumb");//存放缩略图
+			FileUtils.createDir("d:/"+shop_code+"/images");//存放原始图
+			//http://i2.s2.dpfile.com/pc/e0de1df59cb5aee2a826d57a7ec0fece(249x249)/thumb.jpg
+			//缩略图下载过来,按照
+			//店铺代码/***.jpg（搜索时显示的图片）,店铺代码/thumb这个目录存放缩略图，店铺代码/image存放原始图
+			//并且获取到的第一张作为默认缩略图
+			getThumb(thumb,"d:/"+shop_code);
+			//获取原始图片和图片所产生的缩略图
+			//http://www.dianping.com/shop/18009133/photos
+			getImage(domain_url+href+"/photos","?pg=1","d:/"+shop_code);
+			
+			
+			
+			//===============================================================
+			//评论内容获取
+			getReview_more(domain_url+href+"/review_more","?pageno=1");
+			
 			
 			getShopDetailInfo(domain_url+href);
 			
@@ -75,6 +105,111 @@ public class GetShop {
 			System.out.println(linkHref);
 			//getShop(domain_url+ linkHref);
 		}
+	}
+
+	public static void getReview_more(String url, String page) throws IOException {
+		// 获取图片所在网页的所有图片
+		String html = getContent(url + page);
+		// 获取图片所有的页数，然后进形循环获取
+		Document doc = Jsoup.parse(html);
+		// 开始获取当前页的所有图片
+		Elements comment_list = doc.select(".comment-list ul li");
+		for (Element li : comment_list) {
+			//获取评论用户的id，图片和昵称
+			Elements pices=li.select("div.pic");
+			if(pices==null || pices.size()==0){
+				continue;
+			}
+			Element pic=pices.get(0);
+			Element J_card=pic.child(0);
+			String user_id=J_card.attr("user-id");
+			Element img=J_card.child(0);
+			String user_img_src=img.attr("src");
+			String user_name=img.attr("title");
+			
+			Element content=li.child(1);
+			//获取评论的星级
+			Elements comment_rst=content.select("span.rst");
+			if(comment_rst!=null && comment_rst.size()>0){
+				//查询具体的评价信息
+				for(Element rst:comment_rst){
+					//分为 技师，环境，服务等几个方面来评价的
+					String rst1=rst.ownText();
+					String rst1_text=rst.child(0).text();//评价的文字描述
+					
+					System.out.println(rst1);
+					System.out.println(rst1_text);
+				}
+				
+			}
+			//获取评论的内容
+			Elements comment_txt=content.select("div.J_brief-cont");
+			String contentText=comment_txt.get(0).text();
+			System.out.println(contentText);
+
+		}
+
+		// 判断是否有下一页，如果有下一页，就继续获取,正在递归获取
+		Elements NextPage = doc.select(".Pages .Pages .NextPage");
+		if (NextPage != null && NextPage.size() > 0) {
+			getReview_more(url, NextPage.get(0).attr("href"));
+		}
+	}
+	//获取第一个缩略图，就是显示在查询的时候的缩略图
+	//获取图片的公共方法
+	public static void getThumb(String url,String savePath) throws ClientProtocolException, IOException{
+		
+		String[] thumbes=url.split("/");
+		//获取图片后缀
+		String imgFileName=thumbes[thumbes.length-1];
+		String imgFileName_suffix=imgFileName.substring(imgFileName.indexOf('.')+1);
+		String filePath=savePath+"/"+thumbes[thumbes.length-2]+"."+imgFileName_suffix;
+		
+		CloseableHttpClient httpclient = HttpClients.createDefault(); 
+		HttpGet httpget = new HttpGet(url);  
+		CloseableHttpResponse response = httpclient.execute(httpget);
+		
+        File storeFile = new File(filePath);  
+        FileOutputStream output = new FileOutputStream(storeFile);  
+        
+        //得到网络资源的字节数组,并写入文件  
+        HttpEntity entity = response.getEntity();
+        InputStream input = entity.getContent();
+        //OutputStream output = new FileOutputStream(new File("D:\\website\\1.gif"));
+        IOUtils.copy(input, output);
+        output.flush();
+        
+	}
+	
+
+	//获取某个门店拥有的所有缩略图和图片地址
+	public static void getImage(String url,String page,String savePath) throws ClientProtocolException, IOException{
+
+		//获取图片所在网页的所有图片
+		String html= getContent(url+page);
+		//获取图片所有的页数，然后进形循环获取
+		Document doc = Jsoup.parse(html);
+		//开始获取当前页的所有图片
+		Elements J_listes = doc.select(".picture-square .picture-list ul li.J_list div.img a");
+		for(Element element:J_listes){
+			String thumb_url=element.children().get(0).attr("src");
+			getThumb(thumb_url,savePath+"/thumb");
+			String img_url=thumb_url.replaceFirst("240c180", "700x700");
+			getThumb(img_url,savePath+"/images");
+			
+			System.out.println(thumb_url);
+			System.out.println(img_url);
+
+		}
+		
+		//判断是否有下一页，如果有下一页，就继续获取,正在递归获取
+		Elements NextPage = doc.select(".Pages .Pages .NextPage");
+		if(NextPage!=null && NextPage.size()>0){
+			getImage(url,NextPage.get(0).attr("href"),savePath);
+		}
+		
+
+        
 	}
 	
 	//获取店铺的详细信息
@@ -157,7 +292,7 @@ public class GetShop {
 		} finally {
 		    response.close();
 		}
-		System.out.println(builder.toString());
+		//System.out.println(builder.toString());
 		return builder.toString();
 	}
 	
