@@ -32,10 +32,10 @@ public class GetShop {
 	public static void main(String[] args) throws IOException {
 
 		//get_nextpage();
-		//getShop(domain_url+"/search/category/2/30/g141");
+		getShop(domain_url+"/search/category/2/30/g141");
 		
 		//测试图片获取
-		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1","d:/aaa");
+		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1","d:/18009133");
 		//获取某个店铺的评论
 		//getReview_more("http://www.dianping.com/shop/18009133/review_more","?pageno=1");
 	}

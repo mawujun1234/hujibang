@@ -12,24 +12,30 @@ import com.mawujun.repository.idEntity.IdEntity;
  * @author mawujun email:16064988@qq.com qq:16064988
  *
  */
-//@Entity
-//@Table(name="hjb_city")
-public class City implements IdEntity<Integer> {
+@Entity
+@Table(name="hjb_city")
+public class City implements IdEntity<String> {
 	@Id
-	private Integer id;
+	private String id;
 	@Column(length=30)
-	private String name;
+	private String name;//中文名称  天津
 	
-	private Integer region_id;
+	private String pinyin;//天津 tianjin
+	
+	private String simple_pinyin;//天津 简写 TJ
+	
+	private String urlpath;// 类似 /path
+	
+	private String provice_id;//所属的省份
 
 	@Override
-	public void setId(Integer id) {
+	public void setId(String id) {
 		// TODO Auto-generated method stub
 		this.id=id;
 	}
 
 	@Override
-	public Integer getId() {
+	public String getId() {
 		// TODO Auto-generated method stub
 		return id;
 	}
@@ -42,12 +48,39 @@ public class City implements IdEntity<Integer> {
 		this.name = name;
 	}
 
-	public Integer getRegion_id() {
-		return region_id;
+
+	public String getPinyin() {
+		return pinyin;
 	}
 
-	public void setRegion_id(Integer region_id) {
-		this.region_id = region_id;
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
+
+	public String getSimple_pinyin() {
+		return simple_pinyin;
+	}
+
+	public void setSimple_pinyin(String simple_pinyin) {
+		this.simple_pinyin = simple_pinyin;
+	}
+
+
+
+	public void setUrlpath(String urlpath) {
+		this.urlpath = urlpath;
+	}
+
+	public String getProvice_id() {
+		return provice_id;
+	}
+
+	public void setProvice_id(String provice_id) {
+		this.provice_id = provice_id;
+	}
+
+	public String getUrlpath() {
+		return urlpath;
 	}
 
 }
