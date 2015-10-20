@@ -64,6 +64,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 		MessageUtils.copyFromToUserName(message, messageOut);
 		messageOut.setContent("亲，您好！正在为您转接到客服，请稍候！mo-微笑");
 		return messageOut;
+		变成继承DefaultResponseProcess，然后只实现自己需要的代码吗
 	}
 	/**
 	 * 档关注的时候发送的响应信息
