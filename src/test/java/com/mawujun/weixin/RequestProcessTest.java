@@ -72,7 +72,7 @@ public class RequestProcessTest {
 	        
 	       
 	        String s;
-	        while((s=reader.readLine())!=null && s.length()!=0){
+	        while((s=reader.readLine())!=null){
 	          builder.append(s);
 	        }
 	        //System.out.println(builder);
@@ -120,7 +120,7 @@ public class RequestProcessTest {
 	        
 	       
 	        String s;
-	        while((s=reader.readLine())!=null && s.length()!=0){
+	        while((s=reader.readLine())!=null ){
 	          builder.append(s);
 	        }
 	        //System.out.println(builder);

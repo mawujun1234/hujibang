@@ -28,18 +28,15 @@
 				<profiles.active>dev</profiles.active>
 				<log4j2.level>debug</log4j2.level>
 				<finalName>ROOT</finalName>
+				
+				<!-- 微信的相关配置 -->
+				<weixin.token>mawujun1234</weixin.token>
+				<weixin.appid>wxc57f66afafe529c2</weixin.appid>
+				<weixin.appsecret>b0fcc1ff54ed693eecde7ce51f68040d</weixin.appsecret>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-		</profile>
-		<profile>
-			<id>test</id>
-			<properties>
-				<profiles.active>test</profiles.active>
-				<log4j2.level>debug</log4j2.level>
-				<finalName>test</finalName>
-			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
@@ -47,8 +44,27 @@
 				<profiles.active>prod</profiles.active>
 				<log4j2.level>warn</log4j2.level>
 				<finalName>ROOT</finalName>
+				
+				<!-- 微信的相关配置 -->
+				<weixin.token>mawujun1234</weixin.token>
+				<weixin.appid>wxb9301e6c9b317d22</weixin.appid>
+				<weixin.appsecret>981123813c9e5426fbed093e8291e1ed</weixin.appsecret>
 			</properties>
 		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+				<log4j2.level>debug</log4j2.level>
+				<finalName>ROOT</finalName>
+				
+				<!-- 微信的相关配置 -->
+				<weixin.token>mawujun1234</weixin.token>
+				<weixin.appid>wxc57f66afafe529c2</weixin.appid>
+				<weixin.appsecret>b0fcc1ff54ed693eecde7ce51f68040d</weixin.appsecret>
+			</properties>
+		</profile>
+		
 	</profiles>
 	
 	<dependencies>
@@ -345,6 +361,8 @@
 		 	<version>0.0.1-SNAPSHOT</version>
 		 	<type>jar</type>
 		 </dependency>
+		 
+		 <!--  -->
 		<dependency>
 		 	<groupId>com.mawujun</groupId>
 		 	<artifactId>leon-baidu</artifactId>
@@ -362,6 +380,7 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
@@ -369,6 +388,11 @@
 					<include>**/*.xml</include>
 				</includes>
 				<!-- 是否替换资源中的属性-->
+				<filtering>true</filtering>
+			</resource>
+			
+			<resource>
+				<directory>src/main/webapp/WEB-INF</directory>
 				<filtering>true</filtering>
 			</resource>
 		</resources>

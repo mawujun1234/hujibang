@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.mawujun.repository.idEntity.IdEntity;
 
@@ -22,7 +23,7 @@ public class Provice implements IdEntity<String> {
 	private String id;
 	@Column(length=30)
 	private String name;
-	
+	@Transient
 	List<City> cityes=new ArrayList<City>();
 	
 	@Override

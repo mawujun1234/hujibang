@@ -59,11 +59,42 @@
         <servlet-class>  
             com.mawujun.message.servlet.MessageServlet  
         </servlet-class> 
-        <!--初始化的配置文件 -->
+        <!--初始化的配置文件
         <init-param> 
-		<param-name>config_file_path</param-name> 
-		<param-value>weixin.properties</param-value>  
-		</init-param>  
+		<param-name>token</param-name> 
+		<param-value>${weixin.token}</param-value>  
+		</init-param> 
+		<init-param> 
+		<param-name>appid</param-name> 
+		<param-value>${weixin.appid}</param-value>  
+		</init-param>
+		<init-param> 
+		<param-name>appsecret</param-name> 
+		<param-value>${weixin.appsecret}</param-value>  
+		</init-param> 
+		<init-param> 
+		<param-name>responseProcess</param-name> 
+		<param-value>com.mawujun.weixin.DefaultResponseProcess</param-value>  
+		</init-param> 
+		-->
+		 
+		<!--初始化的配置文件 -->
+        <init-param> 
+		<param-name>token</param-name> 
+		<param-value>mawujun1234</param-value>  
+		</init-param> 
+		<init-param> 
+		<param-name>appid</param-name> 
+		<param-value>wxc57f66afafe529c2</param-value>  
+		</init-param>
+		<init-param> 
+		<param-name>appsecret</param-name> 
+		<param-value>b0fcc1ff54ed693eecde7ce51f68040d</param-value>  
+		</init-param> 
+		<init-param> 
+		<param-name> responseProcess </param-name> 
+		<param-value> com.mawujun.weixin.DefaultResponseProcess </param-value>
+		</init-param>
     </servlet>  
   
     <!-- url-pattern中配置的/coreServlet用于指定该Servlet的访问路径 -->  
