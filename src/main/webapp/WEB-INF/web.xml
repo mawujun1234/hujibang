@@ -57,7 +57,7 @@
     <servlet>  
         <servlet-name>messageServlet</servlet-name>  
         <servlet-class>  
-            com.mawujun.message.servlet.MessageServlet  
+            com.mawujun.weixin.MessageServlet  
         </servlet-class> 
         <!--初始化的配置文件
         <init-param> 
@@ -78,7 +78,7 @@
 		</init-param> 
 		-->
 		 
-		<!--初始化的配置文件 -->
+		<!--初始化的配置文件 
         <init-param> 
 		<param-name>token</param-name> 
 		<param-value>mawujun1234</param-value>  
@@ -94,7 +94,7 @@
 		<init-param> 
 		<param-name> responseProcess </param-name> 
 		<param-value> com.mawujun.weixin.DefaultResponseProcess </param-value>
-		</init-param>
+		</init-param>-->
     </servlet>  
   
     <!-- url-pattern中配置的/coreServlet用于指定该Servlet的访问路径 -->  

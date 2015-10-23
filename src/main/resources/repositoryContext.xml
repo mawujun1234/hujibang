@@ -19,7 +19,7 @@
 <!--  -->
 	<bean id="sqlSessionFactory" class="com.mawujun.repository.MySqlSessionFactoryBean" depends-on="sessionFactory">
 		<property name="dataSource" ref="dataSource" />
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="sessionFactory" /><!-- hibernate的sessionfactory -->
 
 		<property name="configLocation" value="classpath:Configuration.xml" />
 		<property name="plugins">
@@ -125,7 +125,9 @@
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-    <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="false" />
+    <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true" />
+    
+    
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
 	     <property name="url" value="${jdbc.url}" />
 	     <property name="driverClassName" value="${jdbc.driver}"/><!-- 可输可不输 -->

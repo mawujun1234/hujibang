@@ -39,7 +39,8 @@
     <mvc:default-servlet-handler />  -->
 
 
-
+<!-- 启用@AspectJ支持 ,使用动态代理,不能少-->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
 	<!-- ②：启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">

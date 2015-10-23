@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mawujun.bos.BosUtils;
 import com.mawujun.message.event.BaseEvent;
 import com.mawujun.message.event.LocationEvent;
 import com.mawujun.message.event.MenuClickViewEvent;
@@ -45,7 +44,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	@Autowired
 	private EventService eventService;
 	
-	private String bucketName="hujibang";
+	//private String bucketName="hujibang";
 
 	static Logger logger=LogManager.getLogger(DefaultResponseProcess.class);
 
@@ -86,54 +85,35 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	protected void saveMessage(com.mawujun.message.request.BaseMessage message) {
 		RequestMessage requestMessage=BeanUtils.copyOrCast(message, RequestMessage.class);
 		if(message.getMsgType()==RequestMsgType.image) {
-//			String[] result=WeiXinApplicationContext.get_material_temp_content(requestMessage.getMediaId());
-//			//转存到百度的BOS中
-//			File file=new File(result[1]);
-//			
-//			String objectKey= WeiXinApplicationContext.getMedia_image()+result[0];
-//			BosUtils.putObject(bucketName,objectKey, file);
-//			if(file!=null && file.exists()){
-//	    		file.delete();
-//	    	}
-//			
-//			String baidu_url=BosUtils.generatePresignedUrl(bucketName, objectKey, -1);
-//			requestMessage.setBaidu_objectKey(objectKey);
-//			requestMessage.setBaidu_mediaurl(baidu_url);
-			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_image());
+			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_image_path());
 		} else if(message.getMsgType()==RequestMsgType.voice){
-			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_voice());
+			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_voice_path());
 		} else if(message.getMsgType()==RequestMsgType.video){
-			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_video());
+			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_video_path());
 		} else if(message.getMsgType()==RequestMsgType.shortvideo){
-			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_shortvideo());
+			sendMedia_baidu(requestMessage,WeiXinApplicationContext.getMedia_shortvideo_path());
 		}
 		
 		requestMessageService.create(requestMessage);
+	}
+	
+	protected void sendMedia_baidu(RequestMessage requestMessage,String relative_path){
+		String dirpath=WeiXinApplicationContext.getWebapp_realPath()+relative_path;
+
+		String[] result=WeiXinApplicationContext.get_material_temp_content(requestMessage.getMediaId(),dirpath);
+		//转存到百度的BOS中
+		File file=new File(result[1]);
+		
+		requestMessage.setMedia_filename(result[0]);
+		requestMessage.setMedia_rel_savePath(relative_path+File.separator+result[0]);
+		requestMessage.setMedia_abs_savePath(result[1]);
 	}
 	
 	protected void saveEvent(BaseEvent message) {
 		Event event=BeanUtils.copyOrCast(message, Event.class);
 		eventService.create(event);
 	}
-	/**
-	 * 把素材数据保存到百度的bos中去
-	 * @author mawujun email:160649888@163.com qq:16064988
-	 */
-	protected void sendMedia_baidu(RequestMessage requestMessage,String media_prefix){
-		String[] result=WeiXinApplicationContext.get_material_temp_content(requestMessage.getMediaId());
-		//转存到百度的BOS中
-		File file=new File(result[1]);
-		
-		String objectKey= media_prefix+result[0];
-		BosUtils.putObject(bucketName,objectKey, file);
-		if(file!=null && file.exists()){
-    		file.delete();
-    	}
-		
-		String baidu_url=BosUtils.generatePresignedUrl(bucketName, objectKey, -1);
-		requestMessage.setBaidu_objectKey(objectKey);
-		requestMessage.setBaidu_mediaurl(baidu_url);
-	}
+
 	
 	@Override
 	public BaseMessageOut process(TextMessage message) {
@@ -225,7 +205,7 @@ public class DefaultResponseProcess extends AbstractResponseProcess {
 	@Override
 	public BaseMessageOut process(LocationEvent message) {
 		// TODO Auto-generated method stub
-		saveEvent(message);
+		//saveEvent(message);
 		return null;
 	}
 	@Override

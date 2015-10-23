@@ -46,14 +46,16 @@ public class RequestMessage extends UUIDEntity {
 	//---------------------------------------
 	@Column(length=100)
 	private String MediaId;//image，voice,video,shortvideo消息媒体id，可以调用多媒体文件下载接口拉取数据。
-//	@Column(length=200)
-//	private String savePath;//相对地址，image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
-//	@Column(length=200)
-//	private String savePath_abstract;//绝对路径,image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
 	@Column(length=100)
-	private String baidu_objectKey;//image，voice,video,shortvideo存放到百度上的名称
-	@Column(length=300)
-	private String baidu_mediaurl;//image，voice,video,shortvideo在百度bos中的访问地址
+	private String media_filename;//文件的名字
+	@Column(length=200)
+	private String media_rel_savePath;//相对地址，image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+	@Column(length=200)
+	private String media_abs_savePath;//绝对路径,image，voice,video,shortvideo发送过来的话，只有3天有效期，所以要先保存，这是本地地址
+//	@Column(length=100)
+//	private String baidu_objectKey;//image，voice,video,shortvideo存放到百度上的名称
+//	@Column(length=300)
+//	private String baidu_mediaurl;//image，voice,video,shortvideo在百度bos中的访问地址
 	
 	
 	//========================================
@@ -186,18 +188,26 @@ public class RequestMessage extends UUIDEntity {
 	public void setUrl(String url) {
 		Url = url;
 	}
-	public String getBaidu_objectKey() {
-		return baidu_objectKey;
+	public String getMedia_filename() {
+		return media_filename;
 	}
-	public void setBaidu_objectKey(String baidu_objectKey) {
-		this.baidu_objectKey = baidu_objectKey;
+	public void setMedia_filename(String media_filename) {
+		this.media_filename = media_filename;
 	}
-	public String getBaidu_mediaurl() {
-		return baidu_mediaurl;
+	public String getMedia_rel_savePath() {
+		return media_rel_savePath;
 	}
-	public void setBaidu_mediaurl(String baidu_mediaurl) {
-		this.baidu_mediaurl = baidu_mediaurl;
+	public void setMedia_rel_savePath(String media_rel_savePath) {
+		this.media_rel_savePath = media_rel_savePath;
 	}
-	
+	public String getMedia_abs_savePath() {
+		return media_abs_savePath;
+	}
+	public void setMedia_abs_savePath(String media_abs_savePath) {
+		this.media_abs_savePath = media_abs_savePath;
+	}
+
+
+
 	
 }

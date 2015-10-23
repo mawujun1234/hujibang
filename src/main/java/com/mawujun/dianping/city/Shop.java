@@ -9,7 +9,7 @@ import javax.persistence.Table;
 //@Table(name="hjb_shop")
 public class Shop {
 	@Id
-	private Integer id;
+	private String id;
 	@Column(length=30)
 	private String name;
 	@Column(length=50)
@@ -19,11 +19,11 @@ public class Shop {
 	@Column(length=20)
 	private String meanPrice;//人均
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

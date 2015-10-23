@@ -9,8 +9,8 @@
   <url>http://maven.apache.org</url>
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>4.2.0.RELEASE</org.springframework.version>
-		<org.hibernate.version>4.3.10.Final</org.hibernate.version>
+		<org.springframework.version>4.2.2.RELEASE</org.springframework.version>
+		<org.hibernate.version>4.3.11.Final</org.hibernate.version>
 		<org.mybatis.version>3.3.0</org.mybatis.version>
 		<org.mybatis-spring.version>1.2.3</org.mybatis-spring.version>
 		<net.sf.ehcache.version>2.10.0</net.sf.ehcache.version>
@@ -362,14 +362,14 @@
 		 	<type>jar</type>
 		 </dependency>
 		 
-		 <!--  -->
+		 <!--  
 		<dependency>
 		 	<groupId>com.mawujun</groupId>
 		 	<artifactId>leon-baidu</artifactId>
 		 	<version>0.0.1-SNAPSHOT</version>
 		 	<type>jar</type>
 		 </dependency>
-		 
+		 -->
 	</dependencies>
 	
     <build>

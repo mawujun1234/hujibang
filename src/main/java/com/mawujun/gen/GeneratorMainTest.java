@@ -2,8 +2,8 @@ package com.mawujun.gen;
 
 import java.io.IOException;
 
+import com.mawujun.dianping.city.City;
 import com.mawujun.generator.GeneratorService;
-import com.mawujun.weixin.message.Event;
 
 import freemarker.template.TemplateException;
 /**
@@ -16,7 +16,7 @@ public class GeneratorMainTest {
 	static GeneratorService generatorService=new GeneratorService();
 
 	public static void main(String[] args) throws TemplateException, IOException, ClassNotFoundException {	
-		generatorService.generatorAllFile(Event.class);
+		generatorService.generatorAllFile(City.class);
 
 	}
 	

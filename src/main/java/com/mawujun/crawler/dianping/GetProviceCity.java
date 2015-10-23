@@ -14,8 +14,10 @@ import org.jsoup.select.Elements;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mawujun.controller.spring.SpringContextHolder;
 import com.mawujun.dianping.city.City;
 import com.mawujun.dianping.city.Provice;
+import com.mawujun.dianping.city.ProviceService;
 
 public class GetProviceCity {
 
@@ -24,11 +26,12 @@ public class GetProviceCity {
 		// TODO Auto-generated method stub
 		//
 		
-		getProviceCityJSON();
-		getProviceCity();
+		//getProviceCityJSON();
+		//getProviceCity();
 	}
 	
-	private static void getProviceCity() throws IOException{
+	public static List<Provice> getProviceCity() throws IOException{
+		getProviceCityJSON();
 		String html=GetShop.getContent(url);
 		Document doc = Jsoup.parse(html);
 		
@@ -43,6 +46,7 @@ public class GetProviceCity {
 				Provice provice=new Provice();
 				provice.setId(provice_id+"");
 				provice.setName(provice_e.text());
+
 				
 				Elements cityes=li.select("div.terms a");
 				for(Element city_a:cityes){
@@ -102,10 +106,13 @@ public class GetProviceCity {
 			provice_id++;
 		}
 		
-
+		return result;
 	} 
 
-	//获取到的所有县城市的数据"天津|tianjin|TJ|10|tianjin"
+	
+	/**
+	 * /获取到的所有县城市的数据"天津|tianjin|TJ|10|tianjin" 获取到的都是缓存数据
+	 */
 	static Map<String,City> citys=new HashMap<String,City>();
 	private static void getProviceCityJSON() throws IOException{
 		String url="http://www.dianping.com/ajax/json/index/citylist/getCitylist?do=allCitylist&_nr_force=1444977342128";
