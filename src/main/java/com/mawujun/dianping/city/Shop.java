@@ -1,9 +1,11 @@
 package com.mawujun.dianping.city;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Transient;
 
 //@Entity
 //@Table(name="hjb_shop")
@@ -16,9 +18,21 @@ public class Shop {
 	private String thumb;
 	@Column(length=150)
 	private String addr;//地址
+	@Column(length=150)
+	private String phone;//地址
 	@Column(length=20)
 	private String meanPrice;//人均
+	
+	@Transient
+	private List<String[]> images=new ArrayList<String[]>();
+	@Transient
+	private List<Review> reviewes=new ArrayList<Review>();
 
+	public void addImages(String[] image) {
+		this.images.add(image);
+	}
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -57,5 +71,31 @@ public class Shop {
 
 	public void setMeanPrice(String meanPrice) {
 		this.meanPrice = meanPrice;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public List<String[]> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String[]> images) {
+		this.images = images;
+	}
+
+
+	public List<Review> getReviewes() {
+		return reviewes;
+	}
+
+
+	public void setReviewes(List<Review> reviewes) {
+		this.reviewes = reviewes;
 	}
 }

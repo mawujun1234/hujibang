@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,12 +56,12 @@ public class ProviceController {
 		return "success";
 	}
 	
+	@Scheduled(cron="0 20 16  * * ? ")
 	public void initShop() throws IOException{
 		List<City> cityes=cityService.queryAll();
 		
 		for(City city:cityes){
-			s
-			GetShop.getShop("/search/category/"+city.getId()+"/30/g141",WeiXinApplicationContext.getWebapp_realPath());
+			GetShop.getShopList("/search/category/"+city.getId()+"/30/g141",WeiXinApplicationContext.getWebapp_realPath());
 		}
 	}
 

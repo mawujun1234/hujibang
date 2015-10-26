@@ -4117,3 +4117,4 @@ java.lang.NullPointerException
 13:38:07.201 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.dianping.city.City@226963ea
 13:38:07.204 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.dianping.city.City@4e33c9f6
 13:38:07.207 [http-bio-8084-exec-1] DEBUG com.mawujun.repository.hibernate.HibernateDao - save entity: com.mawujun.dianping.city.City@6cc2be89
+16:15:46.270 [localhost-startStop-1] DEBUG com.mawujun.controller.spring.SpringContextHolder - 注入ApplicationContext到SpringContextHolder:null
