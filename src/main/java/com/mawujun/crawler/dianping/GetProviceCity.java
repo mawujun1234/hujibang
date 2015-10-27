@@ -28,6 +28,29 @@ public class GetProviceCity {
 		
 		//getProviceCityJSON();
 		//getProviceCity();
+		
+		saveProviceCity();
+	}
+	
+	public static void saveProviceCity() throws IOException {
+		String sql_deleteProvice="delete from hjb_Provice";
+		DB.update(sql_deleteProvice, null);
+		String sql_deleteCity="delete from hjb_city";
+		DB.update(sql_deleteCity, null);
+		
+
+		String sql_insertProvice="insert into hjb_Provice(id,name) values(?,?)";
+		String sql_insertCity="insert into hjb_city(id,name,pinyin,simple_pinyin,urlpath,provice_id) values(?,?,?,?,?,?)";
+		List<Provice> provices=GetProviceCity.getProviceCity();
+		
+		for(Provice provice:provices){
+			DB.update(sql_insertProvice, provice.getId(),provice.getName());
+			
+			
+			for(City city:provice.getCityes()){
+				DB.update(sql_insertCity, city.getId(),city.getName(),city.getPinyin(),city.getSimple_pinyin(),city.getUrlpath(),city.getProvice_id());
+			}
+		}
 	}
 	
 	public static List<Provice> getProviceCity() throws IOException{

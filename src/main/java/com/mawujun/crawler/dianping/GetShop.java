@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -25,8 +23,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.mawujun.dianping.city.Review;
 import com.mawujun.dianping.city.Shop;
+import com.mawujun.dianping.city.ShopImage;
+import com.mawujun.dianping.city.ShopReview;
+import com.mawujun.repository.idEntity.UUIDGenerator;
 import com.mawujun.utils.file.FileUtils;
 
 //
@@ -43,25 +43,14 @@ public class GetShop {
 		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1","d:/18009133");
 		//获取某个店铺的评论
 		//getReview_more("http://www.dianping.com/shop/18009133/review_more","?pageno=1");
-	}
-	
-	http://langgufu.iteye.com/blog/2167077
-	public static Connection getConnection() {  
-        Connection conn = null;  
-        try {  
-            Class.forName("com.mysql.jdbc.Driver");  
-            conn = DriverManager.getConnection(  
-                    "jdbc:mysql://ip:port/dbName", "root",  
-                    "");  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }  
-        return conn;  
-    }  
-	
-	public void init_dbutils(){
+
+		 getShopList("/search/category/2/30/g141","D:/");
 		
+		//getFirstThumb("http://i1.qcloud.dpfile.com/pc/7vgYFCyllHVMrbE6gNRXjONCnyJA6ny9o9-qIi5kTGT2qPrK5fQGB0f3C-oHZt6BuO0wim-g4wOugyDocHUlRA.jpg","d:\\");
 	}
+	
+	//http://langgufu.iteye.com/blog/2167077
+	
 	
 	/**
 	 * 获取shop的列表
@@ -71,7 +60,7 @@ public class GetShop {
 	 * @param imgDir
 	 * @throws IOException
 	 */
-	public static void getShopList(String uri,String imgDir) throws IOException {
+	public static void getShopList(String uri,String webContext) throws IOException {
 		String url=domain_url+uri;
 		String html=getContent(url);
 		Document doc = Jsoup.parse(html);
@@ -87,7 +76,8 @@ public class GetShop {
 			String thumb_url=pic.child(0).child(0).attr("data-src");//店铺缩略图
 			String shop_name=pic.child(0).child(0).attr("title");//店铺名称
 			
-			Shop shop=getShopInfo(shop_code,shop_name,thumb_url,shop_url,imgDir);
+			Shop shop=getShopInfo(shop_code,shop_name,thumb_url,shop_url,webContext);
+			
 			
 			break;
 		}
@@ -129,20 +119,63 @@ public class GetShop {
 			//缩略图下载过来,按照
 			//店铺代码/***.jpg（搜索时显示的图片）,店铺代码/thumb这个目录存放缩略图，店铺代码/image存放原始图
 			//并且获取到的第一张作为默认缩略图
-			String thumb_rel_path=getFirstThumb(thumb,imgDir+File.separator+shop_code);
+			String thumb_rel_path="/"+shop_code+"/"+getFirstThumb(thumb,imgDir+File.separator+shop_code);
 			shop.setThumb(thumb_rel_path);
 			
 			
+			getShopDetailInfo(domain_url+shopUrl,shop);
 			
-			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
-			String imsages[]=getImage(domain_url+shopUrl+"/photos","?pg=1",imgDir+File.separator+shop_code);
-			shop.addImages(imsages);
 			//===============================================================
 			//评论内容获取
-			getReview_more(domain_url+shopUrl+"/review_more","?pageno=1",shop.getReviewes());
+			getReview_more(domain_url+shopUrl+"/review_more","?pageno=1",imgDir,shop);
+			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
+			getImage(domain_url+shopUrl+"/photos","?pg=1",imgDir+File.separator+shop_code,shop);
 			
 			
-			getShopDetailInfo(domain_url+shopUrl,shop);
+			
+			//先清空该报表的所有数据，店铺，评论，图片
+			String sql_deleteShop="delete from hjb_shop where id=?";
+			DB.update(sql_deleteShop, shop_code);
+			String sql_deleteShop_review="delete from hjb_shop_review where shop_code=?";
+			DB.update(sql_deleteShop_review, shop_code);
+			String sql_deleteShop_image="delete from hjb_shop_image where shop_code=?";
+			DB.update(sql_deleteShop_image, shop_code);
+			
+			String sql_insert_shop="insert into hjb_shop(id,name,thumb,addr,phone,meanPrice) values(?,?,?,?,?,?)";
+			DB.update(sql_insert_shop, shop.getId(),shop.getName(),shop.getThumb(),shop.getAddr(),shop.getPhone(),shop.getMeanPrice());
+			
+			String sql_insert_shop_review="insert into "
+					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			Object[][] params_reviewes = new Object[shop.getReviewes().size()][12];
+			for(int i=0;i<shop.getReviewes().size();i++){
+				ShopReview review=shop.getReviewes().get(i);
+				params_reviewes[i][0]=UUIDGenerator.generate();
+				params_reviewes[i][1]=review.getShop_code();
+				params_reviewes[i][2]=review.getUser_id();
+				params_reviewes[i][3]=review.getUser_name();
+				params_reviewes[i][4]=review.getUser_img();
+				params_reviewes[i][5]=review.getContent();
+				params_reviewes[i][6]=review.getRst_skill();
+				params_reviewes[i][7]=review.getRst_envi();
+				params_reviewes[i][8]=review.getRst_service();
+				params_reviewes[i][9]=review.getRst_skill_txt();
+				params_reviewes[i][10]=review.getRst_envi_txt();
+				params_reviewes[i][11]=review.getRst_service_txt();
+			}
+			DB.batch(sql_insert_shop_review, params_reviewes);
+	
+			Object[][] params_images = new Object[shop.getImages().size()][4];
+			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,image_url) values(?,?,?,?)";
+			for(int i=0;i<shop.getImages().size();i++){
+				ShopImage shopImage=shop.getImages().get(i);
+				params_images[i][0]=UUIDGenerator.generate();
+				params_images[i][1]=shopImage.getShop_code();
+				params_images[i][2]=shopImage.getThumb_url();
+				params_images[i][3]=shopImage.getImage_url();
+			}
+			DB.batch(sql_insert_shop_image, params_images);
+			
 			return shop;
 
 	}
@@ -212,7 +245,8 @@ public class GetShop {
 //				}
 //	}
 
-	public static void getReview_more(String url, String page,List<Review> reviewes) throws IOException {
+	public static void getReview_more(String url, String page,String saveDir,Shop shop) throws IOException {
+		List<ShopReview> reviewes=shop.getReviewes();
 		// 获取图片所在网页的所有图片
 		String html = getContent(url + page);
 		// 获取图片所有的页数，然后进形循环获取
@@ -232,9 +266,12 @@ public class GetShop {
 			String user_img_src=img.attr("src");
 			String user_name=img.attr("title");
 			
-			Review review=new Review();
+			String user_img_filename=getFirstThumb(user_img_src,saveDir+File.separator+"userimages");
+			
+			ShopReview review=new ShopReview();
+			review.setShop_code(shop.getId());
 			review.setUser_id(user_id);
-			review.setUser_img(user_img_src);
+			review.setUser_img("/userimages/"+user_img_filename);
 			review.setUser_name(user_name);
 			
 			Element content=li.child(1);
@@ -248,13 +285,13 @@ public class GetShop {
 					String rst1_text=rst.child(0).text();//评价的文字描述，(好)，(非常好)，(很差)
 					
 					if(rst1.startsWith("技师")){
-						review.setRst_skill(Integer.parseInt(rst1.substring(3)));
+						review.setRst_skill(Integer.parseInt(rst1.substring(2)));
 						review.setRst_skill_txt(rst1_text);
 					} else if(rst1.startsWith("环境")){
-						review.setRst_envi(Integer.parseInt(rst1.substring(3)));
+						review.setRst_envi(Integer.parseInt(rst1.substring(2)));
 						review.setRst_envi_txt(rst1_text);
 					}  else if(rst1.startsWith("服务")){
-						review.setRst_service(Integer.parseInt(rst1.substring(3)));
+						review.setRst_service(Integer.parseInt(rst1.substring(2)));
 						review.setRst_service_txt(rst1_text);
 					}
 					review.setRst_envi_txt(rst1_text);
@@ -273,13 +310,14 @@ public class GetShop {
 			
 			
 			review.setContent(contentText);	
+			
 			reviewes.add(review);
 		}
 
 		// 判断是否有下一页，如果有下一页，就继续获取,正在递归获取
 		Elements NextPage = doc.select(".Pages .Pages .NextPage");
 		if (NextPage != null && NextPage.size() > 0) {
-			getReview_more(url, NextPage.get(0).attr("href"),reviewes);
+			getReview_more(url, NextPage.get(0).attr("href"),saveDir,shop);
 		}
 	}
 	
@@ -291,12 +329,12 @@ public class GetShop {
 	 * **/
 	public static String getFirstThumb(String url,String savePath) throws ClientProtocolException, IOException{
 		
-		String[] thumbes=url.split("/");
+		String[] thumbes=url.split("\\/");
 		//获取图片后缀
 		String imgFileName=thumbes[thumbes.length-1];
-		String imgFileName_suffix=imgFileName.substring(imgFileName.indexOf('.')+1);
-		String rel_path=File.separator+thumbes[thumbes.length-2]+"."+imgFileName_suffix;
-		String filePath=savePath+rel_path;
+		//String imgFileName_suffix=imgFileName.substring(imgFileName.indexOf('.')+1);
+		//String rel_path=File.separator+thumbes[thumbes.length-2]+"."+imgFileName_suffix;
+		String filePath=savePath+imgFileName;
 		
 		//shop.setThumb("/"+thumbes[thumbes.length-2]+"."+imgFileName_suffix);
 		
@@ -314,14 +352,16 @@ public class GetShop {
         IOUtils.copy(input, output);
         output.flush();
         
-        return rel_path;
+        return imgFileName;
         
 	}
 	
 
 	//获取某个门店拥有的所有缩略图和图片地址
-	public static String[] getImage(String url,String page,String savePath) throws ClientProtocolException, IOException{
-		String[] result=new String[2];
+	public static void getImage(String url,String page,String savePath,Shop shop) throws ClientProtocolException, IOException{
+		List<ShopImage> images=shop.getImages();
+		
+		//String[] result=new String[2];
 		//获取图片所在网页的所有图片
 		String html= getContent(url+page);
 		//获取图片所有的页数，然后进形循环获取
@@ -330,24 +370,28 @@ public class GetShop {
 		Elements J_listes = doc.select(".picture-square .picture-list ul li.J_list div.img a");
 		for(Element element:J_listes){
 			String thumb_url=element.children().get(0).attr("src");
-			String thumb_img_url=getFirstThumb(thumb_url,savePath+"/thumb");
-			result[0]=thumb_img_url;
+			String thumb_img_url="/"+shop.getId()+"/thumb/"+getFirstThumb(thumb_url,savePath+"/thumb");
+			//result[0]=thumb_img_url;
 			String img_url=thumb_url.replaceFirst("240c180", "700x700");
-			String images_img_url=getFirstThumb(img_url,savePath+"/images");
-			result[1]=images_img_url;
+			String images_img_url="/"+shop.getId()+"/images/"+getFirstThumb(img_url,savePath+"/images");
+			//result[1]=images_img_url;
 			
-			System.out.println(thumb_url);
-			System.out.println(img_url);
+			ShopImage shopImage=new ShopImage();
+			shopImage.setImage_url(images_img_url);
+			shopImage.setThumb_url(thumb_img_url);
+			shopImage.setShop_code(shop.getId());
+			images.add(shopImage);
+			//System.out.println(thumb_url);
+			//System.out.println(img_url);
 
 		}
 		
 		//判断是否有下一页，如果有下一页，就继续获取,正在递归获取
 		Elements NextPage = doc.select(".Pages .Pages .NextPage");
 		if(NextPage!=null && NextPage.size()>0){
-			getImage(url,NextPage.get(0).attr("href"),savePath);
+			getImage(url,NextPage.get(0).attr("href"),savePath,shop);
 		}
 		
-		return result;
         
 	}
 	
@@ -366,7 +410,7 @@ public class GetShop {
 			if(!avg_element.nodeName().equalsIgnoreCase("span")){
 				avg_element=brief_info.child(0).nextElementSibling().nextElementSibling().nextElementSibling();
 			}
-			String avg=avg_element.text();//人均消费
+			String meanPrice=avg_element.text();//人均消费
 			
 			Element jishi_star_element=avg_element.nextElementSibling();
 			String jishi_star=jishi_star_element.text();//技师 分数
@@ -382,6 +426,7 @@ public class GetShop {
 			Element tel = ele.getElementsByClass("tel").get(0);
 			String phone_tel=tel.child(1).text();
 			
+			shop.setMeanPrice(meanPrice);
 			shop.setAddr(region+street_address);
 			shop.setPhone(phone_tel);
 			

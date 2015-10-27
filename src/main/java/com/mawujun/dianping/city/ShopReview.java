@@ -1,21 +1,38 @@
 package com.mawujun.dianping.city;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.mawujun.repository.idEntity.UUIDEntity;
 
-public class Review extends UUIDEntity {
+@Entity
+@Table(name="hjb_shop_review")
+public class ShopReview extends UUIDEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Column(length=30)
+	private String shop_code;
+	@Column(length=30)
 	private String user_id;
+	@Column(length=30)
 	private String user_name;
+	@Column(length=200)
 	private String user_img;
 	
-	
+	@Column(length=500)
 	private String content;//评价内容
 	
 	private Integer rst_skill;//技术
 	private Integer rst_envi;//环境
 	private Integer rst_service;//服务
-	
+	@Column(length=30)
 	private String rst_skill_txt;//技术
+	@Column(length=30)
 	private String rst_envi_txt;//环境
+	@Column(length=30)
 	private String rst_service_txt;//服务
 	
 
@@ -117,5 +134,15 @@ public class Review extends UUIDEntity {
 
 	public void setRst_service_txt(String rst_service_txt) {
 		this.rst_service_txt = rst_service_txt;
+	}
+
+
+	public String getShop_code() {
+		return shop_code;
+	}
+
+
+	public void setShop_code(String shop_code) {
+		this.shop_code = shop_code;
 	}
 }

@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-//@Entity
-//@Table(name="hjb_shop")
-public class Shop {
+import com.mawujun.repository.idEntity.IdEntity;
+
+@Entity
+@Table(name="hjb_shop")
+public class Shop implements IdEntity<String>{
 	@Id
+	@Column(length=30)
 	private String id;
 	@Column(length=30)
 	private String name;
@@ -24,11 +29,11 @@ public class Shop {
 	private String meanPrice;//人均
 	
 	@Transient
-	private List<String[]> images=new ArrayList<String[]>();
+	private List<ShopImage> images=new ArrayList<ShopImage>();
 	@Transient
-	private List<Review> reviewes=new ArrayList<Review>();
+	private List<ShopReview> reviewes=new ArrayList<ShopReview>();
 
-	public void addImages(String[] image) {
+	public void addImages(ShopImage image) {
 		this.images.add(image);
 	}
 	
@@ -81,21 +86,21 @@ public class Shop {
 		this.phone = phone;
 	}
 
-	public List<String[]> getImages() {
+	public List<ShopImage> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String[]> images) {
+	public void setImages(List<ShopImage> images) {
 		this.images = images;
 	}
 
 
-	public List<Review> getReviewes() {
+	public List<ShopReview> getReviewes() {
 		return reviewes;
 	}
 
 
-	public void setReviewes(List<Review> reviewes) {
+	public void setReviewes(List<ShopReview> reviewes) {
 		this.reviewes = reviewes;
 	}
 }

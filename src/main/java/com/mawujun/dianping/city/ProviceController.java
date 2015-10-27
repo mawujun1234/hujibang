@@ -48,22 +48,22 @@ public class ProviceController {
 //		//JsonConfigHolder.setFilterPropertys(Provice.class,M.Provice.parent.name());
 //		return provicees;
 //	}
-	
-	@RequestMapping("/provice/init.do")
-	@ResponseBody
-	public String init(Integer start,Integer limit,String sampleName) throws IOException{
-		proviceService.init();
-		return "success";
-	}
-	
-	@Scheduled(cron="0 20 16  * * ? ")
-	public void initShop() throws IOException{
-		List<City> cityes=cityService.queryAll();
-		
-		for(City city:cityes){
-			GetShop.getShopList("/search/category/"+city.getId()+"/30/g141",WeiXinApplicationContext.getWebapp_realPath());
-		}
-	}
+//	
+//	@RequestMapping("/provice/init.do")
+//	@ResponseBody
+//	public String init(Integer start,Integer limit,String sampleName) throws IOException{
+//		proviceService.init();
+//		return "success";
+//	}
+//	
+//	@Scheduled(cron="0 20 16  * * ? ")
+//	public void initShop() throws IOException{
+//		List<City> cityes=cityService.queryAll();
+//		
+//		for(City city:cityes){
+//			GetShop.getShopList("/search/category/"+city.getId()+"/30/g141",WeiXinApplicationContext.getWebapp_realPath());
+//		}
+//	}
 
 	@RequestMapping("/provice/query.do")
 	@ResponseBody
