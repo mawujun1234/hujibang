@@ -19,14 +19,16 @@ public class City implements IdEntity<String> {
 	private String id;
 	@Column(length=30)
 	private String name;//中文名称  天津
-	
+	@Column(length=30)
 	private String pinyin;//天津 tianjin
-	
+	@Column(length=30)
 	private String simple_pinyin;//天津 简写 TJ
-	
+	@Column(length=100)
 	private String urlpath;// 类似 /path
-	
+	@Column(length=30)
 	private String provice_id;//所属的省份
+	
+	private int inited=0;//表示是否已经爬虫爬过了
 
 	@Override
 	public void setId(String id) {

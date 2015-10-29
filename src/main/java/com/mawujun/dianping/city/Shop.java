@@ -28,6 +28,9 @@ public class Shop implements IdEntity<String>{
 	@Column(length=20)
 	private String meanPrice;//人均
 	
+	@Column(length=30)
+	private String city_id;
+	
 	@Transient
 	private List<ShopImage> images=new ArrayList<ShopImage>();
 	@Transient
@@ -102,5 +105,15 @@ public class Shop implements IdEntity<String>{
 
 	public void setReviewes(List<ShopReview> reviewes) {
 		this.reviewes = reviewes;
+	}
+
+
+	public String getCity_id() {
+		return city_id;
+	}
+
+
+	public void setCity_id(String city_id) {
+		this.city_id = city_id;
 	}
 }

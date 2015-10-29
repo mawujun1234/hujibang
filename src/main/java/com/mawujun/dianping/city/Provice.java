@@ -17,7 +17,7 @@ import com.mawujun.repository.idEntity.IdEntity;
  *
  */
 @Entity
-@Table(name="hjb_Provice")
+@Table(name="hjb_provice")
 public class Provice implements IdEntity<String> {
 	@Id
 	private String id;
