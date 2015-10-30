@@ -22,7 +22,7 @@ public class ShopReview extends UUIDEntity {
 	@Column(length=200)
 	private String user_img;
 	@Column(length=250)
-	private String user_img_url;//在点评上的地址
+	private String user_img_orginurl;//在点评上的地址
 	
 	@Column(length=500)
 	private String content;//评价内容
@@ -149,12 +149,13 @@ public class ShopReview extends UUIDEntity {
 	}
 
 
-	public String getUser_img_url() {
-		return user_img_url;
+	public String getUser_img_orginurl() {
+		return user_img_orginurl;
 	}
 
 
-	public void setUser_img_url(String user_img_url) {
-		this.user_img_url = user_img_url;
+	public void setUser_img_orginurl(String user_img_orginurl) {
+		this.user_img_orginurl = user_img_orginurl;
 	}
+
 }

@@ -49,7 +49,7 @@ public class GetShop {
 		//getShop("/search/category/2/30/g141","D:/");
 		
 		//测试图片获取
-		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1","d:/18009133");
+		//getImage("http://www.dianping.com/shop/18009133/photos","?pg=1");
 		//获取某个店铺的评论
 		//getReview_more("http://www.dianping.com/shop/18009133/review_more","?pageno=1");
 
@@ -143,7 +143,7 @@ public class GetShop {
 	 * @throws IOException
 	 */
 	
-	public static Shop saveShopInifo(City city,String shop_code,String shop_name,String thumb,String shopUrl ) throws IOException {
+	public static Shop saveShopInifo(City city,String shop_code,String shop_name,String thumb_orginurl,String shopUrl ) throws IOException {
 			Shop shop=new Shop();
 			shop.setId(shop_code);
 			//shop.setAddr();
@@ -159,7 +159,8 @@ public class GetShop {
 			//缩略图下载过来,按照
 			//店铺代码/***.jpg（搜索时显示的图片）,店铺代码/thumb这个目录存放缩略图，店铺代码/image存放原始图
 			//并且获取到的第一张作为默认缩略图
-			String thumb_rel_path="/"+shop_code+"/"+getFirstThumb(thumb,shopimage_savePath+File.separator+shop_code);
+			String thumb_rel_path="/"+shop_code+"/"+getFirstThumb(thumb_orginurl,shopimage_savePath+File.separator+shop_code);
+			shop.setThumb_orginurl(thumb_orginurl);
 			shop.setThumb(thumb_rel_path);
 			
 			
@@ -169,10 +170,10 @@ public class GetShop {
 			//评论内容获取
 			getReview_more(domain_url+shopUrl+"/review_more","?pageno=1",shop);
 			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
-			getImage(domain_url+shopUrl+"/photos","?pg=1",File.separator+shopimage_savePath+File.separator+shop_code,shop);
+			getImage(domain_url+shopUrl+"/photos","?pg=1",shop);
 			
 			
-			吧图片原地址都放上去
+			//吧图片原地址都放上去
 			//先清空该报表的所有数据，店铺，评论，图片
 			String sql_deleteShop="delete from hjb_shop where id=?";
 			DB.update(sql_deleteShop, shop_code);
@@ -181,11 +182,11 @@ public class GetShop {
 			String sql_deleteShop_image="delete from hjb_shop_image where shop_code=?";
 			DB.update(sql_deleteShop_image, shop_code);
 			
-			String sql_insert_shop="insert into hjb_shop(id,name,thumb,addr,phone,meanPrice) values(?,?,?,?,?,?)";
-			DB.update(sql_insert_shop, shop.getId(),shop.getName(),shop.getThumb(),shop.getAddr(),shop.getPhone(),shop.getMeanPrice());
+			String sql_insert_shop="insert into hjb_shop(id,name,thumb,thumb_orginurl,addr,phone,meanPrice) values(?,?,?,?,?,?,?)";
+			DB.update(sql_insert_shop, shop.getId(),shop.getName(),shop.getThumb(),shop.getThumb_orginurl(),shop.getAddr(),shop.getPhone(),shop.getMeanPrice());
 			
 			String sql_insert_shop_review="insert into "
-					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,user_img_url,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
+					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,user_img_orginurl,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
 					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			Object[][] params_reviewes = new Object[shop.getReviewes().size()][13];
 			for(int i=0;i<shop.getReviewes().size();i++){
@@ -206,14 +207,16 @@ public class GetShop {
 			}
 			DB.batch(sql_insert_shop_review, params_reviewes);
 	
-			Object[][] params_images = new Object[shop.getImages().size()][4];
-			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,image_url) values(?,?,?,?)";
+			Object[][] params_images = new Object[shop.getImages().size()][6];
+			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,thumb_ogrinurl,image_url,image_orginurl) values(?,?,?,?,?,?)";
 			for(int i=0;i<shop.getImages().size();i++){
 				ShopImage shopImage=shop.getImages().get(i);
 				params_images[i][0]=UUIDGenerator.generate();
 				params_images[i][1]=shopImage.getShop_code();
 				params_images[i][2]=shopImage.getThumb_url();
-				params_images[i][3]=shopImage.getImage_url();
+				params_images[i][3]=shopImage.getThumb_ogrinurl();
+				params_images[i][4]=shopImage.getImage_url();
+				params_images[i][5]=shopImage.getImage_orginurl();
 			}
 			DB.batch(sql_insert_shop_image, params_images);
 			
@@ -304,16 +307,16 @@ public class GetShop {
 			Element J_card=pic.child(0);
 			String user_id=J_card.attr("user-id");
 			Element img=J_card.child(0);
-			String user_img_url=img.attr("src");
+			String user_img_orginurl=img.attr("src");
 			String user_name=img.attr("title");
 			
-			String user_img_filename=getFirstThumb(user_img_url,savePath+File.separator+"userimages");
+			String user_img_filename=getFirstThumb(user_img_orginurl,savePath+File.separator+"userimages");
 			
 			ShopReview review=new ShopReview();
 			review.setShop_code(shop.getId());
 			review.setUser_id(user_id);
 			review.setUser_img("/userimages/"+user_img_filename);
-			review.setUser_img_url(user_img_url);
+			review.setUser_img_orginurl(user_img_orginurl);
 			review.setUser_name(user_name);
 			
 			Element content=li.child(1);
@@ -373,10 +376,11 @@ public class GetShop {
 		
 		String[] thumbes=url.split("\\/");
 		//获取图片后缀
+		//http://i3.s1.dpfile.com/pc/94278e3192cd09d6f3d5a346d96afc0c(240c180)/thumb.jpg
 		String imgFileName=thumbes[thumbes.length-1];
-		//String imgFileName_suffix=imgFileName.substring(imgFileName.indexOf('.')+1);
+		String imgFileName_suffix=imgFileName.substring(imgFileName.indexOf('.')+1);
 		//String rel_path=File.separator+thumbes[thumbes.length-2]+"."+imgFileName_suffix;
-		String filePath=savePath+File.separator+imgFileName;
+		String filePath=savePath+File.separator+thumbes[thumbes.length-2]+"."+imgFileName_suffix;;
 		
 		//shop.setThumb("/"+thumbes[thumbes.length-2]+"."+imgFileName_suffix);
 		
@@ -400,7 +404,7 @@ public class GetShop {
 	
 
 	//获取某个门店拥有的所有缩略图和图片地址
-	public static void getImage(String url,String page,String savePath,Shop shop) throws ClientProtocolException, IOException{
+	public static void getImage(String url,String page,Shop shop) throws ClientProtocolException, IOException{
 		List<ShopImage> images=shop.getImages();
 		
 		//String[] result=new String[2];
@@ -410,17 +414,19 @@ public class GetShop {
 		Document doc = Jsoup.parse(html);
 		//开始获取当前页的所有图片
 		Elements J_listes = doc.select(".picture-square .picture-list ul li.J_list div.img a");
-		for(Element element:J_listes){
-			String thumb_url=element.children().get(0).attr("src");
-			String thumb_img_url="/"+shop.getId()+"/thumb/"+getFirstThumb(thumb_url,savePath+"/thumb");
+		for(Element element:J_listes) {
+			String thumb_orginurl=element.children().get(0).attr("src");
+			String thumb_img_url="/"+shop.getId()+"/thumb/"+getFirstThumb(thumb_orginurl,shopimage_savePath+File.separator+shop.getId()+File.separator+"thumb");
 			//result[0]=thumb_img_url;
-			String img_url=thumb_url.replaceFirst("240c180", "700x700");
-			String images_img_url="/"+shop.getId()+"/images/"+getFirstThumb(img_url,savePath+"/images");
+			String img_orginurl=thumb_orginurl.replaceFirst("240c180", "700x700");
+			String images_img_url="/"+shop.getId()+"/images/"+getFirstThumb(img_orginurl,shopimage_savePath+File.separator+shop.getId()+File.separator+"images");
 			//result[1]=images_img_url;
 			
 			ShopImage shopImage=new ShopImage();
 			shopImage.setImage_url(images_img_url);
+			shopImage.setImage_orginurl(img_orginurl);
 			shopImage.setThumb_url(thumb_img_url);
+			shopImage.setThumb_ogrinurl(thumb_orginurl);
 			shopImage.setShop_code(shop.getId());
 			images.add(shopImage);
 			//System.out.println(thumb_url);
@@ -431,7 +437,7 @@ public class GetShop {
 		//判断是否有下一页，如果有下一页，就继续获取,正在递归获取
 		Elements NextPage = doc.select(".Pages .Pages .NextPage");
 		if(NextPage!=null && NextPage.size()>0){
-			getImage(url,NextPage.get(0).attr("href"),savePath,shop);
+			getImage(url,NextPage.get(0).attr("href"),shop);
 		}
 		
         

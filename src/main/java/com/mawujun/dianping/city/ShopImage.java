@@ -18,7 +18,11 @@ public class ShopImage  extends UUIDEntity{
 	@Column(length=200)
 	private String thumb_url;
 	@Column(length=200)
+	private String thumb_ogrinurl;
+	@Column(length=200)
 	private String image_url;
+	@Column(length=200)
+	private String image_orginurl;
 	public String getShop_code() {
 		return shop_code;
 	}
@@ -36,6 +40,18 @@ public class ShopImage  extends UUIDEntity{
 	}
 	public void setImage_url(String image_url) {
 		this.image_url = image_url;
+	}
+	public String getThumb_ogrinurl() {
+		return thumb_ogrinurl;
+	}
+	public void setThumb_ogrinurl(String thumb_ogrinurl) {
+		this.thumb_ogrinurl = thumb_ogrinurl;
+	}
+	public String getImage_orginurl() {
+		return image_orginurl;
+	}
+	public void setImage_orginurl(String image_orginurl) {
+		this.image_orginurl = image_orginurl;
 	}
 
 	

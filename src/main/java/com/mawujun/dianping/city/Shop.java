@@ -19,8 +19,10 @@ public class Shop implements IdEntity<String>{
 	private String id;
 	@Column(length=30)
 	private String name;
-	@Column(length=50)
+	@Column(length=100)
 	private String thumb;
+	@Column(length=250)
+	private String thumb_orginurl;
 	@Column(length=150)
 	private String addr;//地址
 	@Column(length=150)
@@ -115,5 +117,15 @@ public class Shop implements IdEntity<String>{
 
 	public void setCity_id(String city_id) {
 		this.city_id = city_id;
+	}
+
+
+	public String getThumb_orginurl() {
+		return thumb_orginurl;
+	}
+
+
+	public void setThumb_orginurl(String thumb_orginurl) {
+		this.thumb_orginurl = thumb_orginurl;
 	}
 }
