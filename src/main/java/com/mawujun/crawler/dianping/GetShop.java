@@ -75,9 +75,9 @@ public class GetShop {
 					//System.out.println(city.getName());
 					GetShop.getShopList(city);
 					DB.update("update hjb_city set inited=1 where id=?", city.getId());
-					break;
+					//break;
 				}
-				break;
+				//break;
 			}
 			
 		} catch (SQLException e) {
