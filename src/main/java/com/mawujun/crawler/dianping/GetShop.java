@@ -68,9 +68,10 @@ public class GetShop {
 		ResultSetHandler<List<Provice>> resultset_provice = new BeanListHandler<Provice>(Provice.class);
 		ResultSetHandler<List<City>> resultset_city = new BeanListHandler<City>(City.class);
 		try {
+			int size=2;
 			List<Provice> provices = run.query("SELECT * FROM hjb_Provice", resultset_provice);
 			for(Provice provice:provices){
-				List<City> cityes=run.query("SELECT * FROM hjb_city where provice_id='"+provice.getId()+"'", resultset_city);
+				List<City> cityes=run.query("SELECT * FROM hjb_city where inited=0 and provice_id='"+provice.getId()+"'", resultset_city);
 				for(City city:cityes){
 					//System.out.println(city.getName());
 					GetShop.getShopList(city);
