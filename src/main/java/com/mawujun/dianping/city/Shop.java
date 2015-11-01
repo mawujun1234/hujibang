@@ -33,6 +33,8 @@ public class Shop implements IdEntity<String>{
 	@Column(length=30)
 	private String city_id;
 	
+	private int inited=0;//表示是否已经爬虫爬过了
+	
 	@Transient
 	private List<ShopImage> images=new ArrayList<ShopImage>();
 	@Transient
@@ -127,5 +129,15 @@ public class Shop implements IdEntity<String>{
 
 	public void setThumb_orginurl(String thumb_orginurl) {
 		this.thumb_orginurl = thumb_orginurl;
+	}
+
+
+	public int getInited() {
+		return inited;
+	}
+
+
+	public void setInited(int inited) {
+		this.inited = inited;
 	}
 }

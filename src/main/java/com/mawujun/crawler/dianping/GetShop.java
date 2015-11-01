@@ -43,7 +43,7 @@ public class GetShop {
 	static String savePath="e:/hujibang_images";
 	static String shopimage_savePath=savePath+"/shopimage";
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, SQLException {
 
 		//get_nextpage();
 		//getShop("/search/category/2/30/g141","D:/");
@@ -57,35 +57,97 @@ public class GetShop {
 		
 		//getFirstThumb("http://i1.qcloud.dpfile.com/pc/7vgYFCyllHVMrbE6gNRXjONCnyJA6ny9o9-qIi5kTGT2qPrK5fQGB0f3C-oHZt6BuO0wim-g4wOugyDocHUlRA.jpg","d:\\");
 
-		saveAllShop();
+		saveAllShopList();
+		
+		//saveShopReviewAndImages(20);
 	}
-	
-	public static void saveAllShop() throws IOException{
+	/**
+	 * 指获取店铺的信息，店铺的图片和店铺的评论以后再分批次慢慢的获取
+	 * @author mawujun 16064988@qq.com 
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	public static void saveAllShopList() throws IOException, SQLException{
 		QueryRunner run = new QueryRunner(DB.dataSource);
 
 		// Use the BeanListHandler implementation to convert all
 		// ResultSet rows into a List of Person JavaBeans.
 		ResultSetHandler<List<Provice>> resultset_provice = new BeanListHandler<Provice>(Provice.class);
 		ResultSetHandler<List<City>> resultset_city = new BeanListHandler<City>(City.class);
-		try {
-			int size=2;
 			List<Provice> provices = run.query("SELECT * FROM hjb_Provice", resultset_provice);
 			for(Provice provice:provices){
 				List<City> cityes=run.query("SELECT * FROM hjb_city where inited=0 and provice_id='"+provice.getId()+"'", resultset_city);
 				for(City city:cityes){
 					//System.out.println(city.getName());
-					GetShop.getShopList(city);
+					GetShop.saveShopList(city);
 					DB.update("update hjb_city set inited=1 where id=?", city.getId());
 					//break;
 				}
 				//break;
 			}
+
+	}
+	
+	/**
+	 * 爬取指定门店数的店铺，对未爬取过的门店进行爬取
+	 * @author mawujun 16064988@qq.com 
+	 * @param limit
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	public static void saveShopReviewAndImages(int limit) throws IOException, SQLException{
+		QueryRunner run = new QueryRunner(DB.dataSource);
+		ResultSetHandler<List<Shop>> resultset_shop = new BeanListHandler<Shop>(Shop.class);
+		List<Shop> shopes = run.query("SELECT * FROM hjb_shop where inited=0 limit 0,"+limit, resultset_shop);
+		for(Shop shop:shopes){
+			//===============================================================
+			//评论内容获取
+			getReview_more(domain_url+"/shop/"+shop.getId()+"/review_more","?pageno=1",shop);
+			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
+			getImage(domain_url+"/shop/"+shop.getId()+"/photos","?pg=1",shop);
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String sql_deleteShop_review="delete from hjb_shop_review where shop_code=?";
+			DB.update(sql_deleteShop_review, shop.getId());
+			String sql_deleteShop_image="delete from hjb_shop_image where shop_code=?";
+			DB.update(sql_deleteShop_image, shop.getId());
+			
+			String sql_insert_shop_review="insert into "
+					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,user_img_orginurl,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			Object[][] params_reviewes = new Object[shop.getReviewes().size()][13];
+			for(int i=0;i<shop.getReviewes().size();i++){
+				ShopReview review=shop.getReviewes().get(i);
+				params_reviewes[i][0]=UUIDGenerator.generate();
+				params_reviewes[i][1]=review.getShop_code();
+				params_reviewes[i][2]=review.getUser_id();
+				params_reviewes[i][3]=review.getUser_name();
+				params_reviewes[i][4]=review.getUser_img();
+				params_reviewes[i][5]=review.getUser_img();
+				params_reviewes[i][6]=review.getContent();
+				params_reviewes[i][7]=review.getRst_skill();
+				params_reviewes[i][8]=review.getRst_envi();
+				params_reviewes[i][9]=review.getRst_service();
+				params_reviewes[i][10]=review.getRst_skill_txt();
+				params_reviewes[i][11]=review.getRst_envi_txt();
+				params_reviewes[i][12]=review.getRst_service_txt();
+			}
+			DB.batch(sql_insert_shop_review, params_reviewes);
+	
+			Object[][] params_images = new Object[shop.getImages().size()][6];
+			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,thumb_ogrinurl,image_url,image_orginurl) values(?,?,?,?,?,?)";
+			for(int i=0;i<shop.getImages().size();i++){
+				ShopImage shopImage=shop.getImages().get(i);
+				params_images[i][0]=UUIDGenerator.generate();
+				params_images[i][1]=shopImage.getShop_code();
+				params_images[i][2]=shopImage.getThumb_url();
+				params_images[i][3]=shopImage.getThumb_ogrinurl();
+				params_images[i][4]=shopImage.getImage_url();
+				params_images[i][5]=shopImage.getImage_orginurl();
+			}
+			DB.batch(sql_insert_shop_image, params_images);
+			
+			DB.update("update hjb_shop set inited=1 where id=?", shop.getId());
 		}
-		
 	}
 	
 	//http://langgufu.iteye.com/blog/2167077
@@ -99,7 +161,7 @@ public class GetShop {
 	 * @param imgDir
 	 * @throws IOException
 	 */
-	public static void getShopList(City city) throws IOException {
+	public static void saveShopList(City city) throws IOException {
 		
 		String url=domain_url+"/search/category/"+city.getId()+"/30/g141";
 		String html=getContent(url);
@@ -167,128 +229,64 @@ public class GetShop {
 			
 			getShopDetailInfo(domain_url+shopUrl,shop);
 			
-			//===============================================================
-			//评论内容获取
-			getReview_more(domain_url+shopUrl+"/review_more","?pageno=1",shop);
-			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
-			getImage(domain_url+shopUrl+"/photos","?pg=1",shop);
+//			//===============================================================
+//			//评论内容获取
+//			getReview_more(domain_url+shopUrl+"/review_more","?pageno=1",shop);
+//			//获取原始图片和图片所产生的缩略图//http://www.dianping.com/shop/18009133/photos
+//			getImage(domain_url+shopUrl+"/photos","?pg=1",shop);
 			
 			
 			//吧图片原地址都放上去
 			//先清空该报表的所有数据，店铺，评论，图片
 			String sql_deleteShop="delete from hjb_shop where id=?";
 			DB.update(sql_deleteShop, shop_code);
-			String sql_deleteShop_review="delete from hjb_shop_review where shop_code=?";
-			DB.update(sql_deleteShop_review, shop_code);
-			String sql_deleteShop_image="delete from hjb_shop_image where shop_code=?";
-			DB.update(sql_deleteShop_image, shop_code);
+//			String sql_deleteShop_review="delete from hjb_shop_review where shop_code=?";
+//			DB.update(sql_deleteShop_review, shop_code);
+//			String sql_deleteShop_image="delete from hjb_shop_image where shop_code=?";
+//			DB.update(sql_deleteShop_image, shop_code);
 			
 			String sql_insert_shop="insert into hjb_shop(id,name,thumb,thumb_orginurl,addr,phone,meanPrice) values(?,?,?,?,?,?,?)";
 			DB.update(sql_insert_shop, shop.getId(),shop.getName(),shop.getThumb(),shop.getThumb_orginurl(),shop.getAddr(),shop.getPhone(),shop.getMeanPrice());
 			
-			String sql_insert_shop_review="insert into "
-					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,user_img_orginurl,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
-					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			Object[][] params_reviewes = new Object[shop.getReviewes().size()][13];
-			for(int i=0;i<shop.getReviewes().size();i++){
-				ShopReview review=shop.getReviewes().get(i);
-				params_reviewes[i][0]=UUIDGenerator.generate();
-				params_reviewes[i][1]=review.getShop_code();
-				params_reviewes[i][2]=review.getUser_id();
-				params_reviewes[i][3]=review.getUser_name();
-				params_reviewes[i][4]=review.getUser_img();
-				params_reviewes[i][5]=review.getUser_img();
-				params_reviewes[i][6]=review.getContent();
-				params_reviewes[i][7]=review.getRst_skill();
-				params_reviewes[i][8]=review.getRst_envi();
-				params_reviewes[i][9]=review.getRst_service();
-				params_reviewes[i][10]=review.getRst_skill_txt();
-				params_reviewes[i][11]=review.getRst_envi_txt();
-				params_reviewes[i][12]=review.getRst_service_txt();
-			}
-			DB.batch(sql_insert_shop_review, params_reviewes);
-	
-			Object[][] params_images = new Object[shop.getImages().size()][6];
-			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,thumb_ogrinurl,image_url,image_orginurl) values(?,?,?,?,?,?)";
-			for(int i=0;i<shop.getImages().size();i++){
-				ShopImage shopImage=shop.getImages().get(i);
-				params_images[i][0]=UUIDGenerator.generate();
-				params_images[i][1]=shopImage.getShop_code();
-				params_images[i][2]=shopImage.getThumb_url();
-				params_images[i][3]=shopImage.getThumb_ogrinurl();
-				params_images[i][4]=shopImage.getImage_url();
-				params_images[i][5]=shopImage.getImage_orginurl();
-			}
-			DB.batch(sql_insert_shop_image, params_images);
+//			String sql_insert_shop_review="insert into "
+//					+ " hjb_shop_review(id,shop_code,user_id,user_name,user_img,user_img_orginurl,content,rst_skill,rst_envi,rst_service,rst_skill_txt,rst_envi_txt,rst_service_txt) "
+//					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//			Object[][] params_reviewes = new Object[shop.getReviewes().size()][13];
+//			for(int i=0;i<shop.getReviewes().size();i++){
+//				ShopReview review=shop.getReviewes().get(i);
+//				params_reviewes[i][0]=UUIDGenerator.generate();
+//				params_reviewes[i][1]=review.getShop_code();
+//				params_reviewes[i][2]=review.getUser_id();
+//				params_reviewes[i][3]=review.getUser_name();
+//				params_reviewes[i][4]=review.getUser_img();
+//				params_reviewes[i][5]=review.getUser_img();
+//				params_reviewes[i][6]=review.getContent();
+//				params_reviewes[i][7]=review.getRst_skill();
+//				params_reviewes[i][8]=review.getRst_envi();
+//				params_reviewes[i][9]=review.getRst_service();
+//				params_reviewes[i][10]=review.getRst_skill_txt();
+//				params_reviewes[i][11]=review.getRst_envi_txt();
+//				params_reviewes[i][12]=review.getRst_service_txt();
+//			}
+//			DB.batch(sql_insert_shop_review, params_reviewes);
+//	
+//			Object[][] params_images = new Object[shop.getImages().size()][6];
+//			String sql_insert_shop_image="insert into hjb_shop_image(id,shop_code,thumb_url,thumb_ogrinurl,image_url,image_orginurl) values(?,?,?,?,?,?)";
+//			for(int i=0;i<shop.getImages().size();i++){
+//				ShopImage shopImage=shop.getImages().get(i);
+//				params_images[i][0]=UUIDGenerator.generate();
+//				params_images[i][1]=shopImage.getShop_code();
+//				params_images[i][2]=shopImage.getThumb_url();
+//				params_images[i][3]=shopImage.getThumb_ogrinurl();
+//				params_images[i][4]=shopImage.getImage_url();
+//				params_images[i][5]=shopImage.getImage_orginurl();
+//			}
+//			DB.batch(sql_insert_shop_image, params_images);
 			
 			return shop;
 
 	}
 	
-//	public static void getShop(String uri,String imgDir) throws IOException {
-//		String url=domain_url+uri;
-//		String html=getContent(url);
-//		Document doc = Jsoup.parse(html);
-//		
-//		//获取当前页所有的店铺数据
-//		Elements lies = doc.select("#shop-all-list ul li");
-//		for (Element link : lies) {
-//			
-//			//Element pic=link.getElementsByClass("pic").get(0);
-//			//获取缩略图
-//			Element pic=link.child(0);
-//			String href=pic.child(0).attr("href");//店铺url地址
-//			String shop_code=href.substring(href.lastIndexOf('/')+1);
-//			String thumb=pic.child(0).child(0).attr("data-src");//店铺缩略图
-//			String name=pic.child(0).child(0).attr("title");//店铺名称
-//			
-////			Shop shop=new Shop();
-////			shop.setId(shop_code);
-////			shop.setAddr();
-////			shop.setName(name);
-//			
-//			
-//			//先创建需要的路径
-//			FileUtils.createDir(imgDir+File.separator+shop_code);
-//			FileUtils.createDir(imgDir+File.separator+shop_code+"/thumb");//存放缩略图
-//			FileUtils.createDir(imgDir+File.separator+shop_code+"/images");//存放原始图
-//			//http://i2.s2.dpfile.com/pc/e0de1df59cb5aee2a826d57a7ec0fece(249x249)/thumb.jpg
-//			//缩略图下载过来,按照
-//			//店铺代码/***.jpg（搜索时显示的图片）,店铺代码/thumb这个目录存放缩略图，店铺代码/image存放原始图
-//			//并且获取到的第一张作为默认缩略图
-//			getFirstThumb(thumb,imgDir+File.separator+shop_code);
-////			shop.setThumb(thumb);
-//			
-//			//获取原始图片和图片所产生的缩略图
-//			//http://www.dianping.com/shop/18009133/photos
-//			getImage(domain_url+href+"/photos","?pg=1",imgDir+File.separator+shop_code);
-//			
-//			
-//			
-//			//===============================================================
-//			//评论内容获取
-//			getReview_more(domain_url+href+"/review_more","?pageno=1");
-//			
-//			
-//			getShopDetailInfo(domain_url+href);
-//			
-//			break;
-//			
-//		}
-//		
-//		// ===================================================================================================
-//				// 获取下一页，如果有下一页就继续获取数据
-//				Elements nextpages = doc.select("div.page a.next");
-//				for (Element link : nextpages) {
-//					// String linkHref = link.attr("href");
-//					// String linkText = link.text();
-//					String linkHref = link.attr("href");
-//					// "http://www.dianping.com"+linkHref;下一页的数据
-//
-//					System.out.println(linkHref);
-//					// getShop(domain_url+ linkHref);
-//				}
-//	}
 
 	public static void getReview_more(String url, String page,Shop shop) throws IOException {
 		List<ShopReview> reviewes=shop.getReviewes();

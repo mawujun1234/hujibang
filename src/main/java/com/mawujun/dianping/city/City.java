@@ -85,4 +85,12 @@ public class City implements IdEntity<String> {
 		return urlpath;
 	}
 
+	public int getInited() {
+		return inited;
+	}
+
+	public void setInited(int inited) {
+		this.inited = inited;
+	}
+
 }
