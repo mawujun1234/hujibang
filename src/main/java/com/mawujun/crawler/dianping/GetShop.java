@@ -57,9 +57,9 @@ public class GetShop {
 		
 		//getFirstThumb("http://i1.qcloud.dpfile.com/pc/7vgYFCyllHVMrbE6gNRXjONCnyJA6ny9o9-qIi5kTGT2qPrK5fQGB0f3C-oHZt6BuO0wim-g4wOugyDocHUlRA.jpg","d:\\");
 
-		saveAllShopList();
+		//saveAllShopList();
 		
-		//saveShopReviewAndImages(20);
+		saveShopReviewAndImages(1000);
 	}
 	/**
 	 * 指获取店铺的信息，店铺的图片和店铺的评论以后再分批次慢慢的获取
@@ -178,9 +178,10 @@ public class GetShop {
 			String thumb_url=pic.child(0).child(0).attr("data-src");//店铺缩略图
 			String shop_name=pic.child(0).child(0).attr("title");//店铺名称
 			
+			
 			saveShopInifo(city,shop_code,shop_name,thumb_url,shop_url);
 			
-			break;
+			//break;
 		}
 		
 		// ===================================================================================================
@@ -222,6 +223,9 @@ public class GetShop {
 			//缩略图下载过来,按照
 			//店铺代码/***.jpg（搜索时显示的图片）,店铺代码/thumb这个目录存放缩略图，店铺代码/image存放原始图
 			//并且获取到的第一张作为默认缩略图
+			if(!thumb_orginurl.startsWith("http:")){
+				thumb_orginurl="http:"+thumb_orginurl;
+			}
 			String thumb_rel_path="/"+shop_code+"/"+getFirstThumb(thumb_orginurl,shopimage_savePath+File.separator+shop_code);
 			shop.setThumb_orginurl(thumb_orginurl);
 			shop.setThumb(thumb_rel_path);
@@ -459,12 +463,12 @@ public class GetShop {
 			}
 			String meanPrice=avg_element.text();//人均消费
 			
-			Element jishi_star_element=avg_element.nextElementSibling();
-			String jishi_star=jishi_star_element.text();//技师 分数
-			Element huanjing_star_element=jishi_star_element.nextElementSibling();
-			String huanjing_star=huanjing_star_element.text();//环境分数
-			Element fuwu_star_element=huanjing_star_element.nextElementSibling();
-			String fuwu_star=fuwu_star_element.text();//服务分数
+//			Element jishi_star_element=avg_element.nextElementSibling();
+//			String jishi_star=jishi_star_element.text();//技师 分数
+//			Element huanjing_star_element=jishi_star_element.nextElementSibling();
+//			String huanjing_star=huanjing_star_element.text();//环境分数
+//			Element fuwu_star_element=huanjing_star_element.nextElementSibling();
+//			String fuwu_star=fuwu_star_element.text();//服务分数
 			
 			Element address = ele.getElementsByClass("address").get(0);
 			String region=address.child(1).child(0).text();

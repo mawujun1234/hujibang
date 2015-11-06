@@ -14,10 +14,8 @@ import org.jsoup.select.Elements;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mawujun.controller.spring.SpringContextHolder;
 import com.mawujun.dianping.city.City;
 import com.mawujun.dianping.city.Provice;
-import com.mawujun.dianping.city.ProviceService;
 
 public class GetProviceCity {
 
@@ -40,7 +38,7 @@ public class GetProviceCity {
 		
 
 		String sql_insertProvice="insert into hjb_Provice(id,name) values(?,?)";
-		String sql_insertCity="insert into hjb_city(id,name,pinyin,simple_pinyin,urlpath,provice_id) values(?,?,?,?,?,?)";
+		String sql_insertCity="insert into hjb_city(id,name,pinyin,simple_pinyin,urlpath,provice_id,inited) values(?,?,?,?,?,?,?)";
 		List<Provice> provices=GetProviceCity.getProviceCity();
 		
 		for(Provice provice:provices){
@@ -48,7 +46,7 @@ public class GetProviceCity {
 			
 			
 			for(City city:provice.getCityes()){
-				DB.update(sql_insertCity, city.getId(),city.getName(),city.getPinyin(),city.getSimple_pinyin(),city.getUrlpath(),city.getProvice_id());
+				DB.update(sql_insertCity, city.getId(),city.getName(),city.getPinyin(),city.getSimple_pinyin(),city.getUrlpath(),city.getProvice_id(),city.getInited());
 			}
 		}
 	}
